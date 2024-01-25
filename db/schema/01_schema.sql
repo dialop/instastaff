@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS job_postings CASCADE;
+-- Drop existing tables if they exist
 DROP TABLE IF EXISTS messages CASCADE;
 DROP TABLE IF EXISTS feedbacks CASCADE;
-
+DROP TABLE IF EXISTS job_postings CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 -- USERS TABLE
 CREATE TABLE users (
@@ -19,14 +19,13 @@ CREATE TABLE users (
   points INTEGER DEFAULT 0,
   badge_id INTEGER,
   last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  token VARCHAR(255),
+  token VARCHAR(255)
 );
 
--- JOB POSTINGS TABLE
+-- JOB POSTINGS TABLE (without feedback_id foreign key initially)
 CREATE TABLE job_postings (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE,
   title VARCHAR(255) NOT NULL,
   type_of_worker VARCHAR(255),
   rate DECIMAL,
@@ -39,24 +38,26 @@ CREATE TABLE job_postings (
   facility_latitude DECIMAL,
   facility_longitude DECIMAL,
   available_to_choose BOOLEAN DEFAULT FALSE,
-  is_filled BOOLEAN DEFAULT FALSE,
+  is_filled BOOLEAN DEFAULT FALSE
 );
+
+-- FEEDBACKS TABLE
+CREATE TABLE feedbacks (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  job_posting_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
+  review TEXT
+);
+
+-- Alter job_postings to add feedback_id foreign key
+ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
 
 -- MESSAGES TABLE
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   job_posting_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
-  text,
   text TEXT,
   date_sent TIMESTAMP,
-  facility_name VARCHAR(255),
-);
-
--- FEEDBACK TABLE
-CREATE TABLE feedbacks (
-  id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  job_posting_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
-  review TEXT,  
+  facility_name VARCHAR(255)
 );
