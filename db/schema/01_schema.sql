@@ -30,7 +30,7 @@ CREATE TABLE job_postings (
   type_of_worker VARCHAR(255),
   rate DECIMAL,
   gender VARCHAR(50),
-  duration VARCHAR(255),
+  duration INTEGER,
   date DATE,
   start_time TIME,
   facility_name VARCHAR(255),
