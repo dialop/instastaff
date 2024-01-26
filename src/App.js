@@ -1,14 +1,19 @@
 // - MAIN COMPONENT - //
 
-import React from 'react';
-import MapComponent from './components/MapComponent';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Nav';
+import { initMap } from './googleMap';
 
 function App() {
+  useEffect(() => {
+    initMap();
+  }, []);
+
   return (
-    <div className="App">
-      <h1 className="text-xl font-bold mb-4">Map</h1>
-      <MapComponent location="Toronto, ON" />
+    <div>
+      <Navbar />
+      <div id="map" style={{ width: '100%', height: '400px' }}></div>
     </div>
   );
 }

@@ -7,19 +7,22 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import MapPage from './components/MapPage';
 import Navbar from "./components/Nav";
 
 // Initiate Google Maps map
-window.initMap = function() {
+window.initMap = function () {
+
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Navbar/>
-      <Routes> 
-        <Route path="/" element={<App/>} />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<App />} /> {/* Home route */}
+        <Route path="/maps" element={<MapPage />} /> {/* Route for Maps */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

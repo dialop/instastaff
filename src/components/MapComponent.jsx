@@ -6,23 +6,17 @@ const MapComponent = ({ location }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
-    // Initialize map
     const initMap = () => {
-      
       const mapOptions = {
         zoom: 14,
-        center: { lat: 43.6532, lng: -79.3832 }, 
+        center: location,
       };
-
       const map = new window.google.maps.Map(mapRef.current, mapOptions);
-
       new window.google.maps.Marker({
-        position: mapOptions.center,
+        position: location,
         map: map,
-    
       });
     };
-
     if (window.google && window.google.maps) {
       initMap();
     } else {
