@@ -1,4 +1,4 @@
-// - MAP COMONENT TO DISPLAY GOOGLE MAPS - //
+// - MAP COMPONENT TO DISPLAY GOOGLE MAPS - //
 
 import React, { useEffect, useRef } from 'react';
 
