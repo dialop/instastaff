@@ -1,5 +1,6 @@
 // import { useEffect, useState } from "react"; // HELLOO
 import "./App.css";
+import CalendarComponent from "./components/CalendarComponent";
 
 function App() {
   // const [message, setMessage] = useState("");
@@ -17,6 +18,8 @@ function App() {
 
   return (
     <div className="App">
+      
+      <CalendarComponent />
 
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
