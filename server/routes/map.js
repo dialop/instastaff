@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 
-router.get('/place-details', async (req, res) => {
-    const placeId = req.query.placeId;
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY; // Ensure your API key is stored in an environment variable
-    const url = `https://places.googleapis.com/v1/places/${placeId}?fields=id,displayName&key=${apiKey}`;
+router.get('/map', (req, res) => {
+  const { location } = req.query;
+  const parameters = {
+    center: location,
+    zoom: 14,
+    size: '400x400',
+    key: process.env.GOOGLE_MAPS_API_KEY
+  };
+  const queryString = Object.keys(parameters)
+    .map(key => `${key}=${encodeURIComponent(parameters[key])}`)
+    .join('&');
+  const url = `https://maps.googleapis.com/maps/api/staticmap?${queryString}`;
 
-    try {
-        const response = await axios.get(url);
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
+  res.json({ mapUrl: url });
 });
 
 module.exports = router;

@@ -1,17 +1,14 @@
-
-let express = require("express");
-let path = require("path");
-let cookieParser = require("cookie-parser");
-let logger = require("morgan");
+const express = require('express');
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 require('dotenv').config();
-
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const googleMapsRouter = require('./routes/map');
+const mapsRoutes = require('./routes/map');
 
-let app = express();
-
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -22,9 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "build")));
-
-app.use('/api/google-maps', googleMapsRouter);
-
+app.use('/api', mapsRoutes);
 
 app.use("/api", indexRouter);
 app.get("*", (req, res) => {
