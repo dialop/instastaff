@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react"; // HELLOO
-import logo from "./logo.svg";
+// import { useEffect, useState } from "react"; // HELLOO
 import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    getMessage();
-  }, []);
+  // useEffect(() => {
+  //   getMessage();
+  // }, []);
 
-  async function getMessage() {
-    const result = await fetch("/api/message");
-    const json = await result.json();
+  // async function getMessage() {
+  //   const result = await fetch("/api/message");
+  //   const json = await result.json();
 
-    setMessage(json);
-  }
+  //   setMessage(json);
+  // }
 
   return (
     <div className="App">
-      <header className="App-header">
+
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{message}</p>
         <a
@@ -29,7 +29,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
