@@ -1,28 +1,36 @@
-import React from 'react';
-import axios from 'axios';
+// - MAP COMONENT TO DISPLAY GOOGLE MAPS - //
+
+import React, { useEffect, useRef } from 'react';
 
 const MapComponent = ({ location }) => {
-  const [mapUrl, setMapUrl] = React.useState('');
+  const mapRef = useRef(null);
 
-  React.useEffect(() => {
-    const fetchMap = async () => {
-      const parameters = {
-        center: location,
+  useEffect(() => {
+    // Initialize map
+    const initMap = () => {
+      
+      const mapOptions = {
         zoom: 14,
-        size: '400x400',
-        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+        center: { lat: 43.6532, lng: -79.3832 }, 
       };
-      const queryString = Object.keys(parameters)
-        .map(key => `${key}=${encodeURIComponent(parameters[key])}`)
-        .join('&');
-      const url = `https://maps.googleapis.com/maps/api/staticmap?${queryString}`;
-      setMapUrl(url);
+
+      const map = new window.google.maps.Map(mapRef.current, mapOptions);
+
+      new window.google.maps.Marker({
+        position: mapOptions.center,
+        map: map,
+    
+      });
     };
 
-    fetchMap();
+    if (window.google && window.google.maps) {
+      initMap();
+    } else {
+      window.initMap = initMap;
+    }
   }, [location]);
 
-  return mapUrl ? <img src={mapUrl} alt="Map" /> : <p>Loading map...</p>;
+  return <div ref={mapRef} style={{ height: '400px', width: '100%' }} />;
 };
 
 export default MapComponent;
