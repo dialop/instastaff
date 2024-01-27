@@ -8,21 +8,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MapPage from './components/MapPage';
-import Navbar from "./components/Nav";
 
-// Initiate Google Maps map
 window.initMap = function () {
-
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Navbar />
       <Routes>
         <Route path="/" element={<App />} /> {/* Home route */}
-        <Route path="/maps" element={<MapPage />} /> {/* Route for Maps */}
+        <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
@@ -32,3 +28,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

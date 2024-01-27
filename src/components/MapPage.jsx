@@ -3,7 +3,7 @@
 import React from 'react';
 import MapComponent from './MapComponent'; 
 const MapPage = () => {
-  const location = { lat: 43.6532, lng: -79.3832 }; // Toronto's coordinates 
+  const location = { lat: 43.6532, lng: -79.3832 }; // toronto coordinates 
 
   return (
     <div>
