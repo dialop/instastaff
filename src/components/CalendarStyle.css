@@ -87,3 +87,8 @@
   background: #6f48eb;
   color: white;
  }
+
+ .date-has-shift {
+  color: red;
+  font-weight: bold;
+ }

@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import './CalendarStyle.css'
 
 const CalendarComponent = (props) => {
-  const { state, handleCalendarDate, addShift, getShiftForDate } = props;
+  const { state, handleCalendarDate, getShiftForDate } = props;
   
 
   const renderShiftsForDate = (date) => {
@@ -24,22 +24,24 @@ const CalendarComponent = (props) => {
   };
 
   const handleCalendarChange = (newDate) => {
-    // Use the handleDateChange action from the useApplicationData hook
     handleCalendarDate(newDate);
   };
+  
 
   return (
-<div style={{ display: 'flex' }}>
-      {/* Sidebar with event information */}
+      <div class="flex mt-5 justify-center">
+        {/* Shift details*/}
       <div className='react-calendar'>
         {renderShiftsForDate(state.date)}
       </div>
 
       {/* Calendar */}
-      <div style={{ flex: 2 }}>
+      <div>
         <Calendar
           onChange={handleCalendarChange}
           value={state.date}
+          tileClassName={
+            ({ date }) => getShiftForDate(date).length > 0 ? 'date-has-shift' : ''}
         />
       </div>
     </div>
