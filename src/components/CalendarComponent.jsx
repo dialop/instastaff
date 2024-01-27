@@ -1,23 +1,47 @@
-// CalendarComponent.js
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import './CalendarStyle.css'
 
-const CalendarComponent = ({ onDateChange }) => {
-  const [date, setDate] = useState(new Date());
+const CalendarComponent = (props) => {
+  const { state, handleCalendarDate, addShift, getShiftForDate } = props;
+  
 
-  const handleDateChange = (newDate) => {
-    setDate(newDate);
-    // Pass the selected date to the parent component
-    onDateChange(newDate);
+  const renderShiftsForDate = (date) => {
+    const shiftsForDate = getShiftForDate(date);
+    return (
+      <div>
+        <h2>Events for {date.toDateString()}</h2>
+        <ul>
+          {shiftsForDate.map((shift, index) => (
+            <li key={index}>
+              <strong>{shift.title}</strong>
+              <p>{shift.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
+  const handleCalendarChange = (newDate) => {
+    // Use the handleDateChange action from the useApplicationData hook
+    handleCalendarDate(newDate);
   };
 
   return (
-    <div class="flex justify-center mt-20">
-      <Calendar
-        onChange={handleDateChange}
-        value={date}
-      />
+<div style={{ display: 'flex' }}>
+      {/* Sidebar with event information */}
+      <div className='react-calendar'>
+        {renderShiftsForDate(state.date)}
+      </div>
+
+      {/* Calendar */}
+      <div style={{ flex: 2 }}>
+        <Calendar
+          onChange={handleCalendarChange}
+          value={state.date}
+        />
+      </div>
     </div>
   );
 };
