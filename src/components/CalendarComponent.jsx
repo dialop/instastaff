@@ -4,6 +4,7 @@ import './CalendarStyle.css'
 
 const CalendarComponent = (props) => {
   const { state, handleCalendarDate, getShiftForDate } = props;
+  console.log('CalendarComponent  state:', state);
   
 
   const renderShiftsForDate = (date) => {

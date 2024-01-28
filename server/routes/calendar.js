@@ -8,7 +8,8 @@ module.exports = (db) => {
   router.get("/calendar", (req, res) => {
     //Edit user ID with $ in quary based on user cookies.
     // const userId = req.params.user_id;
-    console.log("Hi")
+    console.log("Is it working?")
+
     db.query(
       `
     SELECT

@@ -17,7 +17,6 @@ const apiJobs = require('./routes/api/api_jobs');
 
 const app = express();
 
-const db = require("../db/connection");
 
 
 // View engine setup
@@ -37,6 +36,7 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use('/api/jobs', apiJobs(pool))
 app.use('/api', mapsRoutes);
 app.use("/api", indexRouter); 
+app.use('/calendar', calendarRouter);
 
 // Serve the React application
 // app.get("*", (req, res) => {
