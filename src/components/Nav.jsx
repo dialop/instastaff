@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { IoMdClose } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GiHamburger } from "react-icons/gi";
+
 import LoginButton from './LoginButton';
+import SignUpButton from './SignUpButton';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -20,8 +22,8 @@ const Navbar = () => {
         <li className='p-4'>Map</li>
         <li className='p-4'>Profile</li>
         <p className='flex w-16 justify-center'> | </p>
-        <button className='bg-transparent hover:bg-[#7D67AC] hover:text-white py-2 px-4 mr-2 border border-[#5b588a] hover:border-transparent rounded'>Register</button>
-        <LoginButton /> {/* Include the AuthButton component */}
+        <SignUpButton />
+        <LoginButton />
       </ul>
       <div onClick={handleNav} className='block md:hidden z-10'>
           {nav ? <IoMdClose size={30}/> : <GiHamburger  size={30}/>}
