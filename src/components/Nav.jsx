@@ -27,7 +27,7 @@ const Navbar = () => {
           <Link to="/calendar">Calendar</Link>
         </li>
         <li className={`p-4 ${isActive('/maps') ? 'border-t-2 border-[#24233E]' : ''}`}>
-          <Link to="/maps">Maps</Link>
+          <Link to="/maps">Map</Link>
         </li>
         <li className={`p-4 ${isActive('/profile') ? 'border-t-2 border-[#24233E]' : ''}`}>
           <Link to="/profile">Profile</Link>
