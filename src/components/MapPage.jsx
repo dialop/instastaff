@@ -1,9 +1,8 @@
 // - MAP PAGE -//
 
 import React from 'react';
-import MapComponent from './MapComponent';
+import Map from './Map';
 import Navbar from './Nav';
-
 
 
 const MapPage = () => {
@@ -92,11 +91,7 @@ function calculateCenter(borders) {
   return (
     <div>
       <h1>Maps</h1>
-      <MapComponent 
-      location={location} 
-      borders={borders} 
-      markers={markers} 
-      />
+      <MapComponent location={location} borders={borders} markers={markers} />
     </div>
   );
 };

@@ -1,13 +1,14 @@
 // - MAP COMPONENT TO DISPLAY GOOGLE MAPS - //
 
 import React, { useEffect, useRef } from 'react';
-import '../styles/MapComponent.css';
+import MarkerDetail from './MarkerDetail'; 
+import ReactDOM from 'react-dom'; 
+import '../styles/Map.css';
 
-const MapComponent = ({ location, borders, markers }) => {
+const Map = ({ location, borders, markers }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
-    // initialize the map when the Google Maps API ready
     const initMap = () => {
       const mapOptions = {
         zoom: 13.4,
@@ -28,45 +29,29 @@ const MapComponent = ({ location, borders, markers }) => {
 
       const map = new window.google.maps.Map(mapRef.current, mapOptions);
 
-      // hold all info windows
-      const infoWindows = [];
+      const markerWindow = [];
 
-      //create an info window with custom content
       const createInfoWindow = (markerData) => {
-        const contentString = `
-          <div class="info-window">
-            <img src="${markerData.imageUrl}" alt="${markerData.title}" class="info-window-image"/>
-            <h3>${markerData.title}</h3>
-            <p>${markerData.description}</p>
-            <div class="info-window-buttons">
-              <button onclick="viewDetail('${markerData.id}')">View</button>
-              <button onclick="contactSeller('${markerData.id}')">Contact</button>
-              <button onclick="bookItem('${markerData.id}')">Book</button>
-            </div>
-          </div>
-        `;
+        const content = document.createElement('div');
+        ReactDOM.render(<MarkerDetail markerData={markerData} />, content);
 
         return new window.google.maps.InfoWindow({
-          content: contentString,
+          content: content,
         });
       };
 
-      // Add markers and their info windows to the map
       markers.forEach((markerData) => {
-        // Create a marker
         const marker = new window.google.maps.Marker({
           position: new window.google.maps.LatLng(markerData.lat, markerData.lng),
           map: map,
         });
 
-        // Create an info window
         const infoWindow = createInfoWindow(markerData);
 
-        // Store the info window
-        infoWindows.push(infoWindow);
+        markerWindow.push(infoWindow);
 
         marker.addListener('click', () => {
-          infoWindows.forEach((iw) => iw.close());
+          markerWindow.forEach((iw) => iw.close());
           infoWindow.open(map, marker);
         });
       });
@@ -101,13 +86,9 @@ const MapComponent = ({ location, borders, markers }) => {
       // Google Maps API loaded initialize the map
       initMap();
     }
-  }, [
-    location, 
-      borders, 
-      markers
-    ]);
+  }, [location, borders, markers]);
 
   return <div ref={mapRef} style={{ height: '87vh', width: '100%' }} />;
 };
 
-export default MapComponent;
+export default Map;
