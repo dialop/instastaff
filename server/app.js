@@ -38,8 +38,9 @@ app.use("/api", indexRouter);
 
 // Serve the React application
 app.use('/calendar', calendarRouter);
+
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Catch 404 and forward to error handler

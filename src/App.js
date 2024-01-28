@@ -4,7 +4,10 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Nav';
 import MapComponent from './components/MapComponent';
-
+import "./App.css";
+import CalendarComponent from "./components/CalendarComponent";
+import useApplicationData from "./hooks/useApplicationData";
+import JobPostings from "./components/JobPostings";
 
 function Home() {
   return (
@@ -35,6 +38,14 @@ function calculateCenter(borders) {
 }
 
 function App() {
+  //custom hook
+  const {
+    state,
+    handleCalendarDate,
+    addShift,
+    getShiftForDate
+  } = useApplicationData();
+
   // border path for a Polyline
   const borders = [
     [
@@ -62,12 +73,19 @@ function App() {
     { lat: 43.6807, lng: -79.4265 }, // Near St. Clair Village 
    
   ];
+
  return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/jobs" element={<JobPostings />} />
         <Route path="/maps" element={<MapComponent location={location} borders={borders} markers={markers} />} />
+        <Route path="/calendar" element={<CalendarComponent 
+      state = {state}
+      handleCalendarDate = {handleCalendarDate}
+      addShift = {addShift}
+      getShiftForDate = {getShiftForDate}/>} />
       </Routes>
     </>
   );

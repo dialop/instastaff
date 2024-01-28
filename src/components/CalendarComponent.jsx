@@ -29,7 +29,7 @@ const CalendarComponent = (props) => {
   
 
   return (
-      <div class="flex mt-5 justify-center">
+      <div className="flex mt-5 justify-center">
         {/* Shift details*/}
       <div className='react-calendar'>
         {renderShiftsForDate(state.date)}

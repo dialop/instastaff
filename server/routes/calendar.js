@@ -8,6 +8,7 @@ module.exports = (db) => {
   router.get("/calendar", (req, res) => {
     //Edit user ID with $ in quary based on user cookies.
     // const userId = req.params.user_id;
+    console.log("Hi")
     db.query(
       `
     SELECT
@@ -23,7 +24,12 @@ module.exports = (db) => {
     WHERE users.id = 1;
     `
     ).then(({ rows: calendar }) => {
-      response.json(calendar);
+      console.log("row", calendar);
+      res.json(calendar);
+    })
+    .catch((error) => {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     });
   });
   return router;
