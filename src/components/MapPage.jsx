@@ -59,7 +59,6 @@ function calculateCenter(borders) {
 
   return (
     <div>
-      <Navbar/>
       <h1>Maps</h1>
       <MapComponent location={location} borders={borders} markers={markers} />
     </div>
