@@ -9,10 +9,16 @@ const {pool} = require("./lib/db")
 // Importing routes
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const calendarRouter = require("./routes/calendar")
+
+
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
 
 const app = express();
+
+const db = require("../db/connection");
+
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
