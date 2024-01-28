@@ -1,7 +1,5 @@
-// - ROOT COMPONENT RENDERING AND ROUTING - //
-
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client"; // Corrected import for React 18
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './index.css';
@@ -11,8 +9,9 @@ import MapPage from './components/MapPage';
 import Job_Postings from "./components/Job_Postings";
 
 const root = document.getElementById('root');
+const rootElement = createRoot(root); // Create a root
 
-ReactDOM.createRoot(root).render(
+rootElement.render( // Render the app inside the root
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
@@ -24,7 +23,4 @@ ReactDOM.createRoot(root).render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
