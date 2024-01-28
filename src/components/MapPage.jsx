@@ -45,15 +45,48 @@ function calculateCenter(borders) {
 
   // sample markers inside Polyline
   const markers = [
-    
-    { lat: 43.6480, lng: -79.3942 }, // Near Trinity Bellwoods Park
-    { lat: 43.6599, lng: -79.3952 }, // Near University of Toronto
-    { lat: 43.6556, lng: -79.4195 }, // Near Little Italy
-    { lat: 43.6616, lng: -79.4094 }, // Near Harbord Village
-    { lat: 43.6641, lng: -79.4205 }, // Near Christie Pits
-    { lat: 43.6736, lng: -79.4226 }, // Near Davenport
-    { lat: 43.6807, lng: -79.4265 }, // Near St. Clair Village 
-   
+    { 
+      lat: 43.6480, 
+      lng: -79.3942, 
+      title: 'Marker 1',
+      description: 'Description for Marker 1.'
+    }, 
+    { 
+      lat: 43.6599,
+      lng: -79.3952,
+      title: 'Marker 2',
+      description: 'Description for Marker 2.'
+    }, 
+    { 
+      lat: 43.6556,
+      lng: -79.4195,
+      title: 'Marker 3',
+      description: 'Description for Marker 3.'
+    },
+    { 
+      lat: 43.6616, 
+      lng: -79.4094,
+      title: 'Marker 4',
+      description: 'Description for Marker 4.'
+    }, 
+    { 
+      lat: 43.6641,
+      lng: -79.4205,
+      title: 'Marker 5',
+      description: 'Description for Marker 5.'
+    }, 
+    { 
+      lat: 43.6736, 
+      lng: -79.4226,
+      title: 'Marker 6',
+      description: 'Description for Marker 6.'
+    }, 
+    { 
+      lat: 43.6807,
+      lng: -79.4265,
+      title: 'Marker 7',
+      description: 'Description for Marker 7.'
+    },
   ];
 
 
