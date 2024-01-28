@@ -1,20 +1,15 @@
-// - MAIN COMPONENT - //
+// - MAP PAGE -//
 
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Nav';
-import MapComponent from './components/MapComponent';
+import MapComponent from './MapComponent';
+import Navbar from './Nav';
 
 
-function Home() {
-  return (
-    <div>
-      {}
-    </div>
-  );
-}
 
-// center of the polyline
+const MapPage = () => {
+  //const location = { lat: 43.6532, lng: -79.3832 }; // toronto coordinates 
+
+  // center of the polyline
 function calculateCenter(borders) {
   let latSum = 0;
   let lngSum = 0;
@@ -34,8 +29,6 @@ function calculateCenter(borders) {
   };
 }
 
-function App() {
-  // border path for a Polyline
   const borders = [
     [
       { lat: 43.6817, lng: -79.4572 },
@@ -62,15 +55,15 @@ function App() {
     { lat: 43.6807, lng: -79.4265 }, // Near St. Clair Village 
    
   ];
- return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/maps" element={<MapComponent location={location} borders={borders} markers={markers} />} />
-      </Routes>
-    </>
-  );
-}
 
-export default App;
+
+  return (
+    <div>
+      <Navbar/>
+      <h1>Maps</h1>
+      <MapComponent location={location} borders={borders} markers={markers} />
+    </div>
+  );
+};
+
+export default MapPage;
