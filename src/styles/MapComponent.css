@@ -1,0 +1,17 @@
+.info-window {
+    width: 250px; /* Adjust the width as necessary */
+  }
+  
+  .info-window-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .info-window-buttons {
+    margin-top: 10px;
+  }
+  
+  .info-window-buttons button {
+    margin-right: 5px;
+  }
+  
