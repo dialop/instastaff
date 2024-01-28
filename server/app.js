@@ -6,6 +6,7 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const calendarRouter = require("./routes/calendar")
 
 
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/api", indexRouter);
+app.use('/calendar', calendarRouter);
 app.get("*", (req, res) => {
   res.sendFile("client/index.html", { root: global });
 });

@@ -15,7 +15,7 @@ const Navbar = () => {
       <h1 className='w-full text-3xl font-bold text-[#24233E]'><a href="/">InstaStaff</a></h1>
       <ul className='hidden md:flex items-center'>
         <li className='p-4'><a href="/jobs">Jobs</a></li>
-        <li className='p-4'>Calendar</li>
+        <li className='p-4'> <a href="/calendar">Calendar</a></li>
         <li className='p-4'>Map</li>
         <li className='p-4'>Profile</li>
         <p className='flex w-16 justify-center'> | </p>

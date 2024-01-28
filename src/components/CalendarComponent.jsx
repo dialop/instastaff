@@ -37,12 +37,12 @@ const CalendarComponent = (props) => {
 
       {/* Calendar */}
       <div>
-        <Calendar
-          onChange={handleCalendarChange}
-          value={state.date}
-          tileClassName={
-            ({ date }) => getShiftForDate(date).length > 0 ? 'date-has-shift' : ''}
-        />
+      <Calendar
+        onChange={handleCalendarChange}
+        value={state.date}
+        tileClassName={
+          ({ date }) => getShiftForDate(date).length > 0 ? 'date-has-shift' : ''}
+      />
       </div>
     </div>
   );

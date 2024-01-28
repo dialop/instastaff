@@ -8,6 +8,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from "./components/Nav";
 import Job_Postings from "./components/Job_Postings";
+import CalendarComponent from "./components/CalendarComponent";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
