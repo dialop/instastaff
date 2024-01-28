@@ -1,11 +1,16 @@
+require('dotenv').config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+//database import from db.js
+const {pool} = require("./lib/db");
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const apiJobs = require('./routes/api/api_jobs');
 
 var app = express();
 
@@ -19,7 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "build")));
 
+app.use('/api/jobs', apiJobs(pool));
 app.use("/api", indexRouter);
+
 app.get("*", (req, res) => {
   res.sendFile("client/index.html", { root: global });
 });
