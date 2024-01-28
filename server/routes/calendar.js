@@ -3,12 +3,16 @@
 const express = require('express');
 const router = express.Router();
 
+console.log('Calendar route file is required');
+
+
 /* GET Shifts by Calendar */
 module.exports = (db) => {
   router.get("/calendar", (req, res) => {
+ 
     //Edit user ID with $ in quary based on user cookies.
     // const userId = req.params.user_id;
-    console.log("Is it working?")
+    // console.log("Is it working?")
 
     db.query(
       `
@@ -32,6 +36,9 @@ module.exports = (db) => {
       console.error("Error executing SQL query:", error);
       res.status(500).json({ error: "Internal Server Error" });
     });
+ 
   });
   return router;
 };
+
+
