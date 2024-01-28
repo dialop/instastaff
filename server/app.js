@@ -33,14 +33,14 @@ app.use('/api', mapsRoutes);
 app.use("/api", indexRouter); 
 
 // Serve the React application
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+// });
 
 // Catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
 // Error handler
 app.use(function (err, req, res, next) {
