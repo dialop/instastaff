@@ -1,58 +1,48 @@
-// - MAIN EXPRESS SERVER -//
-
 const express = require('express');
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 // Importing routes
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const indexRouter = require('./routes/index');
 const mapsRoutes = require('./routes/map');
 const directionsRoutes = require('./routes/directions');
 
-
 const app = express();
 
-// View engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
-
 // Middlewares
-app.use(logger("dev"));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 // Serve static files from the React build directory
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, 'build')));
 
 // API routes
+app.use('/api', indexRouter);
 app.use('/api', mapsRoutes);
-app.use("/api", indexRouter);
 app.use('/api', directionsRoutes);
 
-
 // Serve the React application
-app.get("*", (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
-// Catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// Error handler
+// Error handler (should be at the end)
 app.use(function (err, req, res, next) {
   // Set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // Render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render('error');
+});
+
+// Start your server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;
