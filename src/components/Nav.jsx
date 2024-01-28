@@ -16,7 +16,7 @@ const Navbar = () => {
       <ul className='hidden md:flex items-center'>
         <li className='p-4'><a href="/jobs">Jobs</a></li>
         <li className='p-4'>Calendar</li>
-        <li className='p-4'>Maps</li>
+        <li className='p-4'>Map</li>
         <li className='p-4'>Profile</li>
         <p className='flex w-16 justify-center'> | </p>
         <button className='bg-transparent hover:bg-[#7D67AC] hover:text-white py-2 px-4 mr-2 border border-[#5b588a] hover:border-transparent rounded'>Register</button>
