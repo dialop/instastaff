@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from "./components/Nav";
+import Job_Postings from "./components/Job_Postings";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +16,7 @@ root.render(
      <Navbar/>
       <Routes> 
         <Route path="/" element={<App/>} />
+        <Route path="/jobs" element={<Job_Postings/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
