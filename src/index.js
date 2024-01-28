@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MapPage from './components/MapPage';
 import JobPostings from "./components/JobPostings";
+import Navbar from "./components/Nav";
 
 const container = document.getElementById('root'); 
 const root = createRoot(container);
@@ -15,6 +16,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <Navbar/>
       <Routes>
         <Route path="/" element={<App />} /> {/* Home route */}
         <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
