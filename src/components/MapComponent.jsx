@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 
-const MapComponent = ({ location, borders, markers }) => { // Assume markers is an array of { lat, lng }
+const MapComponent = ({ location, borders, markers }) => { 
   const mapRef = useRef(null);
 
  useEffect(() => {
@@ -60,7 +60,7 @@ const MapComponent = ({ location, borders, markers }) => { // Assume markers is 
         new window.google.maps.Marker({
           position: new window.google.maps.LatLng(markerData.lat, markerData.lng),
           map: map,
-          // Optionally, you can add custom icons or other marker options here
+         
         });
       });
 
@@ -73,7 +73,7 @@ const MapComponent = ({ location, borders, markers }) => { // Assume markers is 
           strokeOpacity: 0.5,
           strokeWeight: 2,
           fillColor: '#FF0000',
-          fillOpacity: 0.04, // Adjust fillOpacity to make the shade lighter or darker
+          fillOpacity: 0.04, // make the shade lighter or darker
         });
         shadedArea.setMap(map);
       });
@@ -89,7 +89,7 @@ const MapComponent = ({ location, borders, markers }) => { // Assume markers is 
     } else {
       window.initMap();
     }
-  }, [location, borders, markers]); // Ensure markers are included in the dependency array
+  }, [location, borders, markers]); 
 
   return <div ref={mapRef} style={{ height: '87vh', width: '100%' }} />;
 };
