@@ -50,12 +50,24 @@ function App() {
   // center of the map based on the borders
   const location = calculateCenter(borders);
 
-  return (
+  // sample markers inside Polyline
+  const markers = [
+    
+    { lat: 43.6480, lng: -79.3942 }, // Near Trinity Bellwoods Park
+    { lat: 43.6599, lng: -79.3952 }, // Near University of Toronto
+    { lat: 43.6556, lng: -79.4195 }, // Near Little Italy
+    { lat: 43.6616, lng: -79.4094 }, // Near Harbord Village
+    { lat: 43.6641, lng: -79.4205 }, // Near Christie Pits
+    { lat: 43.6736, lng: -79.4226 }, // Near Davenport (Assuming Davenport Village)
+    { lat: 43.6807, lng: -79.4265 }, // Near St. Clair Village (Assuming St. Clair West Village)
+   
+  ];
+ return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} /> {/* Home route */}
-        <Route path="/maps" element={<MapComponent location={location} borders={borders} />} /> {}
+        <Route path="/maps" element={<MapComponent location={location} borders={borders} markers={markers} />} />
       </Routes>
     </>
   );
