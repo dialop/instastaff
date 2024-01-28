@@ -1,31 +1,29 @@
 // - MAP PAGE -//
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Map from './Map';
 import Navbar from './Nav';
-
+import axios from 'axios';
 
 const MapPage = () => {
+  // Function to calculate the center of the polyline
+  function calculateCenter(borders) {
+    let latSum = 0;
+    let lngSum = 0;
+    let count = 0;
 
-  // center of the polyline
-function calculateCenter(borders) {
-  let latSum = 0;
-  let lngSum = 0;
-  let count = 0;
-
-  borders.forEach(border => {
-    border.forEach(coord => {
-      latSum += coord.lat;
-      lngSum += coord.lng;
-      count++;
+    borders.forEach(border => {
+      border.forEach(coord => {
+        latSum += coord.lat;
+        lngSum += coord.lng;
+        count++;
+      });
     });
-  });
 
-  return {
-    lat: latSum / count,
-    lng: lngSum / count,
-  };
-}
+    return {
+      lat: latSum / count,
+      lng: lngSum / count,
+    };
+  }
 
   const borders = [
     [
@@ -87,12 +85,52 @@ function calculateCenter(borders) {
     },
   ];
 
+  const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
+  const [travelTimes, setTravelTimes] = useState({});
+
+  const fetchTravelTimes = async (destination) => {
+    try {
+      const response = await axios.get('/api/calculateTravelTimes', {
+        params: {
+          originLat: userLocation.lat,
+          originLng: userLocation.lng,
+          destLat: destination.lat,
+          destLng: destination.lng
+        }
+      });
+      setTravelTimes(response.data);
+    } catch (error) {
+      console.error('Error fetching travel times:', error);
+    }
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error('Error getting current position:', error);
+      }
+    );
+  }, []);
+
 
   return (
     <div>
       <Navbar/>
       <h1>Maps</h1>
-      <Map location={location} borders={borders} markers={markers} />
+      <Map
+        location={location}
+        borders={borders}
+        markers={markers}
+        userLocation={userLocation}
+        travelTimes={travelTimes}
+        onMarkerSelect={fetchTravelTimes}
+      />
     </div>
   );
 };

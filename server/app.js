@@ -10,6 +10,8 @@ require('dotenv').config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const mapsRoutes = require('./routes/map');
+const directionsRoutes = require('./routes/directions');
+
 
 const app = express();
 
@@ -28,7 +30,9 @@ app.use(express.static(path.join(__dirname, "build")));
 
 // API routes
 app.use('/api', mapsRoutes);
-app.use("/api", indexRouter); 
+app.use("/api", indexRouter);
+app.use('/api', directionsRoutes);
+
 
 // Serve the React application
 app.get("*", (req, res) => {
