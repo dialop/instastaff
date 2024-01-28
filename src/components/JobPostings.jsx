@@ -1,6 +1,6 @@
 import React from "react";
 
-const Job_Postings = () => {
+const JobPostings = () => {
   return (
     <div className="flex flex-col h-[100vh] m-20">
         <h1 className="text-6xl pb-8 text-[#24233E]">Jobs</h1>
@@ -38,4 +38,4 @@ const Job_Postings = () => {
   );
 };
 
-export default Job_Postings;
+export default JobPostings;
