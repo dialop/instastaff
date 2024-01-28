@@ -8,10 +8,11 @@ import reportWebVitals from './reportWebVitals';
 import MapPage from './components/MapPage';
 import JobPostings from "./components/JobPostings";
 
-const root = document.getElementById('root');
-const rootElement = createRoot(root); // Create a root
+const container = document.getElementById('root'); 
+const root = createRoot(container);
 
-rootElement.render( // Render the app inside the root
+// Render the app inside the root
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
