@@ -5,6 +5,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
 
+import LoginButton from './LoginButton';
+import SignUpButton from './SignUpButton';
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const location = useLocation();
@@ -33,8 +36,8 @@ const Navbar = () => {
           <Link to="/profile">Profile</Link>
         </li>
         <p className='flex w-16 justify-center'> | </p>
-        <button className='bg-transparent hover:bg-[#7D67AC] hover:text-white py-2 px-4 mr-2 border border-[#5b588a] hover:border-transparent rounded'>Register</button>
-        <button className='bg-[#6547A5] hover:bg-[#7D67AC] text-white py-2.5 px-4 border-[#24233E] hover:border-transparent rounded'>Login</button>
+        <SignUpButton />
+        <LoginButton />
       </ul>
       <div onClick={handleNav} className='block md:hidden z-10'>
         {nav ? <IoMdClose size={30}/> : <GiHamburger size={30}/>}
