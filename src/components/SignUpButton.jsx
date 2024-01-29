@@ -10,7 +10,6 @@ const SignUpButton = () => {
     });
   };
 
-  // Render the button only if the user is not authenticated
   return !isAuthenticated && (
     <button
       className='bg-transparent hover:bg-[#7D67AC] hover:text-white py-2 px-4 mr-2 border border-[#5b588a] hover:border-transparent rounded'
