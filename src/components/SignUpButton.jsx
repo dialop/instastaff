@@ -5,7 +5,9 @@ const SignUpButton = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   const handleSignUp = () => {
-    loginWithRedirect({ screen_hint: 'signup' });
+    loginWithRedirect({
+      authorizationParams:{ screen_hint: 'signup' }
+    });
   };
 
   // Render the button only if the user is not authenticated
