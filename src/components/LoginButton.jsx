@@ -17,8 +17,7 @@ const LoginButton = () => {
       {isAuthenticated && (
         <button
           className='bg-[#6547A5] hover:bg-[#7D67AC] text-white py-2.5 px-4 border-[#24233E] hover:border-transparent rounded'
-          onClick={() => logout({ returnTo: window.location.origin })}
-        >
+          onClick={() => logout({ returnTo: window.location.origin })}>
           Logout
         </button>
       )}
