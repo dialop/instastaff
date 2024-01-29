@@ -6,14 +6,54 @@ const logger = require("morgan");
 require('dotenv').config();
 
 const {pool} = require("./lib/db")
+
+const app = express();
+
 // Importing routes
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const calendarRouter = require("./routes/calendar");
+const calendarRouter = require("./routes/calendar")
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
 
-const app = express();
+
+
+// //from calendar route 
+//   app.get("/calendar", (req, res) => {
+ 
+//     console.log("hello from calendar route");
+//     //Edit user ID with $ in quary based on user cookies.
+//     // const userId = req.params.user_id;
+//     // console.log("Is it working?")
+
+//     pool.query(
+//       `
+//     SELECT
+//     job_postings.title AS occupation,
+//     job_postings.date AS shift_date,
+//     job_postings.start_time AS start_shift,
+//     job_postings.duration AS duration,
+//     job_postings.facility_name AS facility_name,
+//     job_postings.facility_short_address AS address
+//     FROM job_postings 
+//     JOIN users
+//     ON users.id = job_postings.user_id 
+//     WHERE users.id = 1;
+//     `
+//     ).then(({ rows: calendar }) => {
+//       console.log("row", calendar);
+//       res.json(calendar);
+//     })
+//     .catch((error) => {
+//       console.error("Error executing SQL query:", error);
+//       res.status(500).json({ error: "Internal Server Error" });
+//     });
+ 
+//   });
+
+
+// //end
+
 
 
 
@@ -34,6 +74,7 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use('/api/jobs', apiJobs(pool))
 app.use('/api', mapsRoutes);
 app.use("/api", indexRouter); 
+
 app.use('/calendar', calendarRouter);
 
 // Serve the React application
