@@ -77,7 +77,6 @@ const Map = ({ location, borders, markers }) => {
     if (!window.google || !window.google.maps) {
       const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
