@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
+    "express": "^4.18.2",
     "google-map-react": "^2.2.1",
     "google-maps-api": "^2.0.1",
     "pg": "^8.11.3",
