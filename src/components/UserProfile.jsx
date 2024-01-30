@@ -3,12 +3,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const UserProfile = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [dataSent, setDataSent] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !dataSent) {
       sendUserDataToBackend();
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, dataSent]);
 
   const sendUserDataToBackend = async () => {
     try {
@@ -19,7 +20,7 @@ const UserProfile = () => {
         last_name: user.family_name,
       };
 
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,9 @@ const UserProfile = () => {
         body: JSON.stringify(userData),
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        setDataSent(true);
+      } else {
         throw new Error('Failed to send user data to backend');
       }
     } catch (error) {
