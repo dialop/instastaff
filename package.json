@@ -25,7 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "PORT=3000 react-scripts start",
     "server": "nodemon server/bin/www",
     "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
