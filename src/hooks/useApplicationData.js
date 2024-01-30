@@ -1,11 +1,11 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 
 export const ACTIONS = {
   //Set date for Calendar
   SET_DATE: 'SET_DATE',
-  //Adding fake shifts for calendar
-  ADD_FAKE_SHIFT: 'ADD_FAKE_SHIFT'
+
+  SHIFTS_BY_USER: 'SHIFTS_BY_USER'
 }
 
 function reducer(state, action) {
@@ -15,43 +15,53 @@ function reducer(state, action) {
         ...state, 
         date: action.payload
       };
-    case ACTIONS.ADD_FAKE_SHIFT:
-      return { ...state, 
-        fakeShifts: [...state.fakeShifts, action.payload] };
+    case ACTIONS.SHIFTS_BY_USER:
+      return {
+        ...state,
+        shiftsByUser: action.payload,
+      };
+      
     default:
         return state;
       }
+
   }
 
 
 const useApplicationData = () => {
  const initialState = {
   date: new Date(),
-  fakeShifts: [
-    { date: new Date(2024, 0, 5), title: 'Fake Shift 1', description: 'Description for Shift 1' },
-    { date: new Date(2024, 0, 12), title: 'Fake Shift 2', description: 'Description for Shift 2' },
-    { date: new Date(2024, 0, 20), title: 'Fake Shift 3', description: 'Description for Shift 3' },
-  ]
+  shiftsByUser: []
  }
 
  const [state, dispatch] = useReducer(reducer, initialState);
+
+ useEffect(() => {
+  //Fetch shifts by id
+  fetch('/calendar')
+    .then((response) => response.json())
+    .then((data) => dispatch({ type: ACTIONS.SHIFTS_BY_USER, payload: data }))
+    .catch((error) => {
+      console.log('Error fetching shifts', error);
+    });
+}, []);
 
  const handleCalendarDate = (selectedDate) => {
   dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate})
  }
 
- const addShift = (shift) => {
-  dispatch({ type: ACTIONS.ADD_FAKE_SHIFT, payload: shift });
-};
-
 const getShiftForDate = (date) => {
-  return state.fakeShifts.filter((shift) => shift.date.toDateString() === date.toDateString());
+  // Format the date as 'YYYY-MM-DD'
+  const formattedDate = date.toISOString().split('T')[0]; 
+
+  return state.shiftsByUser.filter(
+    (shift) => shift.shift_date && shift.shift_date.split('T')[0] === formattedDate
+  );
 };
 
  return{
   state,
   handleCalendarDate,
-  addShift,
   getShiftForDate
  }
 }

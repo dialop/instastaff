@@ -7,18 +7,24 @@ const CalendarComponent = (props) => {
   console.log('CalendarComponent  state:', state);
   
 
+
   const renderShiftsForDate = (date) => {
     const shiftsForDate = getShiftForDate(date);
+
     return (
       <div>
-        <h2>Events for {date.toDateString()}</h2>
+        <h2>{date.toDateString()}</h2>
         <ul>
           {shiftsForDate.map((shift, index) => (
             <li key={index}>
-              <strong>{shift.title}</strong>
-              <p>{shift.description}</p>
+              <strong>Facility name: {shift.facility_name}</strong>
+              <p>Location: {shift.address}, Toronto</p>
+              <p>Shift Start Time: {shift.start_shift} AM</p>
+              <p>Shift Duration: {shift.duration} hours</p>
+              <p>Occupation Required: {shift.occupation}</p>
             </li>
-          ))}
+            )
+          )}
         </ul>
       </div>
     );
@@ -27,7 +33,7 @@ const CalendarComponent = (props) => {
   const handleCalendarChange = (newDate) => {
     handleCalendarDate(newDate);
   };
-  
+
 
   return (
       <div className="flex mt-5 justify-center">

@@ -21,7 +21,6 @@ function App() {
   const {
     state,
     handleCalendarDate,
-    addShift,
     getShiftForDate
   } = useApplicationData();
   return (
@@ -39,7 +38,6 @@ function App() {
           <Route path="/calendar" element={<CalendarComponent 
         state = {state}
         handleCalendarDate = {handleCalendarDate}
-        addShift = {addShift}
         getShiftForDate = {getShiftForDate}/>} />
         </Routes>
       </BrowserRouter>
