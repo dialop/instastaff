@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = (pool) => {
   
   // POST to insert new user.
-  router.post('/users', async (req, res) => {
+  router.post('/user', async (req, res) => {
     const { email, first_name, last_name } = req.body;
 
     const insertQuery = `
