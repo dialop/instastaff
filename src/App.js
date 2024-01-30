@@ -9,6 +9,7 @@ import useApplicationData from './hooks/useApplicationData';
 import MapPage from './components/MapPage';
 import JobPostings from "./components/JobPostings";
 
+
 function Home() {
   return (
     <div>
@@ -29,7 +30,12 @@ function App() {
     <Auth0Provider // Needs to wrap around BrowserRouter
       domain="dev-f5mq00rx18si8svy.us.auth0.com" // Replace with your Auth0 domain
       clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG" // Replace with your Auth0 client ID
-      redirectUri={window.location.origin}>
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: "https://dev-f5mq00rx18si8svy.us.auth0.com/api/v2/",
+        scope: "read:current_user update:current_user_metadata"
+      }}
+    >
       <BrowserRouter>
         <Navbar />
         <Routes>
