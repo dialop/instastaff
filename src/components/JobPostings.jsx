@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { JobsContext } from "../context";
 
 const JobPostings = () => {
+  const {jobData} = useContext(JobsContext);
+
   return (
     <div className="flex flex-col h-[100vh] m-20">
         <h1 className="text-6xl pb-8 text-[#24233E]">Jobs</h1>
