@@ -30,11 +30,7 @@ function App() {
     <Auth0Provider // Needs to wrap around BrowserRouter
       domain="dev-f5mq00rx18si8svy.us.auth0.com" // Replace with your Auth0 domain
       clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG" // Replace with your Auth0 client ID
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-        audience: "https://dev-f5mq00rx18si8svy.us.auth0.com/api/v2/",
-        scope: "read:current_user update:current_user_metadata"
-      }}
+      redirectUri={window.location.origin}
     >
       <BrowserRouter>
         <Navbar />
