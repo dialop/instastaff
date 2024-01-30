@@ -36,6 +36,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
           <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
+          <Route path="/user" />
           <Route path="/calendar" element={<CalendarComponent 
         state = {state}
         handleCalendarDate = {handleCalendarDate}
