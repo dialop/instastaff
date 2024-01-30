@@ -3,6 +3,10 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
+const {pool} = require("./lib/db")
+
+const app = express();
+
 // Importing routes
 const indexRouter = require('./routes/index');
 const mapsRoutes = require('./routes/map');
@@ -22,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api', indexRouter);
 app.use('/api', mapsRoutes);
 app.use('/api', directionsRoutes);
+
+//Calendar Route
+app.use('/calendar', calendarRouter);
 
 // Serve the React application
 app.get('*', (req, res) => {
