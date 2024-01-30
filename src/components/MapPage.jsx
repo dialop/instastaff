@@ -4,6 +4,7 @@ import Map from './Map';
 import Navbar from './Nav';
 import axios from 'axios';
 
+
 const MapPage = () => {
   // Function to calculate the center of the polyline
   function calculateCenter(borders) {
@@ -121,7 +122,6 @@ const MapPage = () => {
 
   return (
     <div>
-      <Navbar/>
       <h1>Maps</h1>
       <Map
         location={location}

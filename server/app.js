@@ -1,19 +1,24 @@
 // - MAIN EXPRESS SERVER -//
-
 const express = require('express');
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require('dotenv').config();
 
+const {pool} = require("./lib/db")
+
+const app = express();
+
 // Importing routes
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const calendarRouter = require("./routes/calendar")
 const mapsRoutes = require('./routes/map');
 const directionsRoutes = require('./routes/directions');
 
 
 const app = express();
+const apiJobs = require('./routes/api/api_jobs');
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -29,20 +34,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "build")));
 
 // API routes
+app.use('/api/jobs', apiJobs(pool))
 app.use('/api', mapsRoutes);
 app.use("/api", indexRouter);
 app.use('/api', directionsRoutes);
 
 
+//Calendar Route
+app.use('/calendar', calendarRouter);
+
 // Serve the React application
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+// });
 
 // Catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
 // Error handler
 app.use(function (err, req, res, next) {

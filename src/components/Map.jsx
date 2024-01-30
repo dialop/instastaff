@@ -110,23 +110,25 @@ const Map = ({ borders, markers }) => {
           });
           shadedArea.setMap(map);
         });
-      }
-    }, [map, markers]);
-  
-    // Effect to load the Google Maps script
-    useEffect(() => {
-      if (!window.google || !window.google.maps) {
-        const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
-        script.async = true;
-        script.defer = true;
-        window.initMap = initMap; // Make initMap available globally to be used as a callback
-        document.head.appendChild(script);
-      }
-    }, []);
-  
-    return <div ref={mapRef} style={{ height: '87vh', width: '100%' }} />;
-  };
-  
-  export default Map;
+        shadedArea.setMap(map);
+      });
+    };
+
+    
+    if (!window.google || !window.google.maps) {
+      const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+      const script = document.createElement('script');
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    } else {
+
+      // Google Maps API loaded initialize the map
+      initMap();
+    }
+  }, [location, borders, markers]);
+
+  return <div ref={mapRef} style={{ height: '87vh', width: '100%' }} />;
+};
+
+export default Map;
