@@ -4,24 +4,33 @@ const router = express.Router();
 module.exports = (pool) => {
   
   // POST to insert new user.
-  router.post('/user', async (req, res) => {
+  router.post('/users', async (req, res) => {
     const { email, first_name, last_name } = req.body;
-
-    const insertQuery = `
-      INSERT INTO users (email, first_name, last_name)
-      VALUES ($1, $2, $3)
-      ON CONFLICT (email) DO NOTHING
-      RETURNING *;
-    `;
-
+  
     try {
-      const result = await pool.query(insertQuery, [email, first_name, last_name]);
-      res.status(201).json(result.rows[0]);
+      // Check if user already exists
+      const existingUser = await pool.query(
+        'SELECT * FROM users WHERE email = $1',
+        [email]
+      );
+  
+      if (existingUser.rows.length > 0) {
+        return res.status(409).json({ message: 'User already exists' });
+      }
+  
+      // Insert new user
+      const insertQuery = `
+        INSERT INTO users (email, first_name, last_name)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+      `;
+      const newUser = await pool.query(insertQuery, [email, first_name, last_name]);
+      res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error('Error handling user data:', err);
       res.status(500).send('Server error');
     }
   });
-
+  
   return router;
 };
