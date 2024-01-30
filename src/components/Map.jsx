@@ -1,12 +1,13 @@
 // - MAP COMPONENT TO DISPLAY GOOGLE MAPS - //
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MarkerDetail from './MarkerDetail'; 
 import ReactDOM from 'react-dom'; 
 import '../styles/Map.css';
 
 const Map = ({ location, borders, markers }) => {
   const mapRef = useRef(null);
+  const [markerWindow, setMarkerWindow] = useState([]);
 
   useEffect(() => {
     const initMap = () => {
@@ -29,8 +30,6 @@ const Map = ({ location, borders, markers }) => {
 
       const map = new window.google.maps.Map(mapRef.current, mapOptions);
 
-      const markerWindow = [];
-
       const createInfoWindow = (markerData) => {
         const content = document.createElement('div');
         ReactDOM.render(<MarkerDetail markerData={markerData} />, content);
@@ -48,7 +47,7 @@ const Map = ({ location, borders, markers }) => {
 
         const infoWindow = createInfoWindow(markerData);
 
-        markerWindow.push(infoWindow);
+        setMarkerWindow((prevWindows) => [...prevWindows, infoWindow]);
 
         marker.addListener('click', () => {
           markerWindow.forEach((iw) => iw.close());
@@ -56,7 +55,7 @@ const Map = ({ location, borders, markers }) => {
         });
       });
 
-      // borders on the map and shade the inside area
+      // Borders on the map and shade the inside area
       borders.forEach((borderPath) => {
         const borderCoordinates = borderPath.map((coord) =>
           new window.google.maps.LatLng(coord.lat, coord.lng)
@@ -73,7 +72,6 @@ const Map = ({ location, borders, markers }) => {
       });
     };
 
-    
     if (!window.google || !window.google.maps) {
       const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       const script = document.createElement('script');
@@ -82,7 +80,7 @@ const Map = ({ location, borders, markers }) => {
       document.head.appendChild(script);
     } else {
 
-      // Google Maps API loaded initialize the map
+      // Google Maps API loaded, initialize the map
       initMap();
     }
   }, [location, borders, markers]);

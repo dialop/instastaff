@@ -2,8 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
+const { pool } = require("../lib/db");
 
-// Generates Google Maps API based on location
+
+// google maps API based on location
 router.get('/map', (req, res) => {
   const { location } = req.query;
   const parameters = {
