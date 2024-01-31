@@ -7,7 +7,7 @@ const MapPage = () => {
 
   console.log("Job Postings:", state.jobPostings);
 
-  // Calculate the center of the map based on the borders
+  //  center of the map based on the borders
   function calculateCenter(borders) {
     let latSum = 0;
     let lngSum = 0;
@@ -27,7 +27,7 @@ const MapPage = () => {
     };
   }
 
-  // Define the borders of your map (example borders, adjust as needed)
+  //borders of map
   const borders = [
     [
       { lat: 43.6817, lng: -79.4572 },
@@ -42,7 +42,7 @@ const MapPage = () => {
   // Center of the map based on the borders
   const location = calculateCenter(borders);
 
-  // Convert job postings to markers
+  // postings to markers
   const markers = state.jobPostings.map(posting => ({
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
@@ -51,7 +51,7 @@ const MapPage = () => {
   }));
   
 
-  console.log(markers); // Add this line to log marker data
+  console.log(markers);
 
 
   return (
