@@ -49,9 +49,6 @@ CREATE TABLE feedbacks (
   review TEXT
 );
 
--- Alter job_postings to add feedback_id foreign key
-ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
-
 -- MESSAGES TABLE
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -61,3 +58,7 @@ CREATE TABLE messages (
   date_sent TIMESTAMP,
   facility_name VARCHAR(255)
 );
+
+-- Alter tables
+ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
+ALTER TABLE users ADD UNIQUE (email);
