@@ -7,12 +7,12 @@ DROP TABLE IF EXISTS users CASCADE;
 -- USERS TABLE
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  handle VARCHAR(255) NOT NULL,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
+  handle VARCHAR(255),
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  profile_picture VARCHAR(255) NOT NULL,
+  password VARCHAR(255),
+  profile_picture VARCHAR(255),
   gender VARCHAR(50),
   occupation VARCHAR(255),
   license VARCHAR(255),
