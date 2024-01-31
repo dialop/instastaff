@@ -5,8 +5,11 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require('dotenv').config();
 const cors = require('cors');
+// const mailgun = require('mailgun-js');
 
 const {pool} = require("./lib/db")
+
+
 
 const app = express();
 
@@ -16,6 +19,9 @@ const usersRouter = require("./routes/users");
 const calendarRouter = require("./routes/calendar")
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
+const emailNotificationRouter = require('./routes/api/email_notification');
+
+const { error } = require('console');
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -35,9 +41,38 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use('/api/jobs', apiJobs(pool))
 app.use('/api', mapsRoutes);
 app.use("/api", indexRouter); 
+app.use('/api', emailNotificationRouter);
 
 //Calendar Route
 app.use('/calendar', calendarRouter);
+
+
+//setupMailgun
+
+// const mg = mailgun({
+//   apiKey: process.env.MAILGUN_API_KEY,
+//   domain: process.env.MAILGUN_DOMAIN
+// });
+
+// app.post('/api/send-email', (req, res) => {
+
+//   mg.messages().send({
+//     from: 'Admin, <instastaff@gmail.com>',
+//     to: 'akhtyamovadiana@gmail.com',
+//     subject: 'Your shift was booked',
+//     text: 'Congratulations! Your shift has been accepted.'
+//   },
+//   (error, body) => {
+//     if (error) {
+//       console.log(error);
+//       res.status(500).send({message: 'Error sending email'});
+//     } else {
+//       console.log(body);
+//       res.send({ message: 'Email sent'})
+//     }
+//   }
+//   )
+// })
 
 // Serve the React application
 // app.get("*", (req, res) => {

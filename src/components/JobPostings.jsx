@@ -1,9 +1,26 @@
 import React, { useContext } from "react";
 import { JobsContext } from "../context";
+import axios from "axios";
 
 
 const JobPostings = () => {
   const {jobData} = useContext(JobsContext);
+
+  const acceptShift = async (job) => {
+    try {
+      const response = await axios.post('/api/send-email', job);
+      console.log('Accepted job details:', job);
+      console.log(response.data);
+  
+      console.log('Email sent successfully');  // Log success message
+    } catch (error) {
+      // Handle errors (you might want to show an error message to the user)
+      console.error("Error accepting job:", error);
+    }
+  };
+  
+
+
 
   return (
     <>
@@ -25,13 +42,15 @@ const JobPostings = () => {
         <div className="lower-card absolute w-full bottom-0 px-6 z-10 bg-white">
           <div className="job-btns">
             <p className="mb-8 text-base font-medium">${job.rate}/ hr</p>
-            <button
+            <button 
+
               type="button"
               className="inline-block rounded px-6 pb-2 mb-1 pt-2.5 mr-4 text-xs font-medium uppercase leading-normal shadow-[0_2px_7px_-3px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
             >
               Details
             </button>
             <button
+              onClick={() => acceptShift(job)}
               type="button"
               className="bg-[#6547A5] hover:bg-[#7D67AC] text-white inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal shadow-[0_2px_7px_-3px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
             >
