@@ -4,7 +4,11 @@ const router = express.Router();
 module.exports = (pool) => {
   
   // POST to insert new user.
-  router.post('/user', async (req, res) => {
+  // separate out another user.
+  // user root route 
+  router.post('/', async (req, res) => {
+    console.log(req.body);
+    
     const { email, first_name, last_name } = req.body;
   
     try {

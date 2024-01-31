@@ -22,7 +22,8 @@ const SignUpButton = () => {
 
         console.log(userData);
 
-        const response = await fetch('http://localhost:3001/user', {
+        // do not hardcode
+        const response = await fetch('/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

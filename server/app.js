@@ -33,7 +33,7 @@ app.use('/api/jobs', apiJobs(pool))
 app.use('/api', mapsRoutes);
 app.use("/api", indexRouter); 
 app.use('/calendar', calendarRouter);
-app.use('/user', userRouter);
+app.use('/user', userRouter(pool));
 
 // Serve the React application
 // app.get("*", (req, res) => {
@@ -56,4 +56,9 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+// app.post('/user', (req, res) =>
+//   console.log(req.body)
+// ); 
+
 module.exports = app;
+
