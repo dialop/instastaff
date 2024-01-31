@@ -15,6 +15,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const calendarRouter = require("./routes/calendar");
 const mapsRoutes = require('./routes/map');
+const bookingsRouter = require('./routes/bookings');
 const apiJobs = require('./routes/api/api_jobs');
 
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, "build")));
 // API routes
 app.use('/api/jobs', apiJobs(pool))
 app.use('/api', mapsRoutes);
+app.use('/api', bookingsRouter);
 app.use("/api", indexRouter); 
 
 //Calendar Route

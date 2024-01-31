@@ -37,8 +37,8 @@ CREATE TABLE job_postings (
   facility_short_address VARCHAR(255),
   facility_latitude DECIMAL,
   facility_longitude DECIMAL,
-  available_to_choose BOOLEAN DEFAULT FALSE,
-  is_filled BOOLEAN DEFAULT FALSE
+  is_filled BOOLEAN DEFAULT FALSE,
+  booked_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- FEEDBACKS TABLE
@@ -61,3 +61,6 @@ CREATE TABLE messages (
   date_sent TIMESTAMP,
   facility_name VARCHAR(255)
 );
+
+-- Add the booked_by_user_id column to the job_postings table
+ALTER TABLE job_postings ADD COLUMN booked_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;

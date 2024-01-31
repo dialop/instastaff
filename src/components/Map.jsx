@@ -5,7 +5,7 @@ import MarkerDetail from './MarkerDetail';
 import ReactDOM from 'react-dom'; 
 import '../styles/Map.css';
 
-const Map = ({ location, borders, markers }) => {
+const Map = ({ location, borders, markers, onBookJob }) => {
   const mapRef = useRef(null);
   const [markerWindow, setMarkerWindow] = useState([]);
 
@@ -30,9 +30,9 @@ const Map = ({ location, borders, markers }) => {
 
       const map = new window.google.maps.Map(mapRef.current, mapOptions);
 
-      const createInfoWindow = (markerData) => {
+      const createInfoWindow = (markerData, onBookJob) => {
         const content = document.createElement('div');
-        ReactDOM.render(<MarkerDetail markerData={markerData} />, content);
+        ReactDOM.render(<MarkerDetail markerData={markerData} onBookJob={onBookJob} />, content);
 
         return new window.google.maps.InfoWindow({
           content: content,
@@ -49,7 +49,7 @@ const Map = ({ location, borders, markers }) => {
           title: markerData.title
         });
       
-        const infoWindow = createInfoWindow(markerData);
+        const infoWindow = createInfoWindow(markerData, onBookJob);
 
         setMarkerWindow((prevWindows) => [...prevWindows, infoWindow]);
 
@@ -85,10 +85,9 @@ const Map = ({ location, borders, markers }) => {
       document.head.appendChild(script);
       script.addEventListener('load', initMap);
     } else {
-
       initMap();
     }
-  }, [location, borders, markers]);
+  }, [location, borders, markers, onBookJob]);
 
   return <div ref={mapRef} style={{ height: '87vh', width: '100%' }} />;
 };

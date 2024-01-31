@@ -1,13 +1,14 @@
 import React from 'react';
 import Map from './Map';
+import CalendarComponent from './CalendarComponent'; 
 import useApplicationData from '../hooks/useApplicationData';
 
 const MapPage = () => {
-  const { state } = useApplicationData();
+  const { state, handleBookJob, getShiftForDate } = useApplicationData();
 
   console.log("Job Postings:", state.jobPostings);
 
-  // Calculate the center of the map based on the borders
+  //center of the map based on the borders
   function calculateCenter(borders) {
     let latSum = 0;
     let lngSum = 0;
@@ -27,7 +28,7 @@ const MapPage = () => {
     };
   }
 
-  // Define the borders of your map (example borders, adjust as needed)
+  // borders of map
   const borders = [
     [
       { lat: 43.6817, lng: -79.4572 },
@@ -39,25 +40,36 @@ const MapPage = () => {
     ]
   ];
 
-  // Center of the map based on the borders
+  // center of the map based on the borders
   const location = calculateCenter(borders);
 
-  // Convert job postings to markers
+ 
   const markers = state.jobPostings.map(posting => ({
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
-    description: posting.facility_name
+    description: `${posting.facility_name}\nLocation: ${posting.facility_short_address}\nShift Date: ${posting.date}\nShift Start Time: ${posting.start_time}\nShift Duration: ${posting.duration} hours`,
+    imageUrl: posting.image_url,
   }));
   
 
-  console.log(markers); // Add this line to log marker data
-
+  console.log(markers); 
 
   return (
     <div>
       <h1>Maps</h1>
-      <Map location={location} borders={borders} markers={markers} />
+      <Map
+        location={location}
+        borders={borders}
+        markers={markers}
+        onBookJob={handleBookJob}
+      />
+    
+      <CalendarComponent
+        state={state}
+        handleCalendarDate={state.handleCalendarDate}
+        getShiftForDate={getShiftForDate}
+      />
     </div>
   );
 };
