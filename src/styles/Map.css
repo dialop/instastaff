@@ -1,0 +1,17 @@
+.info-window {
+    width: 250px; 
+  }
+  
+  .info-window-image {
+    width: 100%;
+    height: auto; 
+  }
+  
+  .info-window-buttons {
+    margin-top: 10px;
+  }
+  
+  .info-window-buttons button {
+    margin-right: 5px;
+  }
+  
