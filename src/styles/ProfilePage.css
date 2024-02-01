@@ -1,2 +1,13 @@
 .profile-page-container {
 }
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .profile-header h2 {
+    margin-top: 0;
+  }
+  

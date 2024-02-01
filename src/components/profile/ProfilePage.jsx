@@ -6,43 +6,56 @@ import MapPage from '../MapPage';
 import MonthlyChart from '../profile/MonthlyChart';
 import IncentivesPieChart from '../profile/IncentivesPieChart';
 import '../styles/ProfilePage.css';
+import { useApplicationData } from '../hooks/useApplicationData'; 
+import './ProfilePage.css';
+
 
 function ProfilePage() {
-  const { userData, badgesData, graphData } = useApplicationData();
+  const { userData } = useApplicationData(); 
 
-  const monthlyPerformanceData = [
-    { name: 'Jan', value: 4000 },
-    { name: 'Feb', value: 3000 },
+  // Assuming `userData` is an object with user's current info
+  // You can use useState to manage form inputs with initial values from userData
 
-  ];
+  // Example of form submission handler
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Logic to handle form submission, like sending data to a backend server
+  };
 
-  const incentivesData = [
-    { name: 'Incentive 1', value: 400 },
-    { name: 'Incentive 2', value: 300 },
-
-  ];
+  // Example of cancel button handler
+  const handleCancel = () => {
+    // Logic to handle cancellation, like reverting to previous page or state
+  };
 
   return (
-    <div>
-      <Nav />
-      <div className="profile-page-container">
-        <div className="profile-header">
-          {/* Profile Photo and Info */}
+    <div className="settings-container">
+      <aside className="sidebar">
+        {/* Add sidebar links here */}
+        <a href="#edit-profile">Edit profile</a>
+        {/* ... other links ... */}
+      </aside>
+      <main className="profile-content">
+        <header className="settings-header">
+          <h1>Edit profile</h1>
+        </header>
+        <div className="profile-form">
+          <form onSubmit={handleSubmit}>
+            {/* ... form groups for first name, last name, email ... */}
+            <div className="form-group">
+              <label htmlFor="address">Address</label>
+              <input type="text" id="address" defaultValue={userData.address} />
+            </div>
+            {/* ... additional form groups for contact number, city, state, password ... */}
+            <div className="form-actions">
+              <button type="button" onClick={handleCancel}>Cancel</button>
+              <button type="submit">Save</button>
+            </div>
+          </form>
         </div>
-        <div className="profile-content">
-          <div className="badges-section">
-            {/* Render badges */}
-          </div>
-          <div className="graphs-section">
-            {/* Render graphs */}
-            <MonthlyChart data={monthlyPerformanceData} />
-            <IncentivesPieChart data={incentivesData} />
-          </div>
-        </div>
-        <Modal />
-      </div>
+      </main>
     </div>
   );
 }
+
 
 export default ProfilePage;
