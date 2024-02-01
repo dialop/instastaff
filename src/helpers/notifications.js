@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const useNotifications = (job) => {
+const notifications = (job) => {
   const sendAppNotification = async () => {
     try {
       const response = await axios.post('/api/send-email', job);
@@ -36,4 +36,4 @@ const useNotifications = (job) => {
   return sendAppNotification; 
 };
 
-export default useNotifications;
+export default notifications;

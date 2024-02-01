@@ -21,10 +21,10 @@ router.post('/send-email', (req, res) => {
 
     //hard coded where to send email, will add req.params from cookies later
     from: 'Istastaff Team, <instastaff@gmail.com>',
-    to: 'akhtyamovadiana@gmail.com',
+    to: 'nurse.instastaff@gmail.com',
     subject: `Shift Booking Confirmation at ${job.facility_name}`,
     text: `
-    Dear [Recipient Name],
+    Dear Nurse,
 
 Congratulations! You have successfully booked a shift at ${job.facility_name}.
 

@@ -4,8 +4,9 @@ import Modal from "./Modal";
 import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-TimeAgo.addDefaultLocale(en);import useNotifications from "../hooks/useNotifications";
+import notifications from "../helpers/notifications";
 
+TimeAgo.addDefaultLocale(en);
 
 const JobPostings = () => {
   const { jobData } = useContext(JobsContext);
@@ -13,7 +14,7 @@ const JobPostings = () => {
   const [open, setOpen] = useState(false);
 
 const handleNotifications = async (job) => {
-  const sendAppNotifications = useNotifications(job);
+  const sendAppNotifications = notifications(job);
   sendAppNotifications(); 
 };
 
