@@ -12,10 +12,15 @@ const app = express();
 
 // Importing routes
 const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
+const calendarRouter = require("./routes/calendar")
 const usersRouter = require("./routes/users");
 const calendarRouter = require("./routes/calendar");
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
+
+const app = express();
+
 
 
 // View engine setup
@@ -39,6 +44,7 @@ app.use("/api", indexRouter);
 
 //Calendar Route
 app.use('/calendar', calendarRouter);
+app.use('/user', userRouter(pool));
 
 // Serve the React application
 // app.get("*", (req, res) => {
@@ -61,4 +67,9 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+// app.post('/user', (req, res) =>
+//   console.log(req.body)
+// ); 
+
 module.exports = app;
+

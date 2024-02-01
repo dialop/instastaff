@@ -18,33 +18,28 @@ function App() {
   const { state, handleCalendarDate, getShiftForDate } = useApplicationData();
   return (
     <>
-      <Auth0Provider // Needs to wrap around BrowserRouter
+      <Auth0Provider
         domain="dev-f5mq00rx18si8svy.us.auth0.com" // Replace with your Auth0 domain
         clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG" // Replace with your Auth0 client ID
-        redirectUri={window.location.origin}
+        authorizationParams={{
+          redirect_uri: window.location.origin,
+        }}
       >
-        <JobsContextProvider>
-          <BrowserRouter>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
-              <Route path="/jobs" element={<JobPostings />} />{" "}
-              {/* Jobs Route */}
-              <Route
-                path="/calendar"
-                element={
-                  <CalendarComponent
-                    state={state}
-                    handleCalendarDate={handleCalendarDate}
-                    getShiftForDate={getShiftForDate}
-                  />
-                }
-              />
-            </Routes>
-          </BrowserRouter>
-        </JobsContextProvider>
-      </Auth0Provider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
+          <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
+          <Route path="/user" />
+          <Route path="/calendar" element={<CalendarComponent 
+        state = {state}
+        handleCalendarDate = {handleCalendarDate}
+        addShift = {addShift}
+        getShiftForDate = {getShiftForDate}/>} />
+        </Routes>
+      </BrowserRouter>
+    </Auth0Provider>
     </>
   );
 }

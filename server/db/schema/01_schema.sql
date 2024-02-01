@@ -7,12 +7,12 @@ DROP TABLE IF EXISTS users CASCADE;
 -- USERS TABLE
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  handle VARCHAR(255) NOT NULL,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
+  handle VARCHAR(255),
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  profile_picture VARCHAR(255) NOT NULL,
+  password VARCHAR(255),
+  profile_picture VARCHAR(255),
   gender VARCHAR(50),
   occupation VARCHAR(255),
   license VARCHAR(255),
@@ -49,9 +49,6 @@ CREATE TABLE feedbacks (
   review TEXT
 );
 
--- Alter job_postings to add feedback_id foreign key
-ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
-
 -- MESSAGES TABLE
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -61,3 +58,7 @@ CREATE TABLE messages (
   date_sent TIMESTAMP,
   facility_name VARCHAR(255)
 );
+
+-- Alter tables
+ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
+ALTER TABLE users ADD UNIQUE (email);
