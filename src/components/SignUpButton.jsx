@@ -9,6 +9,7 @@ const SignUpButton = () => {
   };
 
   const sendUserDataToBackend = useCallback(async () => {
+
     if (user) {
       try {
         const accessToken = await getAccessTokenSilently();
@@ -20,9 +21,9 @@ const SignUpButton = () => {
           token: accessToken
         };
 
-        console.log(userData);
+        // console.log(userData);
 
-        // do not hardcode
+        // Do not hardcode the route.
         const response = await fetch('/user', {
           method: 'POST',
           headers: {
