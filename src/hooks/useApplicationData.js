@@ -52,7 +52,7 @@ const useApplicationData = () => {
     fetch('/api/jobs')
       .then(res => res.json())
       .then(data => {
-        console.log("Fetched Job Postings:", data); // Log fetched data
+        // console.log("Fetched Job Postings:", data); // Log fetched data
         dispatch({ type: ACTIONS.SET_JOB_POSTINGS, payload: data });
       })
       .catch(err => console.error(err));
