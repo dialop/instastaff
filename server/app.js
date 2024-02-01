@@ -6,7 +6,27 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require('cors');
+const { auth } = require('express-openid-connect');
 require('dotenv').config();
+
+// Check environment variables
+const requiredEnv = ['SECRET', 'BASE_URL', 'CLIENT_ID', 'ISSUER_BASE_URL'];
+requiredEnv.forEach(env => {
+  if (!process.env[env]) {
+    console.error(`ERROR: Missing required environment variable: ${env}`);
+    process.exit(1);
+  }
+});
+
+// Auth0 Configuration
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET,
+  baseURL: process.env.BASE_URL,
+  clientID: process.env.CLIENT_ID,
+  issuerBaseURL: process.env.ISSUER_BASE_URL
+};
 
 // Database connection pool
 const { pool } = require("./lib/db");
@@ -20,6 +40,7 @@ app.set("view engine", "jade");
 
 // Apply middlewares
 app.use(cors());
+app.use(auth(config));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
