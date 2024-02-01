@@ -11,6 +11,7 @@ const Map = ({ location, borders, markers }) => {
 
   useEffect(() => {
     const initMap = () => {
+      console.log("Initializing the map...");
       const mapOptions = {
         zoom: 13.4,
         center: location,

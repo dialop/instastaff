@@ -3,17 +3,17 @@ import '../styles/MarkerDetail.css';
 
 const MarkerDetail = ({ markerData, onViewDetail, onContactAdmin, onBookJob }) => {
   const viewDetail = (id) => {
-    // Define what happens when the view button is clicked
+    
     onViewDetail(id);
   };
 
   const contactAdmin = (id) => {
-    // Define what happens when the contact button is clicked
+ 
     onContactAdmin(id);
   };
 
   const bookJob = (id) => {
-    // Define what happens when the book button is clicked
+    
     onBookJob(id);
   };
 
