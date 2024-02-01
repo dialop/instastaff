@@ -8,14 +8,14 @@ import CalendarComponent from "./components/CalendarComponent";
 import useApplicationData from "./hooks/useApplicationData";
 import MapPage from "./components/MapPage";
 import JobPostings from "./components/JobPostings";
-import { JobsContextProvider } from "./context";
+// import { JobsContextProvider } from "./context";
 
 function Home() {
   return <div>{/* Home page content */}</div>;
 }
 
 function App() {
-  const { state, handleCalendarDate, getShiftForDate } = useApplicationData();
+  const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
   return (
     <>
       <Auth0Provider

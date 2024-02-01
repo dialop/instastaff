@@ -14,14 +14,10 @@ const app = express();
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const calendarRouter = require("./routes/calendar")
-const usersRouter = require("./routes/users");
-const calendarRouter = require("./routes/calendar");
+// const usersRouter = require("./routes/users");
+// const calendarRouter = require("./routes/calendar");
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
-
-const app = express();
-
-
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
