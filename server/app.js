@@ -1,16 +1,17 @@
 // - MAIN EXPRESS SERVER -//
+
+// Importing required modules
 const express = require('express');
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-require('dotenv').config();
 const cors = require('cors');
+require('dotenv').config();
 
+// Database connection pool
+const { pool } = require("./lib/db");
 
-const {pool} = require("./lib/db")
-
-
-
+// Initialize Express app
 const app = express();
 
 // Importing routes
@@ -29,26 +30,39 @@ const { error } = require('console');
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-// Middlewares
+// Apply middlewares
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "build"))); // Serve static files
 
-// Serve static files from the React build directory
-app.use(express.static(path.join(__dirname, "build")));
+// Import routes
+const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
+const calendarRouter = require("./routes/calendar");
+const mapsRoutes = require('./routes/map');
+const apiJobs = require('./routes/api/api_jobs');
 
-// API routes
-app.use('/api/jobs', apiJobs(pool))
+// Define API routes
+app.use('/api/jobs', apiJobs(pool));
 app.use('/api', mapsRoutes);
-app.use("/api", indexRouter); 
+app.use("/api", indexRouter);
 app.use('/api', emailNotificationRouter);
-
-//Calendar Route
 app.use('/calendar', calendarRouter);
 app.use('/user', userRouter(pool));
 
+// Error handler middleware
+app.use((err, req, res, next) => {
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.status(err.status || 500).render("error");
+});
+
+module.exports = app;
+
+// Commented code:
 
 // Serve the React application
 // app.get("*", (req, res) => {
@@ -60,20 +74,6 @@ app.use('/user', userRouter(pool));
 //   next(createError(404));
 // });
 
-// Error handler
-app.use(function (err, req, res, next) {
-  // Set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // Render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
-
 // app.post('/user', (req, res) =>
 //   console.log(req.body)
 // ); 
-
-module.exports = app;
-
