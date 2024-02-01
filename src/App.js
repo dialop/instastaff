@@ -8,6 +8,8 @@ import CalendarComponent from "./components/CalendarComponent";
 import useApplicationData from "./hooks/useApplicationData";
 import MapPage from "./components/MapPage";
 import JobPostings from "./components/JobPostings";
+import ProfilePage from "./components/ProfilePage";
+
 // import { JobsContextProvider } from "./context";
 
 function Home() {
@@ -37,6 +39,7 @@ function App() {
         handleCalendarDate = {handleCalendarDate}
         addShift = {addShift}
         getShiftForDate = {getShiftForDate}/>} />
+         <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </Auth0Provider>

@@ -1,13 +1,79 @@
+/* Profile Page styles */
+
+/* Container */
 .profile-page-container {
+  background-color: #fff; /* or any color that matches the design */
 }
 
+/* Profile Header Card */
+.profile-header-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+}
+
+/* Profile Image */
 .profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
-  
-  .profile-header h2 {
-    margin-top: 0;
-  }
-  
+  width: 150px; /* Adjust as necessary */
+  height: 150px; /* Adjust as necessary */
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+/* Follow and Message Buttons */
+.profile-btn-follow {
+  background-color: #1266f1; /* Adjust to match the design color */
+  color: #fff;
+}
+
+.profile-btn-message {
+  background-color: transparent;
+  color: #1266f1; /* Adjust to match the design color */
+  border: 1px solid #1266f1; /* Adjust to match the design color */
+  margin-left: 0.5rem;
+}
+
+/* Breadcrumb */
+.profile-breadcrumb .breadcrumb-item a {
+  color: #6c757d; /* Adjust to match the design color */
+}
+
+/* Social Media List Group */
+.social-links-list .list-group-item {
+  border: none;
+  padding: 0.75rem 1.25rem;
+}
+
+.social-links-list .list-group-item i {
+  margin-right: 0.5rem;
+}
+
+.social-links-list .list-group-item-text {
+  color: #6c757d; /* Adjust to match the design color */
+}
+
+/* Project Status Card */
+.project-status-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+}
+
+.project-status-header {
+  font-weight: bold;
+  color: #1266f1; /* Adjust to match the design color */
+  margin-bottom: 1rem;
+}
+
+.project-status-progress {
+  height: 10px; /* Adjust as necessary */
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+}
+
+.project-status-progress-bar {
+  background-color: #1266f1; /* Adjust to match the design color */
+}
+
+/* Adjustments for other components would follow the same pattern. */
+

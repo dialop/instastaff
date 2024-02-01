@@ -1,10 +1,12 @@
 import { useReducer, useEffect, useState } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const ACTIONS = {
   SET_DATE: 'SET_DATE',
   SHIFTS_BY_USER: 'SHIFTS_BY_USER',
   SET_JOB_POSTINGS: 'SET_JOB_POSTINGS'
 };
+
 
 function reducer(state, action) {
   switch (action.type) {
@@ -29,6 +31,7 @@ function reducer(state, action) {
 }
 
 export const useApplicationData = () => {
+  const { isAuthenticated, user } = useAuth0();
   const initialState = {
     date: new Date(),
     shiftsByUser: [],
@@ -64,20 +67,22 @@ export const useApplicationData = () => {
   // Fetching user data
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('/api/user');
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        setError(error);
-        console.error('Error fetching user data:', error);
+      if (isAuthenticated && user) {
+        setIsLoading(true);
+        try {
+          const response = await fetch('/api/user');
+          const data = await response.json();
+          setUserData(data);
+        } catch (error) {
+          setError(error);
+          console.error('Error fetching user data:', error);
+        }
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [isAuthenticated, user]);
 
   const handleCalendarDate = (selectedDate) => {
     dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate });
