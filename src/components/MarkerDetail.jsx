@@ -1,20 +1,23 @@
 import React from 'react';
 import '../styles/MarkerDetail.css';
+import notifications from "../helpers/notifications";
 
 const MarkerDetail = ({ markerData, onViewDetail, onContactAdmin, onBookJob }) => {
   const viewDetail = (id) => {
-    // Define what happens when the view button is clicked
+    
     onViewDetail(id);
   };
 
   const contactAdmin = (id) => {
-    // Define what happens when the contact button is clicked
+ 
     onContactAdmin(id);
   };
 
   const bookJob = (id) => {
-    // Define what happens when the book button is clicked
-    onBookJob(id);
+  
+    // onBookJob(id);
+    const sendAppNotifications = notifications(id);
+    sendAppNotifications(); 
   };
 
   return (
