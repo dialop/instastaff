@@ -6,7 +6,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require('cors');
-require('dotenv').config();
+// Load .env file from the root directory
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 // Database connection pool
 const { pool } = require("./lib/db");
