@@ -8,7 +8,7 @@ import CalendarComponent from "./components/CalendarComponent";
 import useApplicationData from "./hooks/useApplicationData";
 import MapPage from "./components/MapPage";
 import JobPostings from "./components/JobPostings";
-import { JobsContextProvider } from "./context";
+import { JobsContextProvider } from "./context/index";
 import ProfilePage from "./components/ProfilePage";
 
 function Home() {
