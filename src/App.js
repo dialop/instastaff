@@ -11,64 +11,32 @@ import JobPostings from "./components/JobPostings";
 import { JobsContextProvider } from "./context";
 import ProfilePage from "./components/ProfilePage";
 
-// import { JobsContextProvider } from "./context";
-
 function Home() {
   return <div>{/* Home page content */}</div>;
 }
 
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
+
   return (
-    <>
+    <Auth0Provider
+      domain="dev-f5mq00rx18si8svy.us.auth0.com" // Replace with your Auth0 domain
+      clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG" // Replace with your Auth0 client ID
+      redirectUri={window.location.origin} // Corrected to redirectUri
+    >
       <JobsContextProvider>
-        <Auth0Provider
-          domain="dev-f5mq00rx18si8svy.us.auth0.com" // Replace with your Auth0 domain
-          clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG" // Replace with your Auth0 client ID
-          authorizationParams={{
-            redirect_uri: window.location.origin,
-          }}
-        >
         <BrowserRouter>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
             <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
-            <Route path="/user" />
-            <Route path="/calendar" element={<CalendarComponent 
-          state = {state}
-          handleCalendarDate = {handleCalendarDate}
-          addShift = {addShift}
-          getShiftForDate = {getShiftForDate}/>} />
+            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+            <Route path="/profile" element={<ProfilePage />} /> {/* Profile Route */}
           </Routes>
         </BrowserRouter>
-        </Auth0Provider>
       </JobsContextProvider>
-      <Auth0Provider
-        domain="dev-f5mq00rx18si8svy.us.auth0.com" // Replace with your Auth0 domain
-        clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG" // Replace with your Auth0 client ID
-        authorizationParams={{
-          redirect_uri: window.location.origin,
-        }}
-      >
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
-          <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
-          <Route path="/user" />
-          <Route path="/calendar" element={<CalendarComponent 
-        state = {state}
-        handleCalendarDate = {handleCalendarDate}
-        addShift = {addShift}
-        getShiftForDate = {getShiftForDate}/>} />
-         <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
-      </BrowserRouter>
     </Auth0Provider>
-    </>
   );
 }
 
