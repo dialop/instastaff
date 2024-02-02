@@ -1,7 +1,7 @@
 // src/components/ProfileDashboard.jsx
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-// Import additional components you plan to include in the dashboard
+import UserInfo from './UserInfo';
 
 const ProfileDashboard = () => {
   const { user } = useAuth0();
@@ -28,6 +28,7 @@ const ProfileDashboard = () => {
       {/* Placeholder for integrating future components */}
       <FutureComponentPlaceholder />
       {/* You can add more placeholders or actual components here as needed */}
+      <UserInfo />
     </div>
   );
 };
