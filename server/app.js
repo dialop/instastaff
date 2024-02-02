@@ -34,6 +34,7 @@ const calendarRouter = require("./routes/calendar");
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
 const emailNotificationRouter = require('./routes/api/email_notification');
+const profileRouter = require('./routes/profile');
 
 // Define API routes
 app.use('/api/jobs', apiJobs(pool));
@@ -42,6 +43,8 @@ app.use("/api", indexRouter);
 app.use('/api', emailNotificationRouter);
 app.use('/calendar', calendarRouter);
 app.use('/user', userRouter(pool));
+app.use('/api', profileRouter);
+
 
 // Error handler middleware
 app.use((err, req, res, next) => {
