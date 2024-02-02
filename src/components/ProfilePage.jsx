@@ -1,193 +1,181 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Button,
-  Breadcrumbs,
-  Link,
-  Typography,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-  LinearProgress,
-} from '@mui/material';
-import { AccountCircle, GitHub, Twitter, Instagram, Facebook } from '@mui/icons-material';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useUserData } from '../hooks/user';
-import MonthlyChart from './MonthlyChart';
-import IncentivesPieChart from './IncentivesPieChart';
+import { Box, Grid, Card, CardContent, Typography, Avatar, Button, Stack, IconButton, Paper, Badge } from '@mui/material';
+import { blue } from '@mui/material/colors';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import Chart from './profile/Chart'; // Your custom chart component
+import Logo from './profile/Logo'; // Your custom logo component
+import Scrollbar from './profile/Scrollbar'; // Your custom scrollbar component
+import SeverityPill from './profile/SeverityPill'; // Your custom severity pill component
+import BarChartComponent from './profile/BarChartComponent';
+import PieChartInsentive from './profile/PieChartInsentive';
+import { styled } from '@mui/material/styles';
 
-export default function ProfilePage() {
-  const { user } = useAuth0();
-  const userId = user ? user.sub : null;
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+  width: 40,
+  height: 40,
+  border: `2px solid ${theme.palette.background.paper}`,
+}));
 
-  const [formValues, setFormValues] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    address: '',
-    contact_number: '',
-    city: '',
-    state: '',
-  });
+function ProfilePage() {
+  // Retrieve the avatar and badge avatar from localStorage or use default paths
+  const [avatar, setAvatar] = useState(localStorage.getItem('userAvatar') || '');
+  const [badgeAvatar, setBadgeAvatar] = useState(localStorage.getItem('badgeAvatar') || '/static/images/avatar/1.jpg');
+  const defaultAvatar = '/path/to/default/avatar.jpg'; // Path to your default avatar
 
-  const userData = useUserData(userId);
+  // Function to handle avatar change
+  const handleAvatarChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const newAvatar = URL.createObjectURL(event.target.files[0]);
+      setAvatar(newAvatar);
+      localStorage.setItem('userAvatar', newAvatar);
+    }
+  };
+
+  // Function to handle badge avatar change
+  const handleBadgeAvatarChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const newBadgeAvatar = URL.createObjectURL(event.target.files[0]);
+      setBadgeAvatar(newBadgeAvatar);
+      localStorage.setItem('badgeAvatar', newBadgeAvatar);
+    }
+  };
 
   useEffect(() => {
-    if (userData && userData.error) {
-      console.error("Error fetching user data:", userData.error);
-    } else if (userData) {
-      setFormValues({
-        first_name: userData.first_name || '',
-        last_name: userData.last_name || '',
-        email: userData.email || '',
-        password: '',
-        address: userData.address || '',
-        contact_number: userData.contact_number || '',
-        city: userData.city || '',
-        state: userData.state || '',
-      });
+    // If there's an avatar or badge avatar in localStorage, use them
+    const storedAvatar = localStorage.getItem('userAvatar');
+    const storedBadgeAvatar = localStorage.getItem('badgeAvatar');
+    if (storedAvatar) {
+      setAvatar(storedAvatar);
     }
-  }, [userData]);
+    if (storedBadgeAvatar) {
+      setBadgeAvatar(storedBadgeAvatar);
+    }
+  }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    fetch(`/user/${userId}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formValues),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log('Updated user data:', data);
-      })
-      .catch((error) => {
-        console.error('Error updating user data:', error);
-      });
+  // Define the user's data
+  const userData = {
+    name: 'Diana Lopez',
+    title: 'Registered Nurse, RN',
+    location: 'Toronto, ON',
+    avatar: avatar || defaultAvatar,
   };
-
-  const handleCancel = () => {
-    // Reset form values to original user data
-    setFormValues({
-      first_name: userData.first_name || '',
-      last_name: userData.last_name || '',
-      email: userData.email || '',
-      password: '',
-      address: userData.address || '',
-      contact_number: userData.contact_number || '',
-      city: userData.city || '',
-      state: userData.state || '',
-    });
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-
-  const badgesData = [
-    // 
-  ];
-
-  const monthlyData = [
-    //
-  ];
-
-  const incentivesData = [
-    //
-  ];
-
-  const profilePictureChange = (event) => {
-  
-  };
-
-  const profilePicturePreview = null;
 
   return (
-    <section style={{ backgroundColor: '#white' }}>
-      <Container className="py-5">
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link color="inherit" href="/">
-                Home
-              </Link>
-              <Link color="inherit" href="/user">
-                User
-              </Link>
-              <Typography color="textPrimary">User Profile</Typography>
-            </Breadcrumbs>
-          </Grid>
-
-          <Grid item lg={4}>
-            <Card>
-              <CardContent className="text-center">
-                <CardMedia
-                  component="img"
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                  alt="avatar"
-                  className="rounded-circle"
-                  style={{ width: '150px' }}
-                />
-                <Typography variant="body2" color="textSecondary" component="p" className="mb-1">
-                  Full Stack Developer
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p" className="mb-4">
-                  Bay Area, San Francisco, CA
-                </Typography>
-                <div className="d-flex justify-content-center mb-2">
-                  <Button variant="contained" color="primary">
-                    Follow
-                  </Button>
-                  <Button variant="outlined" className="ms-1">
-                    Message
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="mt-4">
-              <CardContent className="p-0">
-                <List component="nav" aria-label="social media links" className="rounded-3">
-                  <ListItem>
-                    <GitHub color="textSecondary" fontSize="large" />
-                    <ListItemText primary="mdbootstrap" />
-                  </ListItem>
-                  <ListItem>
-                    <Twitter color="primary" fontSize="large" />
-                    <ListItemText primary="@mdbootstrap" />
-                  </ListItem>
-                  <ListItem>
-                    <Instagram color="secondary" fontSize="large" />
-                    <ListItemText primary="mdbootstrap" />
-                  </ListItem>
-                  <ListItem>
-                    <Facebook color="primary" fontSize="large" />
-                    <ListItemText primary="mdbootstrap" />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item lg={8}>
-            {/* Rest of your JSX code */}
-          </Grid>
+    <Box sx={{ flexGrow: 1, p: 3 }}>
+      <Grid container spacing={2}>
+        {/* New Profile Picture and Name Section */}
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ textAlign: 'center', p: 3 }}>
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="avatar-upload"
+              type="file"
+              onChange={handleAvatarChange}
+            />
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="badge-avatar-upload"
+              type="file"
+              onChange={handleBadgeAvatarChange}
+            />
+            <label htmlFor="avatar-upload">
+              <IconButton color="primary" component="span" sx={{ position: 'relative' }}>
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  badgeContent={
+                    <SmallAvatar
+                      alt="Badge Avatar"
+                      src={badgeAvatar}
+                      onClick={() => document.getElementById('badge-avatar-upload').click()}
+                    />
+                  }
+                >
+                  <Avatar
+                    alt={userData.name}
+                    src={userData.avatar}
+                    sx={{ width: 100, height: 100, margin: 'auto', bgcolor: blue[500] }}
+                  />
+                </Badge>
+                {!avatar && (
+                  <CameraAltIcon sx={{ position: 'absolute', bottom: '10px', right: '10px', fontSize: 'large', color: 'white' }} />
+                )}
+              </IconButton>
+            </label>
+            <Typography variant="h5" sx={{ mt: 2 }}>
+              {userData.name}
+            </Typography>
+            <Typography color="textSecondary">{userData.title}</Typography>
+            <Typography color="textSecondary" sx={{ mb: 2 }}>
+              {userData.location}
+            </Typography>
+            <Stack direction="row" spacing={1} justifyContent="center">
+              <Button variant="contained" size="small">
+              </Button>
+              <Button variant="outlined" size="small">
+              </Button>
+            </Stack>
+            {/* Placeholder for social links */}
+            <Box sx={{ mt: 2 }}>
+              {/* Render social links here */}
+            </Box>
+          </Card>
         </Grid>
-      </Container>
-    </section>
+
+        {/* Information Section */}
+        <Grid item xs={12} sm={6} md={8}>
+          <Card>
+            <CardContent>
+              {/* Placeholder for information */}
+              <Typography variant="h5">Information</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Badges and Incentives Sections */}
+        <Grid item xs={12} sm={6} md={4}>
+          <Card>
+            <CardContent>
+              {/* Custom components or placeholders for badges */}
+              <Typography variant="h5">Badges</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={8}>
+          <Card>
+            <CardContent>
+              {/* Custom components or placeholders for incentives */}
+              <Typography variant="h5">Incentives</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Graph and Pie Chart Sections */}
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <BarChartComponent />
+            <Typography variant="h6">Monthly Validation Summary</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <PieChartInsentive />
+            <Typography variant="h6">Health/Facility Summary</Typography>
+          </Paper>
+        </Grid>
+
+        {/* Footer */}
+        <Grid item xs={12}>
+          <Box sx={{ bgcolor: 'grey.800', color: 'white', p: 2 }}>
+            {/* Placeholder for footer content */}
+            <Typography variant="body2">InstaStaff &copy;</Typography>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
+
+export default ProfilePage;
