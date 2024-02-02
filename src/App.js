@@ -9,6 +9,7 @@ import useApplicationData from "./hooks/useApplicationData";
 import MapPage from "./components/MapPage";
 import JobPostings from "./components/JobPostings";
 import { JobsContextProvider } from "./context";
+import ProfileDashboard from "./components/ProfileDashboard";
 
 function Home() {
   return <div>{/* Home page content */}</div>;
@@ -33,6 +34,7 @@ function App() {
             <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
             <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
             <Route path="/user" />
+            <Route path="/profile" element={<ProfileDashboard />} /> {/* Profile Route */}
             <Route path="/calendar" element={<CalendarComponent 
           state = {state}
           handleCalendarDate = {handleCalendarDate}
