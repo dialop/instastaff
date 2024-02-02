@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Box, Grid, Card, CardContent, Avatar, Button, Stack, IconButton, Paper, Badge, TextField } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Grid, Card, CardContent, Avatar, Button, IconButton, Paper, Badge, TextField } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import EditIcon from '@mui/icons-material/Edit'; 
@@ -18,7 +18,7 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 
 function ProfilePage() {
   // Define state to store API data
-  const [apiData, setApiData] = useState([]);
+  const [setApiData] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false); 
   const [avatar, setAvatar] = useState(localStorage.getItem('userAvatar') || '');
   const [badgeAvatar, setBadgeAvatar] = useState(localStorage.getItem('badgeAvatar') || '/static/images/avatar/1.jpg');
