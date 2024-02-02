@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 const data = [
   { name: 'Jan', Hours: 58 },
   { name: 'Feb', Hours: 34 },
-  // ...add more data for each month
+  
 ];
 
 const BarChartComponent = () => (
