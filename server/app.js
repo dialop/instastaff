@@ -43,8 +43,7 @@ app.use("/api", indexRouter);
 app.use('/api', emailNotificationRouter);
 app.use('/calendar', calendarRouter);
 app.use('/user', userRouter(pool));
-app.use('/api', profileRouter);
-
+app.use('/profile', profileRouter);
 
 // Error handler middleware
 app.use((err, req, res, next) => {
