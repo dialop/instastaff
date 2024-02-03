@@ -108,11 +108,11 @@ function ProfilePage() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      {/* <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">User Profile</Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Box m={2}>
         <Grid container spacing={2}>
           {/* Avatar and Name Section */}
