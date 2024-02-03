@@ -35,7 +35,7 @@ function ProfilePage() {
     }
 
     // API request when the component mounts
-    fetch('https://api.card.ly/v2/some-endpoint', {
+    fetch('s', {
       headers: {
         Authorization: `Bearer ${process.env.REACT_APP_CARDLY}`,
       },
