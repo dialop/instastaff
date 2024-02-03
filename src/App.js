@@ -4,6 +4,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Navbar from "./components/Nav";
+import Footer from './components/Footer';
 import CalendarComponent from "./components/CalendarComponent";
 import useApplicationData from "./hooks/useApplicationData";
 import MapPage from "./components/MapPage";
@@ -34,6 +35,7 @@ function App() {
             <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
             <Route path="/profile" element={<ProfilePage />} /> {/* Profile Route */}
           </Routes>
+          <Footer />
         </BrowserRouter>
       </JobsContextProvider>
     </Auth0Provider>
