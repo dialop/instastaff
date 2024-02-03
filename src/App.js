@@ -11,6 +11,7 @@ import MapPage from "./components/MapPage";
 import JobPostings from "./components/JobPostings";
 import { JobsContextProvider } from "./context/index";
 import ProfilePage from "./components/ProfilePage";
+import UserHeader from "./components/UserHeader";
 
 function Home() {
   return <div>{/* Home page content */}</div>;
@@ -28,6 +29,7 @@ function App() {
       <JobsContextProvider>
         <BrowserRouter>
           <Navbar />
+          <UserHeader />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
