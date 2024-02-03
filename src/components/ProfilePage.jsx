@@ -22,7 +22,7 @@ function ProfilePage() {
   const [isEditMode, setIsEditMode] = useState(false); 
   const [avatar, setAvatar] = useState(localStorage.getItem('userAvatar') || '');
   const [badgeAvatar, setBadgeAvatar] = useState(localStorage.getItem('badgeAvatar') || '/static/images/avatar/1.jpg');
-  const defaultAvatar = '/path/to/default/avatar.jpg';
+ 
 
   useEffect(() => {
     const storedAvatar = localStorage.getItem('userAvatar');
@@ -69,7 +69,6 @@ function ProfilePage() {
     name: 'Diana Lopez',
     title: 'Registered Nurse, RN',
     location: 'Toronto, ON',
-    avatar: avatar || defaultAvatar,
   });
 
   const handleEditClick = () => {
