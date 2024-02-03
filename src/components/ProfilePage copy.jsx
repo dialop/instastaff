@@ -35,7 +35,7 @@ function ProfilePage() {
     }
 
     // API request when the component mounts
-    fetch('s', {
+    fetch('https://api.card.ly/v2/some-endpoint', {
       headers: {
         Authorization: `Bearer ${process.env.REACT_APP_CARDLY}`,
       },
@@ -255,6 +255,13 @@ function ProfilePage() {
             <Paper>
               <PieChartInsentive />
             </Paper>
+          </Grid>
+
+          {/* Footer */}
+          <Grid item xs={12}>
+            <Box sx={{ bgcolor: 'grey.800', color: 'white', p: 2 }}>
+              <Typography variant="body2">InstaStaff &copy;</Typography>
+            </Box>
           </Grid>
         </Grid>
       </Box>
