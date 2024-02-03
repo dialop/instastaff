@@ -32,9 +32,11 @@ const SignUpButton = () => {
           body: JSON.stringify(userData),
         });
 
-        if (response.status === 409) {
-          alert('Email already in use. Please log in or use a different email.');
-        } else if (!response.ok) {
+        // if (response.status === 409) {
+        //   alert('Email already in use. Please log in or use a different email.');
+        // } 
+        
+        if (!response.ok) {
           throw new Error('Failed to send user data to backend');
         }
       } catch (error) {
