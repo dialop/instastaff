@@ -33,9 +33,7 @@ const JobPostings = () => {
   };
 
   const handleupdateJob = async (e) => {
-    // e.preventDefault();
     let id = Number(jobId);
-    console.log(id, jobStatus);
     try {
       const url = `http://localhost:3000/api/jobs/${id}`;
       const method = "PUT";
@@ -49,25 +47,26 @@ const JobPostings = () => {
 
       if (response.ok) {
         setJobData((prevJobData) =>
-          prevJobData.map((job) =>
-            job.id === id ? { ...job, is_filled: !prevJobData.is_filled } : job
-          )
+        prevJobData.map((job) =>
+        job.id === id ? { ...job, is_filled: !prevJobData.is_filled } : job
+        )
         );
         console.log("Job Status updated successfully", jobStatus);
+        if(!jobStatus.is_filled){
+          window.location.reload();
+        }
+        setUpdateJob(false);
       } else {
-        // Handle error cases here
         console.error("Error updating job status:", response.statusText);
       }
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
-    setUpdateJob(false);
-    window.location.reload();
   };
 
 const handleNotifications = async (job) => {
-  const sendAppNotifications = notifications(job);
-  sendAppNotifications(); 
+  // const sendAppNotifications = notifications(job);
+  // sendAppNotifications(); 
 };
 
   return (
@@ -169,14 +168,6 @@ const handleNotifications = async (job) => {
                   >
                     Details
                   </button>
-                  <button
-                    onClick={() => handleNotifications(job)}
-              type="button"
-                    className="bg-[#6547A5] hover:bg-[#7D67AC] text-white inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal shadow-[0_2px_7px_-3px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
-                  >
-                    Accept Job
-                  </button>
-                  {/* <p className="mt-8 w-full text-center rounded px-6 pb-2 mb-1 pt-2.5 mr-4 text-xs font-medium uppercase leading-normal shadow-[0_1px_5px_-3px_#3b71ca] transition duration-150 ease-in-out bg-gray-100">Reserved</p> */}
                 </div>
                 <div className="px-1 py-3 text-[#7775ad]">
                   <ReactTimeAgo
@@ -284,6 +275,7 @@ const handleNotifications = async (job) => {
                         is_filled: true,
                       }));
                       setUpdateJob((prev) => !prev);
+                      handleNotifications(clickedJob(jobId));
                     }}
                   >
                     Accept Job
