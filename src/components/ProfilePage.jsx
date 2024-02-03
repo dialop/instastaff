@@ -256,13 +256,6 @@ function ProfilePage() {
               <PieChartInsentive />
             </Paper>
           </Grid>
-
-          {/* Footer */}
-          <Grid item xs={12}>
-            <Box sx={{ bgcolor: 'grey.800', color: 'white', p: 2 }}>
-              <Typography variant="body2">InstaStaff &copy;</Typography>
-            </Box>
-          </Grid>
         </Grid>
       </Box>
     </Box>
