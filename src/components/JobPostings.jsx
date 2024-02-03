@@ -65,8 +65,8 @@ const JobPostings = () => {
   };
 
 const handleNotifications = async (job) => {
-  // const sendAppNotifications = notifications(job);
-  // sendAppNotifications(); 
+  const sendAppNotifications = notifications(job);
+  sendAppNotifications(); 
 };
 
   return (
