@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/MarkerDetail.css';
+import notifications from "../helpers/notifications";
 
 const MarkerDetail = ({ markerData, onViewDetail, onContactAdmin, onBookJob }) => {
   const viewDetail = (id) => {
@@ -13,8 +14,10 @@ const MarkerDetail = ({ markerData, onViewDetail, onContactAdmin, onBookJob }) =
   };
 
   const bookJob = (id) => {
-    
-    onBookJob(id);
+  
+    // onBookJob(id);
+    const sendAppNotifications = notifications(id);
+    sendAppNotifications(); 
   };
 
   return (

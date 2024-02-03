@@ -6,7 +6,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require('cors');
-require('dotenv').config();
+// Load .env file from the root directory
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 // Database connection pool
 const { pool } = require("./lib/db");
@@ -14,7 +15,7 @@ const { pool } = require("./lib/db");
 // Initialize Express app
 const app = express();
 
-// Setup view engine
+// View engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
@@ -32,11 +33,13 @@ const userRouter = require("./routes/user");
 const calendarRouter = require("./routes/calendar");
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
+const emailNotificationRouter = require('./routes/api/email_notification');
 
 // Define API routes
 app.use('/api/jobs', apiJobs(pool));
 app.use('/api', mapsRoutes);
 app.use("/api", indexRouter);
+app.use('/api', emailNotificationRouter);
 app.use('/calendar', calendarRouter);
 app.use('/user', userRouter(pool));
 

@@ -7,6 +7,8 @@ import "moment-timezone";
 import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import notifications from "../helpers/notifications";
+
 TimeAgo.addDefaultLocale(en);
 
 const JobPostings = () => {
@@ -62,6 +64,11 @@ const JobPostings = () => {
     setUpdateJob(false);
     window.location.reload();
   };
+
+const handleNotifications = async (job) => {
+  const sendAppNotifications = notifications(job);
+  sendAppNotifications(); 
+};
 
   return (
     <>
@@ -151,8 +158,9 @@ const JobPostings = () => {
               <div className="lower-card absolute w-full bottom-0 px-6 bg-white">
                 <div className="job-btns">
                   <p className="mb-8 text-base font-medium">${job.rate}/ hr</p>
-                  <button
-                    type="button"
+                  <button 
+      
+              type="button"
                     className="bg-[#6547A5] text-white inline-block rounded w-full px-6 pb-2 mb-1 pt-2.5 mr-4 text-xs font-medium uppercase leading-normal shadow-[0_2px_7px_-3px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
                     onClick={() => {
                       setOpen(!open);
@@ -161,6 +169,14 @@ const JobPostings = () => {
                   >
                     Details
                   </button>
+                  <button
+                    onClick={() => handleNotifications(job)}
+              type="button"
+                    className="bg-[#6547A5] hover:bg-[#7D67AC] text-white inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal shadow-[0_2px_7px_-3px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
+                  >
+                    Accept Job
+                  </button>
+                  {/* <p className="mt-8 w-full text-center rounded px-6 pb-2 mb-1 pt-2.5 mr-4 text-xs font-medium uppercase leading-normal shadow-[0_1px_5px_-3px_#3b71ca] transition duration-150 ease-in-out bg-gray-100">Reserved</p> */}
                 </div>
                 <div className="px-1 py-3 text-[#7775ad]">
                   <ReactTimeAgo
