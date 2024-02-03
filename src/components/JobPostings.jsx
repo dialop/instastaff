@@ -75,10 +75,15 @@ const handleNotifications = async (job) => {
     <div className="container h-[100vh] m-20 min-w-[320px]">
       <div className="heading flex flex-col justify-center items-center">
         <h1 className="text-6xl pb-8 text-[#24233E]">Jobs</h1>
-        <div className="mb-16 max-w-screen-xl">
+        <div className="flex mb-16">
           <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
-            <h2 className="pl-1 text-stone-700 text-xl font-medium">Filters</h2>
-            <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="flex justify-between items-center">
+              <h2 className="pl-1 text-stone-700 text-xl font-medium">Filters</h2>
+                  <button className="rounded-md bg-[#6547A5] px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90">
+                    Search
+                  </button>
+            </div>
+            <div className="w-full mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
               <div className="flex flex-col">
                 <select
                   id="hospital"
@@ -126,11 +131,6 @@ const handleNotifications = async (job) => {
                   id="date"
                   className="mt-1 block w-full rounded-md border border-gray-200 px-2 py-1.5 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 />
-              </div>
-              <div className="mt-1 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
-                <button className="active:scale-95 rounded-lg bg-[#6547A5] px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90">
-                  Search
-                </button>
               </div>
             </div>
           </div>
