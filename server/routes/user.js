@@ -7,7 +7,12 @@ module.exports = (pool) => {
   router.post('/', async (req, res) => {
     console.log(req.body);
     
-    const { email, first_name, last_name } = req.body;
+    const { 
+      email, 
+      first_name, 
+      last_name, 
+      profile_picture 
+    } = req.body;
 
     try {
       // Check if user already exists
@@ -22,11 +27,12 @@ module.exports = (pool) => {
 
       // Insert new user
       const insertQuery = `
-        INSERT INTO users (email, first_name, last_name)
-        VALUES ($1, $2, $3)
+        INSERT INTO users (email, first_name, last_name, profile_picture)
+        VALUES ($1, $2, $3, $4)
         RETURNING *;
       `;
-      const newUser = await pool.query(insertQuery, [email, first_name, last_name]);
+      const newUser = await pool.query(insertQuery, 
+        [email, first_name, last_name, profile_picture]);
       res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error('Error handling user data:', err);
