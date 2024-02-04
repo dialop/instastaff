@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { styled } from '@mui/material/styles';
+import { useRegistration } from '../../context/RegistrationContext';
 import { TextField, 
   Button, 
   Container, 
@@ -25,6 +26,7 @@ const Input = styled(TextField)({
 
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isRegistered, setIsRegistered } = useRegistration();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -40,6 +42,7 @@ const RegistrationForm = () => {
   });
   const [open, setOpen] = useState(false);
   const [formVisible, setFormVisible] = useState(true);
+
 
   useEffect(() => {
     if (user) {
@@ -65,6 +68,7 @@ const RegistrationForm = () => {
     const accessToken = await getAccessTokenSilently();
     console.log(formData, accessToken);
     // Send data to backend. Add logic here.
+    setIsRegistered(true);
     setFormVisible(false);
     setTimeout(() => setOpen(true), 300);
   };
@@ -73,7 +77,7 @@ const RegistrationForm = () => {
     setOpen(false);
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || isRegistered) {
     return null;
   }
 

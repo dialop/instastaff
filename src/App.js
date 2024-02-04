@@ -12,6 +12,7 @@ import JobPostings from "./components/JobPostings";
 import { JobsContextProvider } from "./context/index";
 import ProfilePage from "./components/ProfilePage";
 import UserHeader from "./components/UserHeader";
+import { RegistrationProvider } from './context/RegistrationContext';
 
 function Home() {
   return <div>{/* Home page content */}</div>;
@@ -27,18 +28,20 @@ function App() {
       redirectUri={window.location.origin} // Corrected to redirectUri
     >
       <JobsContextProvider>
-        <BrowserRouter>
-          <Navbar />
-          <UserHeader />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
-            <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
-            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
-            <Route path="/profile" element={<ProfilePage />} /> {/* Profile Route */}
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+        <RegistrationProvider>
+          <BrowserRouter>
+            <Navbar />
+            <UserHeader />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/maps" element={<MapPage />} /> {/* Maps Route */}
+              <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
+              <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+              <Route path="/profile" element={<ProfilePage />} /> {/* Profile Route */}
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </RegistrationProvider>
       </JobsContextProvider>
     </Auth0Provider>
   );
