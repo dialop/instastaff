@@ -26,8 +26,8 @@ const RegistrationForm = () => {
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
-    points: 0,
     badge_id: null,
+    points: 0,
     // token: '', // Handled separately
   });
 
