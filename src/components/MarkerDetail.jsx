@@ -3,7 +3,6 @@ import '../styles/MarkerDetail.css';
 import notifications from "../helpers/notifications";
 import ChatBox from './ChatBox'; 
 
-
 const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onBookJob }) => {
   const [showChatBox, setShowChatBox] = useState(false); 
 

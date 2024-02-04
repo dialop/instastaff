@@ -44,15 +44,18 @@ const MapPage = () => {
   // Center of the map based on the borders
   const location = calculateCenter(borders);
 
+  
+
   const markers = state.jobPostings.map((posting) => ({
     id: posting.id, // ID to each marker to identify
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
     description: `${posting.facility_name}\nLocation: ${posting.facility_short_address}\nShift Date: ${posting.date}\nShift Start Time: ${posting.start_time}\nShift Duration: ${posting.duration} hours`,
-    imageUrl: posting.image_url,
+    imageUrl: posting.facility_images 
   }));
-
+  console.log('photo', markers);
+  
   const selectedMarker = markers.find((marker) => marker.id === selectedJobId);
 
   // Handle clicking on a marker to view job details
