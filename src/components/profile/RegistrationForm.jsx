@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { styled } from '@mui/material/styles';
 import { useRegistration } from '../../context/RegistrationContext';
-import { TextField, 
-  Button, 
-  Container, 
-  Typography, 
-  MenuItem } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  MenuItem,
+  Snackbar
+} from '@mui/material';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -21,7 +24,6 @@ const Input = styled(TextField)({
 
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const { isRegistered, setIsRegistered } = useRegistration();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -36,7 +38,8 @@ const RegistrationForm = () => {
     points: 0,
   });
   const [formVisible, setFormVisible] = useState(true);
-
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const { isRegistered, setIsRegistered } = useRegistration();
 
   useEffect(() => {
     if (user) {
@@ -57,13 +60,27 @@ const RegistrationForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const accessToken = await getAccessTokenSilently();
-    console.log(formData, accessToken);
-    // Send data to backend. Add logic here.
-    setIsRegistered(true);
-    setFormVisible(false);
+    try {
+      const accessToken = await getAccessTokenSilently();
+      console.log(formData, accessToken);
+      // Add your logic here to send data to the backend
+      setIsRegistered(true);
+      setFormVisible(false);
+      console.log("Setting Snackbar Open");
+      setSnackbarOpen(true);
+      alert("Registration complete. Welcome aboard!");
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
   };
 
   if (!isAuthenticated || isRegistered) {
@@ -85,7 +102,7 @@ const RegistrationForm = () => {
               <MenuItem value="Personal Support Worker">Personal Support Worker</MenuItem>
               <MenuItem value="Registered Nurse">Registered Nurse</MenuItem>
               <MenuItem value="Super Nurse">Super Nurse</MenuItem>
-            </Input>        
+            </Input>
             <Input fullWidth label="License" name="license" variant="outlined" value={formData.license} onChange={handleChange} />
             <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
               Submit
@@ -93,6 +110,17 @@ const RegistrationForm = () => {
           </form>
         </Container>
       )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message="Registration complete. Welcome aboard!"
+        action={
+          <Button color="secondary" size="small" onClick={handleSnackbarClose}>
+            Close
+          </Button>
+        }
+      />
     </>
   );
 };
