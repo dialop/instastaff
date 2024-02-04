@@ -58,7 +58,7 @@ const MapPage = () => {
   
   const selectedMarker = markers.find((marker) => marker.id === selectedJobId);
 
-  // Handle clicking on a marker to view job details
+  // map marker to view job details
   const viewJobDetails = (jobId) => {
     const job = state.jobPostings.find((job) => job.id === jobId);
     setSelectedJob(job); 

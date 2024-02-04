@@ -8,11 +8,15 @@ import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import notifications from "../helpers/notifications";
+import { useParams } from "react-router-dom";
 
 TimeAgo.addDefaultLocale(en);
 
 const JobPostings = () => {
   const { jobData, setJobData } = useContext(JobsContext);
+
+  const params = useParams();
+  console.log(params);
 
   const [open, setOpen] = useState(false);
   const [jobId, setJobId] = useState(0);
@@ -28,9 +32,21 @@ const JobPostings = () => {
     [updateJob, jobId]
   );
 
+  useEffect(
+   () => {
+    setJobId(params?.jobId)
+    setOpen(!open);
+   },
+   [params]
+  );
+
   const clickedJob = (jobId) => {
-    return jobData.find((job) => job.id === jobId);
-  };
+    console.log(jobId, "jobId");
+    let result = jobData.find((job) => job.id == jobId);
+    console.log(result, 'jobId result');
+    return result
+
+};
 
   const handleupdateJob = async (e) => {
     let id = Number(jobId);
@@ -185,38 +201,38 @@ const handleNotifications = async (job) => {
           <Modal>
             <div className="relative flex flex-col gap-2 bg-white p-8 rounded-lg h-[600px] w-[38vw] min-w-[330px]">
               <h1 className="text-5xl text-black mt-4 mb-1 ">
-                {clickedJob(jobId).facility_name}
+                {clickedJob(jobId)?.facility_name}
               </h1>
               <hr />
               <div className="flex w-full justify-between align-center text-2xl font-medium">
                 <h1 className="text-3xl text-black mt-1">
-                  {clickedJob(jobId).title}
+                  {clickedJob(jobId)?.title}
                 </h1>
                 <p className="text-xl text-black pt-2">
-                  ${clickedJob(jobId).rate}/ hr
+                  ${clickedJob(jobId)?.rate}/ hr
                 </p>
               </div>
               <div className="flex w-full justify-between text-2xl font-medium">
                 <p className="text-[1.15rem] text-black mt-1">
                   {moment(
-                    clickedJob(jobId).date,
+                    clickedJob(jobId)?.date,
                     "YYYY-MM-DDTHH:mm:sssZ"
                   ).format("MMMM Do YYYY")}
                 </p>
                 <p className="text-[1.15rem] text-black mt-1">
-                  {moment(clickedJob(jobId).start_time, "HH:mm:ss").format(
+                  {moment(clickedJob(jobId)?.start_time, "HH:mm:ss").format(
                     "h:mm A"
                   )}
                 </p>
               </div>
               <div className="flex w-full justify-between text-2xl font-medium">
                 <p className="text-[1.09rem] text-black">
-                  {clickedJob(jobId).type_of_worker}:{" "}
-                  {clickedJob(jobId).duration} hours
+                  {clickedJob(jobId)?.type_of_worker}:{" "}
+                  {clickedJob(jobId)?.duration} hours
                 </p>
               </div>
               <p className="text-[1rem] text-black">
-                Gender : {clickedJob(jobId).gender}
+                Gender : {clickedJob(jobId)?.gender}
               </p>
               {/* <p className="text-black mt-4"> */}
               <ul className="text-black mt-1">
@@ -238,7 +254,7 @@ const handleNotifications = async (job) => {
                 Maintain accurate patient records and documentation.
               </ul>
               {/* </p> */}
-              {clickedJob(jobId).is_filled ? (
+              {clickedJob(jobId)?.is_filled ? (
                 <div className="absolute w-full pr-16 py-8 bottom-0 flex flex-row gap-2">
                   <button
                     onClick={() => setOpen(!open)}
