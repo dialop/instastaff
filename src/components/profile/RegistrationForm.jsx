@@ -6,12 +6,7 @@ import { TextField,
   Button, 
   Container, 
   Typography, 
-  MenuItem, 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogContentText, 
-  DialogActions } from '@mui/material';
+  MenuItem } from '@mui/material';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -40,7 +35,6 @@ const RegistrationForm = () => {
     badge_id: null,
     points: 0,
   });
-  const [open, setOpen] = useState(false);
   const [formVisible, setFormVisible] = useState(true);
 
 
@@ -70,11 +64,6 @@ const RegistrationForm = () => {
     // Send data to backend. Add logic here.
     setIsRegistered(true);
     setFormVisible(false);
-    setTimeout(() => setOpen(true), 300);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   if (!isAuthenticated || isRegistered) {
@@ -104,19 +93,6 @@ const RegistrationForm = () => {
           </form>
         </Container>
       )}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Registration Successful</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            You have successfully registered. Welcome aboard!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 };
