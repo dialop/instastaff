@@ -1,11 +1,9 @@
-// - MAP COMPONENT TO DISPLAY GOOGLE MAPS - //
-
 import React, { useEffect, useRef, useState } from 'react';
 import MarkerDetail from './MarkerDetail';
 import ReactDOM from 'react-dom';
 import '../styles/Map.css';
 
-const Map = ({ location, borders, markers, origin, destination }) => {
+const Map = ({ location, borders, markers, origin, destination, viewJobDetails }) => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
   const [markerWindow, setMarkerWindow] = useState([]);
@@ -48,7 +46,6 @@ const Map = ({ location, borders, markers, origin, destination }) => {
         });
 
         const infoWindow = createInfoWindow(markerData);
-        setMarkerWindow((prevWindows) => [...prevWindows, infoWindow]);
 
         marker.addListener('click', () => {
           markerWindow.forEach((iw) => iw.close());
@@ -78,7 +75,7 @@ const Map = ({ location, borders, markers, origin, destination }) => {
 
     const createInfoWindow = (markerData) => {
       const content = document.createElement('div');
-      ReactDOM.render(<MarkerDetail markerData={markerData} />, content);
+      ReactDOM.render(<MarkerDetail markerData={markerData} viewJobDetails={viewJobDetails} />, content);
       return new window.google.maps.InfoWindow({ content: content });
     };
 
@@ -87,11 +84,10 @@ const Map = ({ location, borders, markers, origin, destination }) => {
       directionsService.route({
         origin: origin,
         destination: destination,
-        travelMode: window.google.maps.TravelMode.DRIVING, // or WALKING, BICYCLING
+        travelMode: window.google.maps.TravelMode.DRIVING,
       }, (response, status) => {
         if (status === 'OK') {
           directionsRenderer.setDirections(response);
-          // Here you can extract and display distance and duration information
           const route = response.routes[0].legs[0];
           displayRouteInfo(route.distance.text, route.duration.text);
         } else {
@@ -102,7 +98,6 @@ const Map = ({ location, borders, markers, origin, destination }) => {
 
     const displayRouteInfo = (distance, duration) => {
       console.log(`Distance: ${distance}, Duration: ${duration}`);
-      // Implement the display logic or pass distance and duration to the parent component
     };
 
     if (!window.google || !window.google.maps) {
@@ -112,12 +107,11 @@ const Map = ({ location, borders, markers, origin, destination }) => {
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
-      window.initMap = initMap; // Make initMap available globally
+      window.initMap = initMap;
     } else {
       initMap();
     }
 
-    // Cleanup function to remove global initMap reference and Google Maps script
     return () => {
       window.initMap = null;
     };
