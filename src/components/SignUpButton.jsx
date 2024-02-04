@@ -22,7 +22,6 @@ const SignUpButton = () => {
 
         console.log(userData);
 
-        // do not hardcode
         const response = await fetch('/user', {
           method: 'POST',
           headers: {
@@ -31,10 +30,6 @@ const SignUpButton = () => {
           },
           body: JSON.stringify(userData),
         });
-
-        // if (response.status === 409) {
-        //   alert('Email already in use. Please log in or use a different email.');
-        // } 
         
         if (!response.ok) {
           throw new Error('Failed to send user data to backend');

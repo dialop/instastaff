@@ -10,8 +10,8 @@ import { JobsContextProvider } from "./context/index";
 import ProfilePage from "./components/ProfilePage";
 import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
-import ChatBox from "./components/ChatBox"; // Adjust the import path
-
+import ChatBox from "./components/ChatBox";
+import { RegistrationProvider } from './context/RegistrationContext';
 
 function Home() {
   return <div>{/* Home page content */}</div>;
@@ -30,22 +30,24 @@ function App() {
       clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG"
       redirectUri={window.location.origin}
     >
-      <ApplicationDataProvider> 
+      <ApplicationDataProvider>
         <JobsContextProvider>
-          <BrowserRouter>
-            <Navbar />
-            <UserHeader />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/maps" element={<MapPage />} />
-              <Route path="/jobs" element={<JobPostings />} />
-              <Route path="/jobs/:jobId" element={<JobPostings />} />
-              <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} /> 
-            </Routes>
-            <Footer />
-          </BrowserRouter>
+          <RegistrationProvider>
+            <BrowserRouter>
+              <Navbar />
+              <UserHeader />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/maps" element={<MapPage />} />
+                <Route path="/jobs" element={<JobPostings />} />
+                <Route path="/jobs/:jobId" element={<JobPostings />} />
+                <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </RegistrationProvider>
         </JobsContextProvider>
       </ApplicationDataProvider>
     </Auth0Provider>
