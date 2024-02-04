@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { TextField, Button, Container, Typography, MenuItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { TextField, 
+  Button, 
+  Container, 
+  Typography, 
+  MenuItem, 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogContentText, 
+  DialogActions } from '@mui/material';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -29,6 +38,7 @@ const RegistrationForm = () => {
     badge_id: null,
     points: 0,
   });
+  const [open, setOpen] = useState(false); // State to control Dialog visibility
 
   useEffect(() => {
     if (user) {
@@ -54,6 +64,12 @@ const RegistrationForm = () => {
     const accessToken = await getAccessTokenSilently();
     console.log(formData, accessToken);
     // Send data to backend
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    // Optionally reset form or redirect the user
   };
 
   if (!isAuthenticated) {
@@ -61,25 +77,40 @@ const RegistrationForm = () => {
   }
 
   return (
-    <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
-      <Typography variant="h5" className="text-center mb-4 font-bold">Complete Registration</Typography>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Input fullWidth label="First Name" name="first_name" variant="outlined" value={formData.first_name} onChange={handleChange} />
-        <Input fullWidth label="Last Name" name="last_name" variant="outlined" value={formData.last_name} onChange={handleChange} />
-        <Input fullWidth label="Email" name="email" variant="outlined" value={formData.email} onChange={handleChange} />
-        <Input fullWidth label="Username" name="handle" variant="outlined" value={formData.handle} onChange={handleChange} />
-        <Input fullWidth label="Gender" name="gender" variant="outlined" value={formData.gender} onChange={handleChange} />
-        <Input select fullWidth label="Occupation" name="occupation" variant="outlined" value={formData.occupation} onChange={handleChange}>
-          <MenuItem value="Personal Support Worker">Personal Support Worker</MenuItem>
-          <MenuItem value="Registered Nurse">Registered Nurse</MenuItem>
-          <MenuItem value="Super Nurse">Super Nurse</MenuItem>
-        </Input>        
-        <Input fullWidth label="License" name="license" variant="outlined" value={formData.license} onChange={handleChange} />
-        <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
-          Submit
-        </Button>
-      </form>
-    </Container>
+    <>
+      <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
+        <Typography variant="h5" className="text-center mb-4 font-bold">Complete Registration</Typography>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input fullWidth label="First Name" name="first_name" variant="outlined" value={formData.first_name} onChange={handleChange} />
+          <Input fullWidth label="Last Name" name="last_name" variant="outlined" value={formData.last_name} onChange={handleChange} />
+          <Input fullWidth label="Email" name="email" variant="outlined" value={formData.email} onChange={handleChange} />
+          <Input fullWidth label="Username" name="handle" variant="outlined" value={formData.handle} onChange={handleChange} />
+          <Input fullWidth label="Gender" name="gender" variant="outlined" value={formData.gender} onChange={handleChange} />
+          <Input select fullWidth label="Occupation" name="occupation" variant="outlined" value={formData.occupation} onChange={handleChange}>
+            <MenuItem value="Personal Support Worker">Personal Support Worker</MenuItem>
+            <MenuItem value="Registered Nurse">Registered Nurse</MenuItem>
+            <MenuItem value="Super Nurse">Super Nurse</MenuItem>
+          </Input>        
+          <Input fullWidth label="License" name="license" variant="outlined" value={formData.license} onChange={handleChange} />
+          <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
+            Submit
+          </Button>
+        </form>
+      </Container>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Registration Successful</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            You have successfully registered. Welcome aboard!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
