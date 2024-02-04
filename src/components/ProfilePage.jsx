@@ -108,9 +108,11 @@ function ProfilePage() {
   };
 
   return (
-
     <Box m={2}>
-      <RegistrationForm />
+      <Box mb={3}>
+        <RegistrationForm />
+      </Box>
+
       <Grid container spacing={2}>
         {/* Avatar and Name Section */}
         <Grid item xs={12} sm={6} md={13}>
