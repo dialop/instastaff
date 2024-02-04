@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { JobsContext } from "../context";
 import Modal from "./JobPostingsModal";
 import { FaCheckToSlot } from "react-icons/fa6";
@@ -23,23 +23,19 @@ const JobPostings = () => {
   const [jobStatus, setJobStatus] = useState({ is_filled: false });
   const [updateJob, setUpdateJob] = useState(false);
 
-  useEffect(
-    (e) => {
-      if (updateJob) {
-        handleupdateJob();
-      }
-    },
-    [updateJob, jobId]
-  );
+  const prevJobIdRef = useRef();
 
-  useEffect(
-   () => {
-    setJobId(params?.jobId)
-    setOpen(!open);
-   },
-   [params]
-  );
+useEffect(() => {
+  prevJobIdRef.current = jobId;
+}, [jobId]);
 
+useEffect(() => {
+  const prevJobId = prevJobIdRef.current;
+  if (params?.jobId && params.jobId !== prevJobId) {
+    setJobId(params.jobId);
+    setOpen(true);
+  }
+}, [params]);
   const clickedJob = (jobId) => {
     console.log(jobId, "jobId");
     let result = jobData.find((job) => job.id == jobId);
