@@ -28,7 +28,6 @@ const RegistrationForm = () => {
     license: 'RN007',
     badge_id: null,
     points: 0,
-    // token: '', // Handled separately
   });
 
   useEffect(() => {
@@ -40,7 +39,7 @@ const RegistrationForm = () => {
         last_name: user.family_name || '',
         email: user.email || '',
         profile_picture: user.picture || '',
-        handle, // Set the generated handle
+        handle,
       }));
     }
   }, [user]);
@@ -58,18 +57,17 @@ const RegistrationForm = () => {
   };
 
   if (!isAuthenticated) {
-    return null; // Or any other indication that the user is not logged in
+    return null;
   }
 
   return (
     <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
-      <Typography variant="h5" className="text-center mb-4 font-bold">Complete Your Registration</Typography>
+      <Typography variant="h5" className="text-center mb-4 font-bold">Complete Registration</Typography>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input fullWidth label="First Name" name="first_name" variant="outlined" value={formData.first_name} onChange={handleChange} />
         <Input fullWidth label="Last Name" name="last_name" variant="outlined" value={formData.last_name} onChange={handleChange} />
         <Input fullWidth label="Email" name="email" variant="outlined" value={formData.email} onChange={handleChange} />
         <Input fullWidth label="Username" name="handle" variant="outlined" value={formData.handle} onChange={handleChange} />
-        {/* <Input fullWidth label="Password" name="password" variant="outlined" type="password" value={formData.password} onChange={handleChange} /> */}
         <Input fullWidth label="Gender" name="gender" variant="outlined" value={formData.gender} onChange={handleChange} />
         <Input select fullWidth label="Occupation" name="occupation" variant="outlined" value={formData.occupation} onChange={handleChange}>
           <MenuItem value="Personal Support Worker">Personal Support Worker</MenuItem>
@@ -77,9 +75,8 @@ const RegistrationForm = () => {
           <MenuItem value="Super Nurse">Super Nurse</MenuItem>
         </Input>        
         <Input fullWidth label="License" name="license" variant="outlined" value={formData.license} onChange={handleChange} />
-        {/* Additional fields as necessary */}
         <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
-          Register
+          Submit
         </Button>
       </form>
     </Container>
