@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardContent, Avatar, Button, IconButton, Paper, Badge, TextField } from '@mui/material';
 import { blue } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import EditIcon from '@mui/icons-material/Edit'; 
 import BarChartComponent from './profile/BarChartComponent';
 import Rewards from './profile/rewards/Rewards';
 import GiftCard from './profile/rewards/GiftCard'; 
 import PieChartInsentive from './profile/PieChartInsentive';
-import { styled } from '@mui/material/styles';
+import RegistrationForm from './profile/RegistrationForm';
 
 // Define a styled Avatar component
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -107,7 +108,9 @@ function ProfilePage() {
   };
 
   return (
+
     <Box m={2}>
+      <RegistrationForm />
       <Grid container spacing={2}>
         {/* Avatar and Name Section */}
         <Grid item xs={12} sm={6} md={13}>
