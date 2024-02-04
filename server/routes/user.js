@@ -41,5 +41,44 @@ module.exports = (pool) => {
     }
   });
 
+// PUT to update existing user from Auth0 id.
+  router.put('/update', async (req, res) => {
+    const { 
+      auth0_id, 
+      email, 
+      first_name, 
+      last_name, 
+      profile_picture, 
+      gender, 
+      occupation, 
+      license, 
+      isHero 
+    } = req.body;
+
+    try {
+      const updateUserQuery = `
+        UPDATE users
+        SET email = $1, first_name = $2, last_name = $3, profile_picture = $4, 
+            gender = $5, occupation = $6, license = $7, isHero = $8
+        WHERE auth0_id = $9
+        RETURNING *;
+      `;
+      const values = [
+        email, first_name, last_name, profile_picture, 
+        gender, occupation, license, isHero, auth0_id
+      ];
+      const result = await pool.query(updateUserQuery, values);
+
+      if (result.rows.length > 0) {
+        res.json(result.rows[0]);
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (err) {
+      console.error('Error updating user data:', err);
+      res.status(500).send('Server error');
+    }
+  });
+
   return router;
 };

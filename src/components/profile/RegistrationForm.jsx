@@ -6,7 +6,6 @@ import {
   Button,
   Checkbox,
   Container,
-  FormControlLabel,
   MenuItem,
   Snackbar,
   TextField,
@@ -38,7 +37,7 @@ const RegistrationForm = () => {
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
-    isHero: false, // Changed from '' to false
+    isHero: false, 
     points: 0,
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -66,13 +65,33 @@ const RegistrationForm = () => {
     e.preventDefault();
     try {
       const accessToken = await getAccessTokenSilently();
-      // Logic to send data to backend should be implemented here
-      console.log(formData, accessToken);
+      const userData = {
+        ...formData,
+        auth0_id: user.sub, // Assuming `user.sub` contains the Auth0 user ID.
+      };
+      console.log(userData, accessToken);
+      
+      // Logic to send data to backend.
+      const response = await fetch('/user/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update user data');
+      }
+      const responseData = await response.json();
+      console.log('Update successful:', responseData);
+
       setIsRegistered(true);
       setSnackbarOpen(true);
+
     } catch (error) {
       console.error("Error during form submission:", error);
-      // Optionally, provide user feedback on error
     }
   };
 
