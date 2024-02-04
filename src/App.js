@@ -11,6 +11,7 @@ import MapPage from "./components/MapPage";
 import JobPostings from "./components/JobPostings";
 import { JobsContextProvider } from "./context/index";
 import ProfilePage from "./components/ProfilePage";
+import AdminPostShift from "./components/AdminPostShift";
 
 function Home() {
   return <div>{/* Home page content */}</div>;
@@ -34,7 +35,8 @@ function App() {
             <Route path="/jobs" element={<JobPostings />} /> {/* Jobs Route */}
             <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
             <Route path="/profile" element={<ProfilePage />} /> {/* Profile Route */}
-          </Routes>
+            <Route path="/post-shift" element={<AdminPostShift />} /> {/* Post Jobs Route */}
+            </Routes>
           <Footer />
         </BrowserRouter>
       </JobsContextProvider>
