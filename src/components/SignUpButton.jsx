@@ -13,6 +13,7 @@ const SignUpButton = () => {
       try {
         const accessToken = await getAccessTokenSilently();
         const userData = {
+          auth0_id: user.sub,
           email: user.email,
           first_name: user.given_name,
           last_name: user.family_name,

@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS users CASCADE;
 -- USERS TABLE
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  auth0_id VARCHAR(50),
+  auth0_id VARCHAR(255),
   first_name VARCHAR(255),
   last_name VARCHAR(255),
   email VARCHAR(255) NOT NULL,
