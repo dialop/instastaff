@@ -109,12 +109,14 @@ function ProfilePage() {
 
   return (
     <Box m={2}>
+      
+      {/* Registration Form */}
       <Box mb={3}>
         <RegistrationForm />
       </Box>
 
+      {/* Profile Card */}
       <Grid container spacing={2}>
-        {/* Avatar and Name Section */}
         <Grid item xs={12} sm={6} md={13}>
           <Card sx={{ textAlign: 'center', p: 2 }}>
             <input
