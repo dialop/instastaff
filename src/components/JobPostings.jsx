@@ -152,6 +152,7 @@ const handleNotifications = async (job) => {
           </div>
         </div>
       </div>
+
       <div className="grid gap:8 3xl:grid-cols-4 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 xs:flex justify-center gap-8">
         {jobData &&
           jobData.map((job, index) => (
