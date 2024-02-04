@@ -8,6 +8,7 @@ module.exports = (pool) => {
     console.log(req.body);
     
     const { 
+      auth0_id,
       email, 
       first_name, 
       last_name, 
@@ -27,12 +28,12 @@ module.exports = (pool) => {
 
       // Insert new user
       const insertQuery = `
-        INSERT INTO users (email, first_name, last_name, profile_picture)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO users (auth0_id, email, first_name, last_name, profile_picture)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
       `;
       const newUser = await pool.query(insertQuery, 
-        [email, first_name, last_name, profile_picture]);
+        [auth0_id, email, first_name, last_name, profile_picture]);
       res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error('Error handling user data:', err);
