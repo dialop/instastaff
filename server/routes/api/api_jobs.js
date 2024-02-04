@@ -25,12 +25,15 @@ module.exports = (pool) => {
       });
   });
   
-  // GET api/jobs
-  router.get("/", (req, res) => {
-    pool.query("SELECT * FROM job_postings")
-      .then((result) => res.json(result.rows))
-      .catch((err) => res.status(500).json({ error: err.message }));
-  });
+// GET api/jobs
+router.get("/", (req, res) => {
+  pool.query(`
+    SELECT * FROM job_postings
+  `)
+  .then((result) => res.json(result.rows))
+  .catch((err) => res.status(500).json({ error: err.message }));
+});
+
 
   router.get("/:id", (req, res) => {
     const id = req.params.id;
