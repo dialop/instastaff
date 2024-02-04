@@ -30,3 +30,8 @@
   outline: none;
   ring: 0;
 }
+
+.green-button {
+  background-color: green;
+  color: white; /* Change text color to white for better visibility */
+}

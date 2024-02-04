@@ -1,13 +1,15 @@
 // - MAP COMPONENT TO DISPLAY GOOGLE MAPS - //
 
 import React, { useEffect, useRef, useState } from 'react';
-import MarkerDetail from './MarkerDetail'; 
-import ReactDOM from 'react-dom'; 
+import MarkerDetail from './MarkerDetail';
+import ReactDOM from 'react-dom';
 import '../styles/Map.css';
 
-const Map = ({ location, borders, markers }) => {
+const Map = ({ location, borders, markers, origin, destination }) => {
   const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
   const [markerWindow, setMarkerWindow] = useState([]);
+  const [directionsRenderer, setDirectionsRenderer] = useState(null);
 
   useEffect(() => {
     const initMap = () => {
@@ -28,39 +30,32 @@ const Map = ({ location, borders, markers }) => {
           { featureType: 'water', elementType: 'geometry' },
         ],
       };
+      const newMap = new window.google.maps.Map(mapRef.current, mapOptions);
+      setMap(newMap);
 
-      const map = new window.google.maps.Map(mapRef.current, mapOptions);
-
-      const createInfoWindow = (markerData) => {
-        const content = document.createElement('div');
-        ReactDOM.render(<MarkerDetail markerData={markerData} />, content);
-
-        return new window.google.maps.InfoWindow({
-          content: content,
-        });
-      };
+      const newDirectionsRenderer = new window.google.maps.DirectionsRenderer();
+      newDirectionsRenderer.setMap(newMap);
+      setDirectionsRenderer(newDirectionsRenderer);
 
       markers.forEach((markerData) => {
         const marker = new window.google.maps.Marker({
           position: {
             lat: parseFloat(markerData.lat),
-            lng: parseFloat(markerData.lng)
+            lng: parseFloat(markerData.lng),
           },
-          map: map,
-          title: markerData.title
+          map: newMap,
+          title: markerData.title,
         });
-      
-        const infoWindow = createInfoWindow(markerData);
 
+        const infoWindow = createInfoWindow(markerData);
         setMarkerWindow((prevWindows) => [...prevWindows, infoWindow]);
 
         marker.addListener('click', () => {
           markerWindow.forEach((iw) => iw.close());
-          infoWindow.open(map, marker);
+          infoWindow.open(newMap, marker);
         });
       });
 
-      // Borders on the map and shade the inside area
       borders.forEach((borderPath) => {
         const borderCoordinates = borderPath.map((coord) =>
           new window.google.maps.LatLng(coord.lat, coord.lng)
@@ -73,23 +68,60 @@ const Map = ({ location, borders, markers }) => {
           fillColor: '#FF0000',
           fillOpacity: 0.04,
         });
-        shadedArea.setMap(map);
+        shadedArea.setMap(newMap);
       });
+
+      if (origin && destination) {
+        calculateAndDisplayRoute(newDirectionsRenderer, origin, destination);
+      }
+    };
+
+    const createInfoWindow = (markerData) => {
+      const content = document.createElement('div');
+      ReactDOM.render(<MarkerDetail markerData={markerData} />, content);
+      return new window.google.maps.InfoWindow({ content: content });
+    };
+
+    const calculateAndDisplayRoute = (directionsRenderer, origin, destination) => {
+      const directionsService = new window.google.maps.DirectionsService();
+      directionsService.route({
+        origin: origin,
+        destination: destination,
+        travelMode: window.google.maps.TravelMode.DRIVING, // or WALKING, BICYCLING
+      }, (response, status) => {
+        if (status === 'OK') {
+          directionsRenderer.setDirections(response);
+          // Here you can extract and display distance and duration information
+          const route = response.routes[0].legs[0];
+          displayRouteInfo(route.distance.text, route.duration.text);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+    };
+
+    const displayRouteInfo = (distance, duration) => {
+      console.log(`Distance: ${distance}, Duration: ${duration}`);
+      // Implement the display logic or pass distance and duration to the parent component
     };
 
     if (!window.google || !window.google.maps) {
       const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
-      script.addEventListener('load', initMap);
+      window.initMap = initMap; // Make initMap available globally
     } else {
-
       initMap();
     }
-  }, [location, borders, markers]);
+
+    // Cleanup function to remove global initMap reference and Google Maps script
+    return () => {
+      window.initMap = null;
+    };
+  }, [location, borders, markers, origin, destination]);
 
   return <div ref={mapRef} style={{ height: '87vh', width: '100%' }} />;
 };
