@@ -37,7 +37,7 @@ const RegistrationForm = () => {
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
-    isHero: false, 
+    isHero: true, 
     points: 0,
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -89,7 +89,8 @@ const RegistrationForm = () => {
 
       setIsRegistered(true);
       setSnackbarOpen(true);
-
+      
+      alert("Registration complete. Welcome aboard!");
     } catch (error) {
       console.error("Error during form submission:", error);
     }
@@ -123,21 +124,21 @@ const RegistrationForm = () => {
           </Input>
           <Input fullWidth label="License" name="license" variant="outlined" value={formData.license} onChange={handleChange} />
           <Box className="flex flex-col mb-4 p-4 bg-blue-100 rounded-lg border border-blue-200 shadow-md">
-  <Typography variant="body1" className="font-extrabold text-black-800">
-    Do you want to participate in our Emergency Hero program?
-  </Typography>
-  <Box className="flex items-center mt-3">
-    <Checkbox
-      checked={formData.isHero}
-      onChange={handleChange}
-      name="isHero"
-      color="primary"
-    />
-    <Typography variant="body1" className="ml-2 italic text-blue-700">
-      Yes, I want to be a Hero.
-    </Typography>
-  </Box>
-</Box>
+            <Typography variant="body1" className="font-extrabold text-black-800">
+              Do you want to participate in our Emergency Hero program?
+            </Typography>
+            <Box className="flex items-center mt-3">
+              <Checkbox
+                checked={formData.isHero}
+                onChange={handleChange}
+                name="isHero"
+                color="primary"
+              />
+              <Typography variant="body1" className="ml-2 italic text-blue-700">
+                Yes, I want to be a Hero.
+              </Typography>
+            </Box>
+          </Box>
           <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
             Submit
           </Button>
