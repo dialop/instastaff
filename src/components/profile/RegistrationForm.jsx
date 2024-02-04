@@ -15,7 +15,7 @@ const Input = styled(TextField)({
 });
 
 const RegistrationForm = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -52,9 +52,14 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    const accessToken = await getAccessTokenSilently();
+    console.log(formData, accessToken);
+    // Send data to backend
   };
+
+  if (!isAuthenticated) {
+    return null; // Or any other indication that the user is not logged in
+  }
 
   return (
     <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
