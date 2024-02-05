@@ -51,7 +51,7 @@ const PostShiftForm = () => {
     event.preventDefault();
   
     try {
-      const postingResponse = await fetch('http://localhost:3001/api/post-shift', {
+      const postingResponse = await fetch('/post-shift', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,12 +117,12 @@ return (
                 onChange={handleInputChange}
               >
                 <FormControlLabel
-                  value="nurse"
+                  value="Registered Nurse"
                   control={<Radio />}
                   label="Registered Nurse"
                 />
                 <FormControlLabel
-                  value="psw"
+                  value="Personal Support Worker"
                   control={<Radio />}
                   label="Personal Support Worker"
                 />

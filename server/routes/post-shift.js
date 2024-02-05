@@ -1,17 +1,17 @@
 const express = require("express");
   const router = express.Router();
-  // const { pool } = require("../lib/db");
+  const { pool } = require("../lib/db");
   require('dotenv').config();
 
   console.log('are you working?');
 
-  router.post('/post-shift', (req, res) => {
+  router.post('/', (req, res) => {
     console.log('Received POST request to /post-shift');
     const { formData} = req.body;
     console.log(req.body);
     return pool
     .query(
-      `INSERT INTO job_postings (facility_name, type_of_worker, rate, gender, duration, date, start_time)
+      `INSERT INTO job_postings (facility_name, title, rate, gender, duration, date, start_time)
       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`,
     [formData.facility, 
       formData.workerType,
@@ -26,12 +26,10 @@ const express = require("express");
       return result.rows[0];
     })
     .catch((err) => {
-      console.log(`Failed to add`);
+      console.log(`Failed to add`, err.message);
     });
   })
   
-
-
   module.exports = router;
 
 // const express = require("express");
