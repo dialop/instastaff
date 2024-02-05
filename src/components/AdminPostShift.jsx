@@ -49,35 +49,55 @@ const PostShiftForm = () => {
     console.log(formData);
   }, [formData]); 
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+ const handleFormSubmit = async (event) => {
+  event.preventDefault();
 
-    try {
-      const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-          formData.address
-        )}&key=${apiKey}`
-      );
+  try {
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    const geoCodeResponse = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        formData.address
+      )}&key=${apiKey}`
+    );
 
-      const data = await response.json();
+    const geoCodeData = await geoCodeResponse.json();
 
-      if (data.results && data.results.length > 0) {
-        const location = data.results[0].geometry.location;
-        setLatitude(location.lat);
-        setLongitude(location.lng);
+    if (geoCodeData.results && geoCodeData.results.length > 0) {
+      const location = geoCodeData.results[0].geometry.location;
+      setLatitude(location.lat);
+      setLongitude(location.lng);
 
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          latitude: location.lat,
-          longitude: location.lng,
-        }));
-      }
-    } catch (error) {
-      console.error('Error fetching geocode data', error);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        latitude: location.lat,
+        longitude: location.lng,
+      }));
     }
 
-  };
+    const postingResponse = await fetch('http://localhost:3001/api/post-shift', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        formData,
+        latitude,
+        longitude,
+      }),
+    });
+
+    if (postingResponse.ok) {
+      // Booking successful, handle any client-side logic as needed
+      console.log('Shift posted successfully');
+    } else {
+      // Handle error response from the server
+      console.error('Failed to post shift');
+    }
+  } catch (error) {
+    console.error('Error during posting process', error);
+  }
+};
+
 
   return (
     <>
