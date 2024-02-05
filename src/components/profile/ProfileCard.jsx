@@ -1,25 +1,69 @@
-import React from 'react';
-import { Avatar, CardContent, Chip, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, Container, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/VerifiedUser';
 import WorkIcon from '@mui/icons-material/Work';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
+import { Avatar, 
+  CardContent, 
+  Chip, 
+  Container, 
+  Divider, 
+  Grid, 
+  List, 
+  ListItem, 
+  ListItemIcon, 
+  ListItemText, 
+  Paper, 
+  Typography } from '@mui/material';
+
 
 const ProfileCard = () => {
-  const profile = {
-    first_name: 'Jane',
-    last_name: 'Doe',
-    handle: 'jane_doe_nurse',
-    email: 'jane.doe@example.com',
-    profile_picture: 'https://i.pravatar.cc/300',
-    gender: 'Female',
-    occupation: 'Super Nurse',
-    license: 'RN007',
-    isHero: true,
-    points: 120,
-  };
+  const { user, getAccessTokenSilently } = useAuth0();
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const accessToken = await getAccessTokenSilently();
+      const auth0_id = user.sub; // Use the appropriate ID property
+
+      try {
+        const response = await fetch('/user/profile', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'auth0_id': auth0_id, // Pass Auth0 ID in the header
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile');
+        }
+
+        const profileData = await response.json();
+        setProfile(profileData);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+
+    fetchProfile();
+  }, [user?.sub, getAccessTokenSilently]);
+  
+  // const profile = {
+  //   first_name: 'Jane',
+  //   last_name: 'Doe',
+  //   handle: 'jane_doe_nurse',
+  //   email: 'jane.doe@example.com',
+  //   profile_picture: 'https://i.pravatar.cc/300',
+  //   gender: 'Female',
+  //   occupation: 'Super Nurse',
+  //   license: 'RN007',
+  //   isHero: true,
+  //   points: 120,
+  // };
 
   return (
     <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
