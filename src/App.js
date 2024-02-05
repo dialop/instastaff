@@ -12,10 +12,8 @@ import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
 import { RegistrationProvider } from './context/RegistrationContext';
+import Home from './components/home/Home'
 
-function Home() {
-  return <div>{/* Home page content */}</div>;
-}
 
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
