@@ -26,23 +26,23 @@ const ProfileCard = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      if (!user) return;
+      
       const accessToken = await getAccessTokenSilently();
-      const auth0_id = user.sub; // Use the appropriate ID property
-
       try {
-        const response = await fetch('/user/profile', {
+        const response = await fetch(`/user/profile/${user.sub}`, { // Ensure endpoint matches the server route
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            'auth0_id': auth0_id, // Pass Auth0 ID in the header
           },
         });
-
+    
         if (!response.ok) {
           throw new Error('Failed to fetch profile');
         }
-
+    
         const profileData = await response.json();
+        console.log(profileData); // Log to verify data structure
         setProfile(profileData);
       } catch (error) {
         console.error('Error fetching profile:', error);
@@ -52,6 +52,7 @@ const ProfileCard = () => {
     fetchProfile();
   }, [user?.sub, getAccessTokenSilently]);
   
+  // Sample Data
   // const profile = {
   //   first_name: 'Jane',
   //   last_name: 'Doe',

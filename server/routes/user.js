@@ -82,7 +82,41 @@ module.exports = (pool) => {
   });
 
   // GET user information by Auth0 ID
-  router.get('/profile', async (req, res) => {
+  router.get('/profile/:auth0_id', async (req, res) => {
+    const { auth0_id } = req.params;
+
+    try {
+      const userQuery = 'SELECT * FROM users WHERE auth0_id = $1';
+      const userResult = await pool.query(userQuery, [auth0_id]);
+
+      if (userResult.rows.length === 0) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      const user = userResult.rows[0];
+      res.json({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        handle: user.handle,
+        email: user.email,
+        profile_picture: user.profile_picture,
+        gender: user.gender,
+        occupation: user.occupation,
+        license: user.license,
+        isHero: user.ishero,
+        points: user.points,
+      });
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).send('Server error');
+    }
+  });
+
+  return router;
+};
+
+  // GET user information by Auth0 ID
+  router.get('/profile/:auth0_id', async (req, res) => {
     const { auth0_id } = req.params;
 
     try {
