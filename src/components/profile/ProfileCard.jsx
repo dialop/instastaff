@@ -1,40 +1,74 @@
 import React from 'react';
-import { Card, CardContent, Typography, Avatar, Chip } from '@mui/material';
+import { Avatar, Card, CardContent, Chip, Divider, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography, Container } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import BadgeIcon from '@mui/icons-material/VerifiedUser';
+import WorkIcon from '@mui/icons-material/Work';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LicenseIcon from '@mui/icons-material/CardMembership';
 
 const ProfileCard = () => {
-
-  // Sample data, replace with userData from backend.
   const profile = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    occupation: 'Registered Nurse',
+    first_name: 'Jane',
+    last_name: 'Doe',
+    handle: 'jane_doe_nurse',
+    email: 'jane.doe@example.com',
+    profile_picture: 'https://i.pravatar.cc/300',
+    gender: 'Female',
+    occupation: 'Super Nurse',
+    license: 'RN007',
     isHero: true,
-    profilePicture: 'https://i.pravatar.cc/300',
+    points: 120,
   };
 
   return (
-    <Card className="max-w-sm mx-auto mt-10 bg-white shadow-md overflow-hidden md:max-w-2xl">
-      <div className="flex justify-center mt-4">
-        <Avatar alt="User" src={profile.profilePicture} sx={{ width: 100, height: 100 }} />
-      </div>
-      <CardContent>
-        <Typography className="text-center text-xl font-semibold mb-2">
-          {profile.firstName} {profile.lastName}
-        </Typography>
-        <Typography className="text-center text-gray-600 mb-2">
-          {profile.occupation}
-        </Typography>
-        <Typography className="text-center text-gray-500 mb-4">
-          {profile.email}
-        </Typography>
-        {profile.isHero && (
-          <div className="flex justify-center">
-            <Chip label="Emergency Hero" color="primary" />
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
+        <CardContent>
+          <Grid container spacing={2} alignItems="center">
+            <div className="flex flex-col items-center">
+              <Avatar alt={`${profile.first_name} ${profile.last_name}`} src={profile.profile_picture} sx={{ width: 100, height: 100, mb: 2 }} />
+              <Chip label={profile.gender} variant="outlined" sx={{ mb: 1 }} />
+              {profile.isHero && (
+                <Chip icon={<BadgeIcon />} label="Emergency Hero" color="primary" sx={{ mb: 1 }} />
+              )}
+            </div>
+            <Divider orientation="vertical" flexItem sx={{ mx: 2, display: { xs: 'none', sm: 'block' } }} />
+            <Grid item xs={12} sm={7}>
+              <Typography variant="h5" component="h2" className="font-bold mb-2">
+                {profile.first_name} {profile.last_name}
+              </Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemIcon>
+                    <AccountBoxIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="Username" secondary={profile.handle} />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <WorkIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="Occupation" secondary={profile.occupation} />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <LicenseIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="License" secondary={profile.license} />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <EmailIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="Email" secondary={profile.email} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Rewards" secondary={`${profile.points} points`} />
+                </ListItem>
+              </List>
+            </Grid>
+          </Grid>
+        </CardContent>
+    </Container>
   );
 };
 
