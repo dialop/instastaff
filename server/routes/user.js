@@ -81,5 +81,7 @@ module.exports = (pool) => {
     }
   });
 
+  // TODO: GET to grab the collected user information.
+
   return router;
 };
