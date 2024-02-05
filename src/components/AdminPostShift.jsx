@@ -1,31 +1,57 @@
 import React, { useState } from 'react';
-import { Container, Button, Checkbox, FormControl, FormLabel, Grid, MenuItem, Select, TextField, FormGroup, FormControlLabel } from '@mui/material';
+import { Container, Button, Checkbox, FormControl, Radio, RadioGroup, FormLabel, Grid, MenuItem, Select, TextField, FormGroup, FormControlLabel } from '@mui/material';
 
 const PostShiftForm = () => {
   const [facility, setFacility] = useState('');
   const [address, setAddress] = useState('');
-  const [nurseChecked, setNurseChecked] = useState(false);
-  const [pswChecked, setPswChecked] = useState(false);
+  const [workerType, setWorkerType] = useState(''); 
+  // const [nurseChecked, setNurseChecked] = useState(false);
+  // const [pswChecked, setPswChecked] = useState(false);
   const [rate, setRate] = useState('');
   const [gender, setGender] = useState('');
   const [duration, setDuration] = useState('');
   const [startDate, setStartDate] = useState('');
   const [startTime, setStartTime] = useState('');
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
 
   const handleFacilityChange = (event) => {
     setFacility(event.target.value);
   };
 
-  const handleAddressChange = (event) => {
+  const handleAddressChange = async (event) => {
     setAddress(event.target.value);
+    try {
+      const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          address
+        )}&key=${apiKey}`
+      );
+
+      const data = await response.json();
+
+      if (data.results && data.results.length > 0) {
+        const location = data.results[0].geometry.location;
+        setLatitude(location.lat);
+        setLongitude(location.lng);
+      }
+    } catch (error) {
+      console.error('Error fetching geocode data', error);
+    }
+
   };
 
-  const handleNurseChange = (event) => {
-    setNurseChecked(event.target.checked);
-  };
+  // const handleNurseChange = (event) => {
+  //   setNurseChecked(event.target.checked);
+  // };
 
-  const handlePswChange = (event) => {
-    setPswChecked(event.target.checked);
+  // const handlePswChange = (event) => {
+  //   setPswChecked(event.target.checked);
+  // };
+
+  const handleWorkerTypeChange = (event) => {
+    setWorkerType(event.target.value);
   };
 
   const handleRateChange = (event) => {
@@ -44,25 +70,26 @@ const PostShiftForm = () => {
     setStartDate(event.target.value);
   };
 
-  const handleStartTimeChange = (event) => {
+  const handleStartTimeChange =  (event) => {
     setStartTime(event.target.value);
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    // Implement your logic to submit the form data to the backend
-    // For example, you can use an API call to send the data to the server
+
     console.log({
       facility,
       address,
-      nurseChecked,
-      pswChecked,
+      // nurseChecked,
+      // pswChecked,
       rate,
       gender,
       duration,
       startDate,
       startTime,
+      latitude,
+      longitude
     });
   };
 
@@ -92,16 +119,24 @@ const PostShiftForm = () => {
           <Grid item xs={12} md={6}>
             <FormControl component="fieldset" fullWidth style={{ marginBottom: '20px' }}>
               <FormLabel component="legend">Type of Worker</FormLabel>
-              <FormGroup row>
+              <RadioGroup
+                row
+                aria-label="workerType"
+                name="workerType"
+                value={workerType}
+                onChange={handleWorkerTypeChange}
+              >
                 <FormControlLabel
-                  control={<Checkbox checked={nurseChecked} onChange={handleNurseChange} />}
+                  value="nurse"
+                  control={<Radio />}
                   label="Registered Nurse"
                 />
                 <FormControlLabel
-                  control={<Checkbox checked={pswChecked} onChange={handlePswChange} />}
+                  value="psw"
+                  control={<Radio />}
                   label="Personal Support Worker"
                 />
-              </FormGroup>
+              </RadioGroup>
             </FormControl>
           </Grid>
         </Grid>
