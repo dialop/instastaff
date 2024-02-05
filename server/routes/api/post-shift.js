@@ -1,28 +1,25 @@
 const express = require("express");
   const router = express.Router();
-  const { pool } = require("../lib/db");
+  // const { pool } = require("../lib/db");
   require('dotenv').config();
 
   console.log('are you working?');
 
   router.post('/post-shift', (req, res) => {
     console.log('Received POST request to /post-shift');
-    const { formData, latitude, longitude } = req.body;
+    const { formData} = req.body;
     console.log(req.body);
     return pool
     .query(
-      `INSERT INTO job_postings (facility_name, facility_short_address, type_of_worker, rate, gender, duration, date, start_time, facility_latitude, facility_longitude)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
+      `INSERT INTO job_postings (facility_name, type_of_worker, rate, gender, duration, date, start_time)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`,
     [formData.facility, 
-      formData.address, 
       formData.workerType,
       formData.rate,
       formData.gender,
       formData.duration,
       formData.startDate,
       formData.startTime,
-      formData.latitude,
-      formData.longitude
     ]
     )
     .then((result) => {
