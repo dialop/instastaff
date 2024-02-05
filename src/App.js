@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
 import CalendarComponent from "./components/CalendarComponent";
@@ -28,33 +27,28 @@ function App() {
   };
 
   return (
-    <Auth0Provider
-      domain="dev-f5mq00rx18si8svy.us.auth0.com"
-      clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG"
-      redirectUri={window.location.origin}
-    >
-      <ApplicationDataProvider>
-        <JobsContextProvider>
-          <RegistrationProvider>
-            <BrowserRouter>
-              <Navbar />
-              <UserHeader />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/maps" element={<MapPage />} />
-                <Route path="/jobs" element={<JobPostings />} />
-                <Route path="/jobs/:jobId" element={<JobPostings />} />
-                <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-                <Route path="/marker-detail" element={<MarkerDetail />} />
-              </Routes>
-              <Footer />
-            </BrowserRouter>
-          </RegistrationProvider>
-        </JobsContextProvider>
-      </ApplicationDataProvider>
-    </Auth0Provider>
+
+
+    <ApplicationDataProvider>
+      <JobsContextProvider>
+        <RegistrationProvider>
+          <Navbar />
+          <UserHeader />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/maps" element={<MapPage />} />
+            <Route path="/jobs" element={<JobPostings />} />
+            <Route path="/jobs/:jobId" element={<JobPostings />} />
+            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
+            <Route path="/marker-detail" element={<MarkerDetail />} />
+          </Routes>
+          <Footer />
+        </RegistrationProvider>
+      </JobsContextProvider>
+    </ApplicationDataProvider>
+
   );
 }
 
