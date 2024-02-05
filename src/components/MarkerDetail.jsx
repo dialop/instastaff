@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import '../styles/MarkerDetail.css';
+import React, { useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
+import "../styles/MarkerDetail.css";
 import notifications from "../helpers/notifications";
-import ChatBox from './ChatBox'; 
+import ChatBox from "./ChatBox";
+import { useApplicationData } from "../hooks/useApplicationData";
 
-const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onBookJob }) => {
-  const [showChatBox, setShowChatBox] = useState(false); 
+const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin }) => {
+  const [showChatBox, setShowChatBox] = useState(false);
+  const { state, addShift } = useApplicationData();
+  const { user, getAccessTokenSilently } = useAuth0();
 
   const openDirections = () => {
-    // user's location using the Geolocation API
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLocation = {
@@ -25,20 +29,39 @@ const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onBookJob })
   };
 
   const handleContactAdmin = (id) => {
-    setShowChatBox(true); // Show the chat box
-    onContactAdmin(id); 
+    setShowChatBox(true);
+    onContactAdmin(id);
   };
 
-  const bookJob = (id) => {
-    // onBookJob(id);
-    const sendAppNotifications = notifications(id);
-    sendAppNotifications(); 
-  };
+  const bookJob = async (id) => {
+    const auth0_id = user ? user.sub : null;
+    try {
+      const accessToken = await getAccessTokenSilently();
 
+      const response = await fetch(`/book-shift/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ auth0_id }),
+      });
+
+      if (response.ok) {
+        const bookedShift = await response.json();
+        addShift(bookedShift);
+        notifications();
+      } else {
+        console.error('Error booking the job:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error booking the job:', error);
+    }
+  };
 
   return (
     <div className="marker-window">
-      <img src={markerData.imageUrl} alt={markerData.title} className="marker-window-image"/>
+      <img src={markerData.imageUrl} alt={markerData.title} className="marker-window-image" />
       <h3>{markerData.title}</h3>
       <p>{markerData.description}</p>
       <div className="marker-window-buttons">
@@ -47,7 +70,6 @@ const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onBookJob })
         <button className="marker-window-button" onClick={() => bookJob(markerData.id)}>Book</button>
         <button className="marker-window-button green-button" onClick={openDirections}>Go</button>
       </div>
-      {/* Chat UI */}
       {showChatBox && (
         <div className="fixed bottom-0 right-0 mb-4 mr-4 w-64 p-4 bg-white rounded-lg shadow-lg">
           <div>

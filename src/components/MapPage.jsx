@@ -54,7 +54,8 @@ const MapPage = () => {
     description: `${posting.facility_name}\nLocation: ${posting.facility_short_address}\nShift Date: ${posting.date}\nShift Start Time: ${posting.start_time}\nShift Duration: ${posting.duration} hours`,
     imageUrl: posting.facility_images 
   }));
-  console.log('photo', markers);
+  
+  //console.log('photo', markers);
   
   const selectedMarker = markers.find((marker) => marker.id === selectedJobId);
 

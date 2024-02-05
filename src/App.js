@@ -12,6 +12,9 @@ import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
 import { RegistrationProvider } from './context/RegistrationContext';
+import MarkerDetail from "./components/MarkerDetail";
+
+
 
 function Home() {
   return <div>{/* Home page content */}</div>;
@@ -21,7 +24,7 @@ function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
 
   const handleContactAdmin = (id) => {
-    console.log("Admin contacted with ID:", id);
+    //console.log("Admin contacted with ID:", id);
   };
 
   return (
@@ -44,6 +47,7 @@ function App() {
                 <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
+                <Route path="/marker-detail" element={<MarkerDetail />} />
               </Routes>
               <Footer />
             </BrowserRouter>
