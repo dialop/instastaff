@@ -3,11 +3,17 @@ const router = express.Router();
 
 module.exports = (pool) => {
 
-  // POST to create new user
+  // POST to create new user from Auth0 sign-up.
   router.post('/', async (req, res) => {
     console.log(req.body);
     
-    const { email, first_name, last_name } = req.body;
+    const { 
+      auth0_id,
+      email, 
+      first_name, 
+      last_name, 
+      profile_picture 
+    } = req.body;
 
     try {
       // Check if user already exists
@@ -22,11 +28,12 @@ module.exports = (pool) => {
 
       // Insert new user
       const insertQuery = `
-        INSERT INTO users (email, first_name, last_name)
-        VALUES ($1, $2, $3)
+        INSERT INTO users (auth0_id, email, first_name, last_name, profile_picture)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
       `;
-      const newUser = await pool.query(insertQuery, [email, first_name, last_name]);
+      const newUser = await pool.query(insertQuery, 
+        [auth0_id, email, first_name, last_name, profile_picture]);
       res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error('Error handling user data:', err);
@@ -34,36 +41,42 @@ module.exports = (pool) => {
     }
   });
 
-  // GET user data by ID
-  router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-      const userData = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-      res.json(userData.rows[0]);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      res.status(500).send('Server error');
-    }
-  });
-
-  // POST update user data by ID
-  router.post('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { first_name, last_name, email } = req.body;
-
-    // Construct the update query with all fields that can be updated
-    const updateQuery = `
-      UPDATE users
-      SET first_name = $1, last_name = $2, email = $3 /*, ...rest of the user fields */
-      WHERE id = $4
-      RETURNING *;
-    `;
+  // PUT to update existing user from Auth0 id.
+  router.put('/update', async (req, res) => {
+    const { 
+      auth0_id, 
+      email, 
+      first_name, 
+      last_name, 
+      profile_picture, 
+      gender, 
+      occupation, 
+      license, 
+      isHero,
+      handle
+    } = req.body;
 
     try {
-      const updatedUser = await pool.query(updateQuery, [first_name, last_name, email, id]);
-      res.json(updatedUser.rows[0]);
-    } catch (error) {
-      console.error('Error updating user data:', error);
+      const updateUserQuery = `
+        UPDATE users
+        SET email = $1, first_name = $2, last_name = $3, profile_picture = $4, 
+            gender = $5, occupation = $6, license = $7, isHero = $8, handle = $9
+        WHERE auth0_id = $10
+        RETURNING *;
+      `;
+      const values = [
+        email, first_name, last_name, profile_picture, 
+        gender, occupation, license, isHero, handle, auth0_id
+      ];
+      const result = await pool.query(updateUserQuery, values);
+
+      if (result.rows.length > 0) {
+        res.json(result.rows[0]);
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (err) {
+      console.error('Error updating user data:', err);
       res.status(500).send('Server error');
     }
   });

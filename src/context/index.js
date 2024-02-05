@@ -6,13 +6,14 @@ const JobsContext = createContext()
 
 function JobsContextProvider({children}){
 
-    const jobData = useJobs()
+    const {jobData, setJobData} = useJobs()
 
     return (
         <JobsContext.Provider
             value={
                 {
-                  jobData
+                  jobData,
+                  setJobData
                 }
             }
         >

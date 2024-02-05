@@ -17,5 +17,5 @@ export const useJobs = () => {
     fetchData();
   }, []);
 
-  return jobData;
+  return {jobData, setJobData};
 };
