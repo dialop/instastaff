@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Map from './Map';
-import CalendarComponent from './CalendarComponent'; 
-import useApplicationData from '../hooks/useApplicationData';
+import { useApplicationData } from '../hooks/useApplicationData';
+import JobPostingsModal from './JobPostingsModal';
 
 const MapPage = () => {
-  const { state, handleBookJob, getShiftForDate } = useApplicationData();
+  const navigate = useNavigate();
+  const { state, setSelectedJob } = useApplicationData();
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
-  console.log("Job Postings:", state.jobPostings);
-
-  //center of the map based on the borders
+  // Function to calculate the center of the map based on the borders
   function calculateCenter(borders) {
     let latSum = 0;
     let lngSum = 0;
     let count = 0;
 
-    borders.forEach(border => {
-      border.forEach(coord => {
+    borders.forEach((border) => {
+      border.forEach((coord) => {
         latSum += coord.lat;
         lngSum += coord.lng;
         count++;
@@ -28,7 +29,7 @@ const MapPage = () => {
     };
   }
 
-  // borders of map
+  //borders of map
   const borders = [
     [
       { lat: 43.6817, lng: -79.4572 },
@@ -43,33 +44,32 @@ const MapPage = () => {
   // center of the map based on the borders
   const location = calculateCenter(borders);
 
- 
-  const markers = state.jobPostings.map(posting => ({
+  
+
+  const markers = state.jobPostings.map((posting) => ({
+    id: posting.id, // ID to each marker to identify
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
     description: `${posting.facility_name}\nLocation: ${posting.facility_short_address}\nShift Date: ${posting.date}\nShift Start Time: ${posting.start_time}\nShift Duration: ${posting.duration} hours`,
-    imageUrl: posting.image_url,
+    imageUrl: posting.facility_images 
   }));
+  console.log('photo', markers);
   
+  const selectedMarker = markers.find((marker) => marker.id === selectedJobId);
 
-  console.log(markers); 
+  // map marker to view job details
+  const viewJobDetails = (jobId) => {
+    const job = state.jobPostings.find((job) => job.id === jobId);
+    setSelectedJob(job); 
+    navigate(`/jobs/${jobId}`); // go to job postings page
+  };
 
   return (
     <div>
       <h1>Maps</h1>
-      <Map
-        location={location}
-        borders={borders}
-        markers={markers}
-        onBookJob={handleBookJob}
-      />
-    
-      <CalendarComponent
-        state={state}
-        handleCalendarDate={state.handleCalendarDate}
-        getShiftForDate={getShiftForDate}
-      />
+      <Map location={location} borders={borders} markers={markers} viewJobDetails={viewJobDetails} />
+      {selectedMarker && <JobPostingsModal job={selectedMarker} />} {/* Render JobPostingsModal if a marker is selected */}
     </div>
   );
 };

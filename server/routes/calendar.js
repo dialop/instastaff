@@ -1,4 +1,4 @@
-// // - Calendar ROUTES - //
+// -- CALENDAR ROUTES -- //
 
 const express = require('express');
 const router = express.Router();
@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
     WHERE users.id = 1;
     `
   ).then(({ rows: calendar }) => {
-    console.log("Rows", calendar);
     res.json(calendar);
   }).catch((error) => {
     console.error("Error executing SQL query:", error);

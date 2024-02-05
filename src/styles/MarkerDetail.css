@@ -1,3 +1,56 @@
+.marker-details-container {
+  background: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 16px; /* Padding inside the container */
+  max-width: 300px; /* Maximum width of the container */
+  font-family: 'Plus Jakarta Sans';
+}
+
+.marker-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px; /* Space between header and content */
+}
+
+.marker-details-title {
+  font-size: 1.25rem; /* Title font size */
+  font-weight: bold; /* Bold title */
+  color: #333; /* Dark text color for title */
+}
+
+.marker-details-rating {
+  display: flex;
+  align-items: center;
+}
+
+.marker-details-rating-stars {
+  /* Add styles for the stars */
+}
+
+.marker-details-rating-number {
+  margin-left: 4px; /* Space between stars and rating number */
+  color: #666; /* Gray text color for rating number */
+}
+
+.marker-details-accessibility {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px; /* Space between content and accessibility icons */
+}
+
+.marker-details-accessibility-icon {
+  /* Add styles for accessibility icons */
+}
+
+.marker-details-content {
+  font-size: 0.875rem; /* Content font size */
+  color: #666; /* Gray text color for content */
+  line-height: 1.5; /* Line height for content */
+}
+
 .marker-window-buttons {
   display: flex;
   gap: 8px;
@@ -6,7 +59,7 @@
 }
 
 .marker-window-button {
-  type: button;
+  type: button; 
   background-color: #6547A5;
   color: white;
   border-radius: 0.375rem; 
@@ -30,3 +83,20 @@
   outline: none;
   ring: 0;
 }
+
+.green-button {
+  background-color: green;
+  color: white; 
+}
+
+/* Adjust image size */
+.marker-window-image {
+  max-width: 100%; /* Set the image to be responsive within its container */
+  max-height: 50vh; /* Set a maximum height (50% of the viewport height) */
+  width: auto; /* Automatically adjust width to maintain aspect ratio */
+  height: auto; /* Automatically adjust height to maintain aspect ratio */
+  overflow-y: auto; /* Add vertical scrollbar if image exceeds max-height */
+}
+
+
+

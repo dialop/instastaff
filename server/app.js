@@ -1,46 +1,60 @@
 // - MAIN EXPRESS SERVER -//
+
+// Importing required modules
 const express = require('express');
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-require('dotenv').config();
 const cors = require('cors');
+// Load .env file from the root directory
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-const {pool} = require("./lib/db")
+// Database connection pool
+const { pool } = require("./lib/db");
 
+// Initialize Express app
 const app = express();
-
-// Importing routes
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const calendarRouter = require("./routes/calendar");
-const mapsRoutes = require('./routes/map');
-const bookingsRouter = require('./routes/bookings');
-const apiJobs = require('./routes/api/api_jobs');
-
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-// Middlewares
+// middlewares
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "build"))); // Serve static files
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// Serve static files from the React build directory
-app.use(express.static(path.join(__dirname, "build")));
 
-// API routes
-app.use('/api/jobs', apiJobs(pool))
+// Import routes
+const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
+const calendarRouter = require("./routes/calendar");
+const mapsRoutes = require('./routes/map');
+const apiJobs = require('./routes/api/api_jobs');
+const emailNotificationRouter = require('./routes/api/email_notification');
+
+// Define API routes
+app.use('/api/jobs', apiJobs(pool));
 app.use('/api', mapsRoutes);
-app.use('/api', bookingsRouter);
-app.use("/api", indexRouter); 
-
-//Calendar Route
+app.use("/api", indexRouter);
+app.use('/api', emailNotificationRouter);
 app.use('/calendar', calendarRouter);
+app.use('/user', userRouter(pool));
+
+// Error handler middleware
+app.use((err, req, res, next) => {
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.status(err.status || 500).render("error");
+});
+
+module.exports = app;
+
+// Commented code:
 
 // Serve the React application
 // app.get("*", (req, res) => {
@@ -52,15 +66,6 @@ app.use('/calendar', calendarRouter);
 //   next(createError(404));
 // });
 
-// Error handler
-app.use(function (err, req, res, next) {
-  // Set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // Render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
-
-module.exports = app;
+// app.post('/user', (req, res) =>
+//   console.log(req.body)
+// ); 

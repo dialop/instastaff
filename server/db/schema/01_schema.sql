@@ -7,17 +7,18 @@ DROP TABLE IF EXISTS users CASCADE;
 -- USERS TABLE
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  handle VARCHAR(255) NOT NULL,
+  auth0_id VARCHAR(255),
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  profile_picture VARCHAR(255) NOT NULL,
+  handle VARCHAR(255),
+  password VARCHAR(255),
+  profile_picture VARCHAR(255),
   gender VARCHAR(50),
   occupation VARCHAR(255),
   license VARCHAR(255),
+  isHero BOOLEAN,
   points INTEGER DEFAULT 0,
-  badge_id INTEGER,
   last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   token VARCHAR(255)
 );
@@ -49,9 +50,6 @@ CREATE TABLE feedbacks (
   review TEXT
 );
 
--- Alter job_postings to add feedback_id foreign key
-ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
-
 -- MESSAGES TABLE
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -62,5 +60,7 @@ CREATE TABLE messages (
   facility_name VARCHAR(255)
 );
 
--- Add the booked_by_user_id column to the job_postings table
-ALTER TABLE job_postings ADD COLUMN booked_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+-- Alter tables
+ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
+ALTER TABLE users ADD UNIQUE (email);
+ALTER TABLE job_postings ADD COLUMN facility_images VARCHAR(255);
