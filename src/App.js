@@ -12,6 +12,7 @@ import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
 import { RegistrationProvider } from './context/RegistrationContext';
+import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
 
 
@@ -42,7 +43,8 @@ function App() {
                 <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-              </Routes>
+                <Route path="/post-shift" element={<AdminPostShift />} /> 
+            </Routes>
               <Footer />
             </BrowserRouter>
           </RegistrationProvider>
