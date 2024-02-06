@@ -7,7 +7,6 @@ import {
   Checkbox,
   Container,
   MenuItem,
-  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -42,7 +41,6 @@ const RegistrationForm = () => {
     isHero: true, 
     points: 100,
   });
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -69,11 +67,10 @@ const RegistrationForm = () => {
       const accessToken = await getAccessTokenSilently();
       const userData = {
         ...formData,
-        auth0_id: user.sub, // Assuming `user.sub` contains the Auth0 user ID.
+        auth0_id: user.sub,
       };
       console.log(userData, accessToken);
       
-      // Logic to send data to backend.
       const response = await fetch('/user/update', {
         method: 'PUT',
         headers: {
@@ -90,9 +87,7 @@ const RegistrationForm = () => {
       console.log('Update successful:', responseData);
 
       setIsRegistered(true);
-      setSnackbarOpen(true);
       
-      // alert("Registration complete. Welcome aboard!");
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
         autoClose: 5000,
@@ -102,17 +97,10 @@ const RegistrationForm = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     } catch (error) {
       console.error("Error during form submission:", error);
     }
-  };
-
-  const handleSnackbarClose = (reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSnackbarOpen(false);
   };
 
   if (!isAuthenticated || isRegistered) {
@@ -156,17 +144,6 @@ const RegistrationForm = () => {
           </Button>
         </form>
       </Container>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-        message="Registration complete. Welcome aboard!"
-        action={
-          <Button color="secondary" size="small" onClick={() => handleSnackbarClose()}>
-            Close
-          </Button>
-        }
-      />
     </>
   );
 };
