@@ -18,12 +18,13 @@ module.exports = (pool) => {
     try {
       // Check if user already exists
       const existingUser = await pool.query(
-        'SELECT * FROM users WHERE email = $1',
-        [email]
+        'SELECT * FROM users WHERE auth0_id = $1;',
+        [auth0_id]
       );
 
-      if (existingUser.rows.length > 0) {
-        return res.status(409).json({ message: 'User already exists' });
+      if (existingUser.rows.length > 0) { 
+        console.log("users", existingUser.rows[0]);
+        return res.send(existingUser.rows[0]);
       }
 
       // Insert new user
@@ -34,6 +35,7 @@ module.exports = (pool) => {
       `;
       const newUser = await pool.query(insertQuery, 
         [auth0_id, email, first_name, last_name, profile_picture]);
+        console.log('user',newUser);
       res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error('Error handling user data:', err);

@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { json } from 'react-router-dom';
 
 const SignUpButton = () => {
   const { loginWithRedirect, isAuthenticated, user, getAccessTokenSilently } = useAuth0();
@@ -35,6 +36,8 @@ const SignUpButton = () => {
         if (!response.ok) {
           throw new Error('Failed to send user data to backend');
         }
+        return response;
+
       } catch (error) {
         console.error('Error sending user data to backend:', error);
       }
@@ -43,8 +46,13 @@ const SignUpButton = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      sendUserDataToBackend();
-    }
+      sendUserDataToBackend().then(res => {
+        return res.json()
+      }).then(res => {
+        console.log(res);
+        window.sessionStorage.setItem('userId', res.id)
+      })
+    } 
   }, [isAuthenticated, sendUserDataToBackend]);
 
   return !isAuthenticated && (

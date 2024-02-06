@@ -1,4 +1,6 @@
-import React, { createContext, useReducer, useEffect, useState } from "react";
+// useApplicationData.js
+
+import { createContext, useReducer, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const ACTIONS = {
@@ -6,13 +8,14 @@ export const ACTIONS = {
   SHIFTS_BY_USER: "SHIFTS_BY_USER",
   SET_JOB_POSTINGS: "SET_JOB_POSTINGS",
   SET_SELECTED_JOB: "SET_SELECTED_JOB",
+  ADD_SHIFT: "ADD_SHIFT", // Book: New action for adding a shift
 };
 
 const initialState = {
   date: new Date(),
   shiftsByUser: [],
   jobPostings: [],
-  selectedJob: null, // store the selected job
+  selectedJob: null,
 };
 
 function reducer(state, action) {
@@ -32,50 +35,59 @@ function reducer(state, action) {
         ...state,
         jobPostings: action.payload,
       };
-    case ACTIONS.SET_SELECTED_JOB: 
+    case ACTIONS.SET_SELECTED_JOB:
       return {
         ...state,
         selectedJob: action.payload,
       };
+      case ACTIONS.ADD_SHIFT:
+        // Assuming the payload contains the new shift object
+        return {
+          ...state,
+          shiftsByUser: [...state.shiftsByUser, action.payload],
+        };
     default:
       return state;
   }
 }
 
 export const useApplicationData = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();  // added debugging booking
   const [state, dispatch] = useReducer(reducer, initialState);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetching shifts by user ID
   useEffect(() => {
     fetch("/calendar")
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SHIFTS_BY_USER, payload: data }))
       .catch((error) => {
-        console.log("Error fetching shifts", error);
+        //console.log("Error fetching shifts", error);
       });
   }, []);
 
-  // Fetching job postings
   useEffect(() => {
     fetch("/api/jobs")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched Job Postings:", data);
+        //console.log("Fetched Job Postings:", data);
         dispatch({ type: ACTIONS.SET_JOB_POSTINGS, payload: data });
       })
       .catch((err) => console.error(err));
   }, []);
 
-  // Fetching user data
   useEffect(() => {
     const fetchData = async () => {
+        console.log(isAuthenticated && user);
+
+        const userId = window.sessionStorage.getItem('userId')
+        console.log(userId);
+        
       if (isAuthenticated && user) {
         setIsLoading(true);
         try {
+          console.log("fire");
           const response = await fetch("/api/user");
           const data = await response.json();
           setUserData(data);
@@ -89,6 +101,8 @@ export const useApplicationData = () => {
 
     fetchData();
   }, [isAuthenticated, user]);
+
+
 
   const handleCalendarDate = (selectedDate) => {
     dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate });
@@ -106,6 +120,11 @@ export const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_SELECTED_JOB, payload: job });
   };
 
+  // Book: Function to add a new shift
+  const addShift = (newShift) => {
+    dispatch({ type: ACTIONS.ADD_SHIFT, payload: newShift });
+  };
+
   return {
     state,
     handleCalendarDate,
@@ -114,9 +133,9 @@ export const useApplicationData = () => {
     isLoading,
     error,
     setSelectedJob,
+    addShift, // Book: Make sure to export the addShift function
   };
 };
-
 
 export const ApplicationDataContext = createContext();
 

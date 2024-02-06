@@ -17,7 +17,7 @@ const JobPostings = () => {
   const { jobData, setJobData } = useContext(JobsContext);
 
   const params = useParams();
-  console.log(params);
+  //console.log(params);
 
   const [open, setOpen] = useState(false);
   const [jobId, setJobId] = useState(0);
@@ -53,9 +53,9 @@ useEffect(() => {
   }
 }, [params]);
   const clickedJob = (jobId) => {
-    console.log(jobId, "jobId");
+    //console.log(jobId, "jobId");
     let result = jobData.find((job) => job.id == jobId);
-    console.log(result, 'jobId result');
+    //console.log(result, 'jobId result');
     return result
 
 };
@@ -79,8 +79,8 @@ useEffect(() => {
             job.id === id ? { ...job, is_filled: !prevJobData.is_filled } : job
           )
         );
-        console.log("Job Status updated successfully", jobStatus);
-        if (!jobStatus.is_filled) {
+        //console.log("Job Status updated successfully", jobStatus);
+        if(!jobStatus.is_filled){
           window.location.reload();
         }
         setUpdateJob(false);
