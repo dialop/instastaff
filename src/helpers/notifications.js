@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 const notifications = (job) => {
   const sendAppNotification = async () => {
     try {
-      const response = await axios.post('/api/send-email', job);
+      const response = await axios.post('/api/email/send-email', job);
       console.log(response.data);
 
     } catch (error) {

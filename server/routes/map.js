@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const { pool } = require("../lib/db");
 
-router.get('/map', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM job_postings');

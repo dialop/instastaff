@@ -36,12 +36,14 @@ const calendarRouter = require("./routes/calendar");
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
 const emailNotificationRouter = require('./routes/api/email_notification');
+const apiBooking = require('./routes/api/bookings');
 
 // Define API routes
 app.use('/api/jobs', apiJobs(pool));
-app.use('/api', mapsRoutes);
-app.use("/api", indexRouter);
-app.use('/api', emailNotificationRouter);
+app.use('/api/map', mapsRoutes);
+app.use("/api/message", indexRouter);
+app.use('/api/email', emailNotificationRouter);
+app.use('/api/bookings', apiBooking(pool));
 app.use('/calendar', calendarRouter);
 app.use('/user', userRouter(pool));
 
@@ -53,6 +55,7 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
 
 // Commented code:
 

@@ -52,7 +52,7 @@ function reducer(state, action) {
 }
 
 export const useApplicationData = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();  // added debugging booking
   const [state, dispatch] = useReducer(reducer, initialState);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,9 +79,15 @@ export const useApplicationData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+        console.log(isAuthenticated && user);
+
+        const userId = window.sessionStorage.getItem('userId')
+        console.log(userId);
+        
       if (isAuthenticated && user) {
         setIsLoading(true);
         try {
+          console.log("fire");
           const response = await fetch("/api/user");
           const data = await response.json();
           setUserData(data);
@@ -95,6 +101,8 @@ export const useApplicationData = () => {
 
     fetchData();
   }, [isAuthenticated, user]);
+
+
 
   const handleCalendarDate = (selectedDate) => {
     dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate });

@@ -1,10 +1,6 @@
--- Drop existing tables if they exist
-DROP TABLE IF EXISTS messages CASCADE;
-DROP TABLE IF EXISTS feedbacks CASCADE;
-DROP TABLE IF EXISTS job_postings CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
 
--- USERS TABLE
+-- USERS TABLE 
+DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   auth0_id VARCHAR(255),
@@ -24,6 +20,8 @@ CREATE TABLE users (
 );
 
 -- JOB POSTINGS TABLE (without feedback_id foreign key initially)
+DROP TABLE IF EXISTS job_postings CASCADE;
+
 CREATE TABLE job_postings (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -38,11 +36,13 @@ CREATE TABLE job_postings (
   facility_short_address VARCHAR(255),
   facility_latitude DECIMAL,
   facility_longitude DECIMAL,
+  available_to_choose BOOLEAN,
   is_filled BOOLEAN DEFAULT FALSE,
   booked_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- FEEDBACKS TABLE
+DROP TABLE IF EXISTS feedbacks CASCADE;
 CREATE TABLE feedbacks (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -51,6 +51,7 @@ CREATE TABLE feedbacks (
 );
 
 -- MESSAGES TABLE
+DROP TABLE IF EXISTS messages CASCADE;
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -59,6 +60,17 @@ CREATE TABLE messages (
   date_sent TIMESTAMP,
   facility_name VARCHAR(255)
 );
+
+
+-- Calendar TABLE
+DROP TABLE IF EXISTS calendar CASCADE;
+CREATE TABLE calendar (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  job_posting_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
+  date DATE
+);
+
 
 -- Alter tables
 ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;

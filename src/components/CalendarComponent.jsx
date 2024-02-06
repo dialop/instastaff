@@ -31,22 +31,26 @@ const CalendarComponent = (props) => {
     handleCalendarDate(newDate);
   };
 
-  return (
+ return (
     <div className="flex mt-5 justify-center">
       <div className='react-calendar'>
-        {renderShiftsForDate(state.date)} 
+        {renderShiftsForDate(state.date)}
       </div>
       <div>
         <Calendar
           onChange={handleCalendarChange}
           value={state.date}
-          tileClassName={({ date }) =>
-            shiftsByUser?.some(
-              (shift) => shift.shift_date.split("T")[0] === date.toISOString().split("T")[0]
-            )
-              ? 'date-has-shift'
-              : ''
-          }
+          tileClassName={({ date, view }) => {
+            if (view === 'month' && shiftsByUser?.some(shift => {
+              const shiftDate = new Date(shift.shift_date);
+              return shiftDate.getDate() === date.getDate() &&
+                     shiftDate.getMonth() === date.getMonth() &&
+                     shiftDate.getFullYear() === date.getFullYear();
+            })) {
+              return 'date-has-shift';
+            }
+            return null;
+          }}
         />
       </div>
     </div>
@@ -54,7 +58,6 @@ const CalendarComponent = (props) => {
 };
 
 export default CalendarComponent;
-
 
 // import React from 'react';
 // import Calendar from 'react-calendar';
