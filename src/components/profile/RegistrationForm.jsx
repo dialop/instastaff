@@ -40,7 +40,7 @@ const RegistrationForm = () => {
     occupation: 'Super Nurse',
     license: 'RN007',
     isHero: true, 
-    points: 0,
+    points: 100,
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 

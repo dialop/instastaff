@@ -84,6 +84,36 @@ module.exports = (pool) => {
   });
 
   // TODO: GET to grab the collected user information.
+  router.get('/:userId', async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      const userQuery = 'SELECT * FROM users WHERE id = $1';
+      const result = await pool.query(userQuery, [userId]);
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const user = result.rows[0];
+      res.json({
+        id: user.id,
+        auth0_id: user.auth0_id,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        profile_picture: user.profile_picture,
+        gender: user.gender,
+        occupation: user.occupation,
+        license: user.license,
+        isHero: user.isHero,
+        handle: user.handle,
+      });
+    } catch (error) {
+      console.error('Error fetching user information:', error);
+      res.status(500).send('Server error');
+    }
+  });
 
   return router;
 };

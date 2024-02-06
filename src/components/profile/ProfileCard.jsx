@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, CardContent, Chip, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, Container, Paper } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/VerifiedUser';
@@ -8,19 +8,20 @@ import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
 
 const ProfileCard = () => {
-  const profile = {
-    first_name: 'Jane',
-    last_name: 'Doe',
-    handle: 'jane_doe_nurse',
-    email: 'jane.doe@example.com',
-    profile_picture: 'https://i.pravatar.cc/300',
-    gender: 'Female',
-    occupation: 'Super Nurse',
-    license: 'RN007',
-    isHero: true,
-    points: 120,
-  };
+  const [profile, setProfile] = useState({});
 
+  useEffect(() => {
+    const userId = window.sessionStorage.getItem('userId');
+    if (userId) {
+      fetch(`/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          setProfile(data);
+        })
+        .catch(error => console.error("Failed to fetch user data:", error));
+    }
+  }, []);
+  
   return (
     <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
         <CardContent>
