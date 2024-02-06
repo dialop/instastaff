@@ -12,6 +12,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useRegistration } from '../../context/RegistrationContext';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -90,7 +92,17 @@ const RegistrationForm = () => {
       setIsRegistered(true);
       setSnackbarOpen(true);
       
-      alert("Registration complete. Welcome aboard!");
+      // alert("Registration complete. Welcome aboard!");
+      toast.success('Registration complete. Welcome aboard!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     } catch (error) {
       console.error("Error during form submission:", error);
     }

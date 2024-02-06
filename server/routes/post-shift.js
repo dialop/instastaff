@@ -3,7 +3,6 @@ const express = require("express");
   const { pool } = require("../lib/db");
   require('dotenv').config();
 
-  console.log('are you working?');
 
   router.post('/', (req, res) => {
     console.log('Received POST request to /post-shift');
@@ -11,13 +10,13 @@ const express = require("express");
     console.log(req.body);
     
     // Get address information for the facility from Post shift
-    pool.query(
+    return pool.query(
       `
-      SELECT facility_name, facility_short_address, facility_latitude, facility_longitude
+      SELECT facility_short_address, facility_latitude, facility_longitude
       FROM job_postings
       WHERE facility_name = $1;
       `,
-      [formData.facility],
+      [formData.facility_name],
       (error, result) => {
         if (error) {
           console.error('Failed to fetch address:', error.message);
@@ -33,7 +32,7 @@ const express = require("express");
             RETURNING *;
             `,
             [
-              formData.facility,
+              formData.facility_name,
               formData.workerType,
               formData.rate,
               formData.gender,
@@ -49,7 +48,7 @@ const express = require("express");
                 console.error('Failed to insert:', insertError.message);
               } else {
                 const insertedRow = insertResult.rows[0];
-                console.log('Inserted Row with Address Information:', insertedRow);
+                console.log('Result New Shift:', insertedRow);
               }
             }
           );

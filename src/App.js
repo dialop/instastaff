@@ -45,7 +45,7 @@ function App() {
                 <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-                <Route path="/post-shift" element={<AdminPostShift />} /> {/* Post Jobs Route */}
+                <Route path="/post-shift" element={<AdminPostShift />} /> 
             </Routes>
               <Footer />
             </BrowserRouter>
