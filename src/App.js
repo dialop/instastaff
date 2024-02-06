@@ -15,9 +15,6 @@ import MarkerDetail from "./components/MarkerDetail";
 import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
 
-
-
-
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
 
@@ -26,8 +23,6 @@ function App() {
   };
 
   return (
-
-
     <ApplicationDataProvider>
       <JobsContextProvider>
         <RegistrationProvider>
@@ -48,7 +43,6 @@ function App() {
         </RegistrationProvider>
       </JobsContextProvider>
     </ApplicationDataProvider>
-
   );
 }
 

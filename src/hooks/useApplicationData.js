@@ -77,32 +77,30 @@ export const useApplicationData = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-        console.log(isAuthenticated && user);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //       console.log(isAuthenticated && user);
 
-        const userId = window.sessionStorage.getItem('userId')
-        console.log(userId);
+  //       const userId = window.sessionStorage.getItem('userId')
+  //       console.log(userId);
         
-      if (isAuthenticated && user) {
-        setIsLoading(true);
-        try {
-          console.log("fire");
-          const response = await fetch("/api/user");
-          const data = await response.json();
-          setUserData(data);
-        } catch (error) {
-          setError(error);
-          console.error("Error fetching user data:", error);
-        }
-        setIsLoading(false);
-      }
-    };
+  //     if (isAuthenticated && user) {
+  //       setIsLoading(true);
+  //       try {
+  //         console.log("fire");
+  //         const response = await fetch("/api/user");
+  //         const data = await response.json();
+  //         setUserData(data);
+  //       } catch (error) {
+  //         setError(error);
+  //         console.error("Error fetching user data:", error);
+  //       }
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, [isAuthenticated, user]);
-
-
+  //   fetchData();
+  // }, [isAuthenticated, user]);
 
   const handleCalendarDate = (selectedDate) => {
     dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate });
