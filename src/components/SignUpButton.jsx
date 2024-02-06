@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { json } from 'react-router-dom';
 
 const SignUpButton = () => {
   const { loginWithRedirect, isAuthenticated, user, getAccessTokenSilently } = useAuth0();
@@ -37,8 +36,8 @@ const SignUpButton = () => {
           throw new Error('Failed to send user data to backend');
         }
         return response;
-
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Error sending user data to backend:', error);
       }
     }
@@ -46,14 +45,17 @@ const SignUpButton = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      sendUserDataToBackend().then(res => {
-        return res.json()
-      }).then(res => {
-        console.log(res);
-        window.sessionStorage.setItem('userId', res.id)
-      })
+      sendUserDataToBackend().then(response => {
+        if (response) {
+          response.json().then(data => {
+            console.log(data);
+            // Assuming 'id' is a property of the JSON response from your backend
+            window.sessionStorage.setItem('userId', data.id);
+          }).catch(error => console.error('Error parsing JSON:', error));
+        }
+      }).catch(error => console.error('Error in sendUserDataToBackend:', error));
     } 
-  }, [isAuthenticated, sendUserDataToBackend]);
+  }, [isAuthenticated, sendUserDataToBackend]);  
 
   return !isAuthenticated && (
     <button
