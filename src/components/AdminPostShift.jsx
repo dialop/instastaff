@@ -23,12 +23,12 @@ const PostShiftForm = () => {
 
   const [formData, setFormData] = useState({
     facility_name: '',
-    workerType: '',
+    title: '',
     rate: '',
     gender: '',
     duration: '',
-    startDate: '',
-    startTime: '',
+    date: '',
+    start_time: '',
   });
 
 
@@ -60,10 +60,13 @@ const PostShiftForm = () => {
       });
 
       if (!postingResponse.ok) {
-        console.error('Failed to submit form:', postingResponse.status, postingResponse.statusText);
-        return;
+        throw new Error('Failed to submit form:', postingResponse.status, postingResponse.statusText);
       }
   
+      const responseData = await postingResponse.json();
+      console.log("Shifts posted:", responseData);
+
+
       console.log('Form submitted successfully:', postingResponse);
       
       toast.success('Shift booked successfully!', {
@@ -89,7 +92,7 @@ const PostShiftForm = () => {
       <h1 className="text-6xl p-8 text-[#24233E] text-center">Post New Shift</h1>
       <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5" >
 
-        <form className="space-y-4" >
+        <form className="space-y-4" onSubmit={handleFormSubmit}>
           <FormControl fullWidth required>
             <InputLabel htmlFor="facility">Hospital</InputLabel>
             <Select
@@ -114,9 +117,9 @@ const PostShiftForm = () => {
                 <FormLabel component="legend">Type of Worker</FormLabel>
                 <RadioGroup
                   row
-                  aria-label="workerType"
-                  name="workerType"
-                  value={formData.workerType}
+                  aria-label="title"
+                  name="title"
+                  value={formData.title}
                   onChange={handleInputChange}
                 >
                   <FormControlLabel
@@ -175,8 +178,8 @@ const PostShiftForm = () => {
               <Input fullWidth
                 label="Start Date"
                 type="date"
-                name="startDate"
-                value={formData.startDate}
+                name="date"
+                value={formData.date}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -188,8 +191,8 @@ const PostShiftForm = () => {
               <Input fullWidth
                 label="Start Time"
                 type="time"
-                name="startTime"
-                value={formData.startTime}
+                name="start_time"
+                value={formData.start_time}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -202,7 +205,7 @@ const PostShiftForm = () => {
             </Grid>
           </Grid>
 
-          <Button onClick={handleFormSubmit}  type="button" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
+          <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#6547A5', color: 'white' }}>
             Post a Shift
           </Button>
         </form>
