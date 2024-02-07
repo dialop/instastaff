@@ -57,7 +57,9 @@ const PostShiftForm = () => {
         body: JSON.stringify({
           formData,
         }),
+
       });
+      console.log("checking");
 
       if (!postingResponse.ok) {
         throw new Error('Failed to submit form:', postingResponse.status, postingResponse.statusText);
@@ -79,7 +81,9 @@ const PostShiftForm = () => {
         progress: undefined,
         theme: "light",
         });
+
       navigate('/jobs');
+
     } catch (error) {
       console.error('Error during posting process', error);
     }
@@ -94,7 +98,7 @@ const PostShiftForm = () => {
 
         <form className="space-y-4" onSubmit={handleFormSubmit}>
           <FormControl fullWidth required>
-            <InputLabel htmlFor="facility">Hospital</InputLabel>
+            <InputLabel htmlFor="facility_name">Hospital</InputLabel>
             <Select
               value={formData.facility_name}
               onChange={handleInputChange}

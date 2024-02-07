@@ -40,7 +40,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
-    "react-router-dom": "^6.21.3",
+    "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
     "react-time-ago": "^7.2.1",
     "react-toastify": "^10.0.4",
@@ -52,10 +52,12 @@
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
+    "dev": "nodemon ./bin/www",
     "server": "nodemon server/bin/www",
     "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    
     "db:reset": "node server/bin/resetdb.js"
   },
   "eslintConfig": {
@@ -78,6 +80,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.1.0",
+    "html-webpack-plugin": "^5.6.0",
     "nodemon": "^2.0.16",
     "tailwindcss": "^3.4.1"
   },

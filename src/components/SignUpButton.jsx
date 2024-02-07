@@ -14,14 +14,14 @@ const SignUpButton = () => {
         const accessToken = await getAccessTokenSilently();
         const userData = {
           auth0_id: user.sub,
-          email: user.email,
           first_name: user.given_name,
           last_name: user.family_name,
+          email: user.email,
           profile_picture: user.picture,
           token: accessToken
         };
 
-        console.log(userData);
+        console.log("Sending Auth0 userData to server:", userData);
 
         const response = await fetch('/user', {
           method: 'POST',
@@ -35,7 +35,9 @@ const SignUpButton = () => {
         if (!response.ok) {
           throw new Error('Failed to send user data to backend');
         }
-      } catch (error) {
+        return response;
+      } 
+      catch (error) {
         console.error('Error sending user data to backend:', error);
       }
     }
@@ -43,9 +45,17 @@ const SignUpButton = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      sendUserDataToBackend();
-    }
-  }, [isAuthenticated, sendUserDataToBackend]);
+      sendUserDataToBackend().then(response => {
+        if (response) {
+          response.json().then(data => {
+            console.log("Authentication response:", data);
+            // Assuming 'id' is a property of the JSON response from your backend
+            window.sessionStorage.setItem('userId', data.id);
+          }).catch(error => console.error('Error parsing JSON:', error));
+        }
+      }).catch(error => console.error('Error in sendUserDataToBackend:', error));
+    } 
+  }, [isAuthenticated, sendUserDataToBackend]);  
 
   return !isAuthenticated && (
     <button

@@ -1,31 +1,29 @@
 const express = require("express");
-  const router = express.Router();
-  const { pool } = require("../lib/db");
-  require('dotenv').config();
+const router = express.Router();
+const { pool } = require("../lib/db");
 
-
-  router.post('/', (req, res) => {
-    console.log('Received POST request to /post-shift');
-    const { formData} = req.body;
-    console.log(req.body);
-    
-    // Get address information for the facility from Post shift
-    return pool.query(
-      `
+router.post('/', (req, res) => {
+  console.log('Received POST request to /post-shift');
+ const formData = req.body.formData
+  console.log(req.body);
+  pool.query(
+    `
       SELECT facility_short_address, facility_latitude, facility_longitude
       FROM job_postings
       WHERE facility_name = $1;
       `,
-      [formData.facility_name],
-      (error, result) => {
-        if (error) {
-          console.error('Failed to fetch address:', error.message);
-        } else {
-          const addressInfo = result.rows[0];
-    
+    [formData.facility_name],
+    (error, result) => {
+      if (error) {
+        console.error('Failed to fetch address:', error.message);
+      } else {
+        const addressInfo = result.rows[0];
 
-          pool.query(
-            `
+
+
+
+        pool.query(
+          `
             INSERT INTO job_postings (facility_name, title, rate, gender, duration, date, start_time,
               facility_short_address, facility_latitude, facility_longitude
               )

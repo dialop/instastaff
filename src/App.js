@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
 import CalendarComponent from "./components/CalendarComponent";
@@ -11,48 +10,36 @@ import ProfilePage from "./components/ProfilePage";
 import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
-import { RegistrationProvider } from './context/RegistrationContext';
+import MarkerDetail from "./components/MarkerDetail";
 import AdminPostShift from "./components/AdminPostShift";
-
-function Home() {
-  return <div>{/* Home page content */}</div>;
-}
+import Home from './components/home/Home'
 
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
 
   const handleContactAdmin = (id) => {
-    console.log("Admin contacted with ID:", id);
+    //console.log("Admin contacted with ID:", id);
   };
 
   return (
-    <Auth0Provider
-      domain="dev-f5mq00rx18si8svy.us.auth0.com"
-      clientId="XJrEAsjVDcZ2tWhyaeOPsNC5okqv3rdG"
-      redirectUri={window.location.origin}
-    >
-      <ApplicationDataProvider>
-        <JobsContextProvider>
-          <RegistrationProvider>
-            <BrowserRouter>
-              <Navbar />
-              <UserHeader />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/maps" element={<MapPage />} />
-                <Route path="/jobs" element={<JobPostings />} />
-                <Route path="/jobs/:jobId" element={<JobPostings />} />
-                <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-                <Route path="/post-shift" element={<AdminPostShift />} /> 
-            </Routes>
-              <Footer />
-            </BrowserRouter>
-          </RegistrationProvider>
-        </JobsContextProvider>
-      </ApplicationDataProvider>
-    </Auth0Provider>
+    <ApplicationDataProvider>
+      <JobsContextProvider>
+          <Navbar />
+          <UserHeader />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/maps" element={<MapPage />} />
+            <Route path="/jobs" element={<JobPostings />} />
+            <Route path="/jobs/:jobId" element={<JobPostings />} />
+            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
+            <Route path="/marker-detail" element={<MarkerDetail />} />
+            <Route path="/post-shift" element={<AdminPostShift />} /> 
+          </Routes>
+          <Footer />
+      </JobsContextProvider>
+    </ApplicationDataProvider>
   );
 }
 

@@ -11,7 +11,7 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
 
   useEffect(() => {
     const initMap = () => {
-      console.log("Initializing the map...");
+      //console.log("Initializing the map...");
       const mapOptions = {
         zoom: 13.4,
         center: location,
@@ -97,7 +97,7 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
     };
 
     const displayRouteInfo = (distance, duration) => {
-      console.log(`Distance: ${distance}, Duration: ${duration}`);
+      //console.log(`Distance: ${distance}, Duration: ${duration}`);
     };
 
     if (!window.google || !window.google.maps) {
