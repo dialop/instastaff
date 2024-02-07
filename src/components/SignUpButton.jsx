@@ -21,7 +21,7 @@ const SignUpButton = () => {
           token: accessToken
         };
 
-        console.log("Sending user data to server:", userData);
+        console.log("Sending Auth0 userData to server:", userData);
 
         const response = await fetch('/user', {
           method: 'POST',
