@@ -16,7 +16,8 @@ module.exports = (pool) => {
     } = req.body;
 
     try {
-      // Check if user already exists
+      // TODO: use window.SessionStorage instead.
+      // Check if user already exists.
       const existingUser = await pool.query(
         'SELECT * FROM users WHERE auth0_id = $1;',
         [auth0_id]
@@ -29,12 +30,12 @@ module.exports = (pool) => {
 
       // Insert new user
       const insertQuery = `
-        INSERT INTO users (auth0_id, email, first_name, last_name, profile_picture)
+        INSERT INTO users (auth0_id, first_name, last_name, email, profile_picture)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
       `;
       const newUser = await pool.query(insertQuery, 
-        [auth0_id, email, first_name, last_name, profile_picture]);
+        [auth0_id, first_name, last_name, email, profile_picture]);
         console.log('user',newUser);
       res.status(201).json(newUser.rows[0]);
     } catch (err) {
