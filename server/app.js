@@ -15,6 +15,7 @@ const { pool } = require("./lib/db");
 // Initialize Express app
 const app = express();
 
+
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -30,9 +31,9 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 // Import routes
-const indexRouter = require("./routes/index");
-const userRouter = require("./routes/user");
-const calendarRouter = require("./routes/calendar");
+const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
+const calendarRouter = require('./routes/calendar');
 const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
 const emailNotificationRouter = require('./routes/api/email_notification');
@@ -41,7 +42,7 @@ const apiBooking = require('./routes/api/bookings');
 // Define API routes
 app.use('/api/jobs', apiJobs(pool));
 app.use('/api/map', mapsRoutes);
-app.use("/api/message", indexRouter);
+app.use('/api/message', indexRouter);
 app.use('/api/email', emailNotificationRouter);
 app.use('/api/bookings', apiBooking(pool));
 app.use('/calendar', calendarRouter);

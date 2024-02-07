@@ -1,10 +1,10 @@
-// api/email_notification.js
-
+// Import necessary modules
 const express = require('express');
 const router = express.Router();
 const mailgun = require('mailgun-js');
 require('dotenv').config();
 
+// Initialize Mailgun with API key and domain
 const mg = mailgun({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN,
@@ -12,16 +12,13 @@ const mg = mailgun({
 
 // Route to send an email notification
 router.post('/send-email', (req, res) => {
-
   const job = req.body;
-  
 
   // Send email notification
   mg.messages().send({
-
-    //hard coded where to send email, will add req.params from cookies later
-    from: 'Istastaff Team, <instastaff@gmail.com>',
-    to: 'nurse.instastaff@gmail.com',
+    // Hard coded where to send email, will add req.params from cookies later
+    from: 'Instastaff Team <instastaff@gmail.com>',
+    to: 'nurse.instastaff@gmail.com', // Update with recipient email
     subject: `Shift Booking Confirmation at ${job.facility_name}`,
     text: `
     Dear Nurse,
@@ -36,11 +33,11 @@ Details of your booked shift:
 - Occupation: ${job.title}
 - Duration: ${job.duration} hours
 
-  Thank you for choosing InstaStaff for your staffing needs. If you have any questions or need further assistance, feel free to contact us.
+Thank you for choosing InstaStaff for your staffing needs. If you have any questions or need further assistance, feel free to contact us.
 
- Best regards,
-  InstaStaff Team` 
-}, (error, body) => {
+Best regards,
+InstaStaff Team` 
+  }, (error, body) => {
     if (error) {
       console.log(error);
       res.status(500).send({ message: 'Error sending email' });

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import "../styles/MarkerDetail.css";
 import notifications from "../helpers/notifications";
-import { useApplicationData } from "../hooks/useApplicationData";
+import { ApplicationDataContext } from "../hooks/useApplicationData";
 
 const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin }) => {
   const [showChatBox, setShowChatBox] = useState(false);
-  // const { addShift } = useApplicationData(); // Removed unused 'state'
 
-  const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
-  // console.log("Auth0 Context:", { isAuthenticated, user, getAccessTokenSilently });
+  // Attempt to get the context value
+  const contextValue = useContext(ApplicationDataContext);
+  console.log(contextValue); // Debugging: Log the context value
+
+  // Ensure contextValue is not undefined before destructuring
+  const { addCalendarEntry } = contextValue ?? {}; // Use optional chaining or a default value
+
+  // const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const userId = window.sessionStorage.getItem('userId')
 
   
@@ -42,27 +47,34 @@ const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin }) => {
     }
     
     try {
-      
-      // const accessToken = await getAccessTokenSilently();
-      const response = await fetch(`/api/bookings/book-job/${id}`, {
+      const response = await fetch(`/api/bookings/book-shift/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({ user_id: userId }),
+        body: JSON.stringify({ userId }),
       });
-  
+    
       if (!response.ok) {
-        throw new Error('Failed to book job.');
+        // Check if the response is JSON or plain text
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const errorDetails = await response.json();
+          throw new Error(`Failed to book job: ${errorDetails.message}`);
+        } else {
+          const errorText = await response.text();
+          throw new Error(`Failed to book job: ${errorText}`);
+        }
       }
-
+    
       const bookingDetails = await response.json();
       console.log('Booking successful:', bookingDetails);
+      addCalendarEntry(bookingDetails.calendarEntry);
     } catch (error) {
       console.error('Booking error:', error);
     }
   };
+  
   
   return (
     <div className="marker-window">

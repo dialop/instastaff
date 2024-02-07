@@ -32,7 +32,7 @@ function App() {
     <ApplicationDataProvider>
       <JobsContextProvider>
         <RegistrationProvider>
-          <Navbar />
+          <Navbar />im
           <UserHeader />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,7 +42,7 @@ function App() {
             <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-            <Route path="/marker-detail" element={<MarkerDetail />} />
+            <Route path="/marker-detail" element={<MarkerDetail updateCalendarState={addShift} />} />
           </Routes>
           <Footer />
         </RegistrationProvider>
