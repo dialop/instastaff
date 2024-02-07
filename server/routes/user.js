@@ -5,6 +5,7 @@ const router = express.Router();
   1. POST user authentication info with Auth0.
   2. PUT registration info to user database.
   3. GET user data for Profile Card.
+  4. DELETE user by their userId.
 */
 
 module.exports = (pool) => {
@@ -128,6 +129,20 @@ module.exports = (pool) => {
       res.status(500).send('Server error');
     }
   });
+
+  // DELETE user by their userId.
+  router.delete('/:userId', async (req, res) => {
+    const { userId } = req.params;
+    
+    try {
+      await deleteUserById(userId);
+      res.status(204).send(); 
+    } catch (error) {
+      console.error('Error deleting user data:', error);
+      res.status(500).send('Server error');
+    }
+  });
+
 
   return router;
 };
