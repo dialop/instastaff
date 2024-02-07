@@ -11,7 +11,7 @@ const Hero = () => {
               <div className="relative z-20 flex flex-wrap justify-between items-center -m-25">
                 <div
                   className="flex flex-col h-[100vh] justify-center w-full lg:w-1/2 p-24 lg:pr-0 lg:pl-28 lg:py-28">
-                  <h2 className="mb-7 text-6xl md:text-7xl xl:text-10xl font-bold">
+                  <h2 className="mb-7 text-4xl md:text-5xl xl:text-10xl font-bold">
                     TRANSFORM YOUR COMPANY WITH INSTASTAFF
                   </h2>
                   <p className="mb-10 text-xl text-gray-900 font-medium">
