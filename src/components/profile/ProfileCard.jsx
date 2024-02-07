@@ -8,19 +8,6 @@ import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
 
 const ProfileCard = () => {
-  // const profile = {
-  //   first_name: 'Jane',
-  //   last_name: 'Doe',
-  //   handle: 'jane_doe_nurse',
-  //   email: 'jane.doe@example.com',
-  //   profile_picture: '',
-  //   gender: 'Female',
-  //   occupation: 'Super Nurse',
-  //   license: 'RN007',
-  //   isHero: true,
-  //   points: 120,
-  // };
-
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
