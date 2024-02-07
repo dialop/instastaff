@@ -18,7 +18,7 @@ const ProfileCard = () => {
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
-    isHero: true,
+    is_hero: true,
     points: 120,
   };
 
@@ -28,7 +28,7 @@ const ProfileCard = () => {
         <div className="flex flex-col items-center">
           <Avatar alt={`${profile.first_name} ${profile.last_name}`} src={profile.profile_picture} sx={{ width: 100, height: 100, mb: 2 }} />
           <Chip label={profile.gender} variant="outlined" color="primary" sx={{ mb: 1, borderColor: green[500], color: green[500] }} />
-          {profile.isHero && (
+          {profile.is_hero && (
             <Chip icon={<BadgeIcon />} label="Emergency Hero" color="primary" sx={{ mb: 1, backgroundColor: green[500], color: 'white' }} />
           )}
         </div>

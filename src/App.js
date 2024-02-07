@@ -10,7 +10,6 @@ import ProfilePage from "./components/ProfilePage";
 import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
-import { RegistrationProvider } from './context/RegistrationContext';
 import MarkerDetail from "./components/MarkerDetail";
 import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
@@ -25,7 +24,6 @@ function App() {
   return (
     <ApplicationDataProvider>
       <JobsContextProvider>
-        <RegistrationProvider>
           <Navbar />
           <UserHeader />
           <Routes>
@@ -40,7 +38,6 @@ function App() {
             <Route path="/post-shift" element={<AdminPostShift />} /> 
           </Routes>
           <Footer />
-        </RegistrationProvider>
       </JobsContextProvider>
     </ApplicationDataProvider>
   );

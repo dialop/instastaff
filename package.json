@@ -52,10 +52,12 @@
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
+    "dev": "nodemon ./bin/www",
     "server": "nodemon server/bin/www",
     "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    
     "db:reset": "node server/bin/resetdb.js"
   },
   "eslintConfig": {
