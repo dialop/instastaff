@@ -9,9 +9,9 @@ module.exports = (pool) => {
     
     const { 
       auth0_id,
-      email, 
       first_name, 
       last_name, 
+      email, 
       profile_picture 
     } = req.body;
 
