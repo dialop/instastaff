@@ -93,7 +93,7 @@ const PostShiftForm = () => {
 
   return (
     <>
-      <h1 className="text-6xl p-8 text-[#24233E] text-center">Post New Shift</h1>
+      <h1 className="text-6xl p-8 text-[#24233E] text-center">Post New Job</h1>
       <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5" >
 
         <form className="space-y-4" onSubmit={handleFormSubmit}>
