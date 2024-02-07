@@ -13,9 +13,9 @@ CREATE TABLE users (
   gender VARCHAR(50),
   occupation VARCHAR(255),
   license VARCHAR(255),
+  points INTEGER DEFAULT 0,
   isHero BOOLEAN,
   isRegistered BOOLEAN,
-  points INTEGER DEFAULT 0,
   last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   token VARCHAR(255)
 );
