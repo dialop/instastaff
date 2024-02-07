@@ -33,13 +33,13 @@ const RegistrationForm = () => {
     last_name: '',
     handle: '',
     email: '',
-    password: '',
     profile_picture: '',
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
-    isHero: true, 
     points: 100,
+    isHero: true, 
+    isRegistered: true,
   });
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const RegistrationForm = () => {
         throw new Error('Failed to update user data');
       }
       const responseData = await response.json();
-      console.log('Update successful:', responseData);
+      console.log('User registration complete:', responseData);
 
       setIsRegistered(true);
       

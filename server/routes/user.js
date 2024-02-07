@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+/* User Routes:
+  1. POST to authenticate user with Auth0.
+  2. PUT to complete user registration from form.
+*/
+
 module.exports = (pool) => {
 
-  // POST to create new user from Auth0 sign-up.
+  // POST to authenticate user with Auth0.
   router.post('/', async (req, res) => {
     console.log(req.body);
     
@@ -24,11 +29,11 @@ module.exports = (pool) => {
       );
 
       if (existingUser.rows.length > 0) { 
-        console.log("users", existingUser.rows[0]);
+        console.log("Existing user verified:", existingUser.rows[0]);
         return res.send(existingUser.rows[0]);
       }
 
-      // Insert new user
+      // Insert new user from Auth0 into db.
       const insertQuery = `
         INSERT INTO users (auth0_id, first_name, last_name, email, profile_picture)
         VALUES ($1, $2, $3, $4, $5)
@@ -36,7 +41,7 @@ module.exports = (pool) => {
       `;
       const newUser = await pool.query(insertQuery, 
         [auth0_id, first_name, last_name, email, profile_picture]);
-        console.log('user',newUser);
+        console.log("New user to db:", newUser.rows[0]);
       res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error('Error handling user data:', err);
@@ -44,37 +49,40 @@ module.exports = (pool) => {
     }
   });
 
-  // PUT to update existing user from Auth0 id.
+  // PUT to complete user registration from form.
   router.put('/update', async (req, res) => {
     const { 
-      auth0_id, 
-      email, 
+      auth0_id,
       first_name, 
-      last_name, 
+      last_name,
+      handle,
+      email, 
       profile_picture, 
       gender, 
       occupation, 
-      license, 
+      license,
+      points, 
       isHero,
-      handle
+      isRegistered
     } = req.body;
 
     try {
       const updateUserQuery = `
         UPDATE users
-        SET email = $1, first_name = $2, last_name = $3, profile_picture = $4, 
-            gender = $5, occupation = $6, license = $7, isHero = $8, handle = $9
-        WHERE auth0_id = $10
+        SET first_name = $1, last_name = $2, handle = $3, email = $4, profile_picture = $5, 
+            gender = $6, occupation = $7, license = $8, points = $9, isHero = $10, isRegistered = $11
+        WHERE auth0_id = $12
         RETURNING *;
       `;
       const values = [
-        email, first_name, last_name, profile_picture, 
-        gender, occupation, license, isHero, handle, auth0_id
+        first_name, last_name, handle, email, profile_picture, 
+        gender, occupation, license, points, isHero, isRegistered, auth0_id
       ];
       const result = await pool.query(updateUserQuery, values);
 
       if (result.rows.length > 0) {
         res.json(result.rows[0]);
+        console.log("User registration complete:", result.rows[0]);
       } else {
         res.status(404).json({ message: 'User not found' });
       }
