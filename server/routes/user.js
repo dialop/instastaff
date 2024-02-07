@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 /* User Routes:
-  1. POST to authenticate user with Auth0.
-  2. PUT to complete user registration from form.
+  1. POST user authentication info with Auth0.
+  2. PUT registration info to user database.
+  3. GET user data for Profile Card.
 */
 
 module.exports = (pool) => {
 
-  // POST to authenticate user with Auth0.
+  // POST user authentication info with Auth0.
   router.post('/', async (req, res) => {
     console.log(req.body);
     
@@ -49,7 +50,7 @@ module.exports = (pool) => {
     }
   });
 
-  // PUT to complete user registration from form.
+  // PUT registration info to user database.
   router.put('/update', async (req, res) => {
     const { 
       auth0_id,
@@ -92,7 +93,7 @@ module.exports = (pool) => {
     }
   });
 
-  // TODO: GET to grab the collected user information.
+  // GET user data for Profile Card.
   router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
   
@@ -105,18 +106,22 @@ module.exports = (pool) => {
       }
   
       const user = result.rows[0];
+      console.log('User data retrieved for Profile Card:', user);
+
       res.json({
         id: user.id,
         auth0_id: user.auth0_id,
-        email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
+        handle: user.handle,
+        email: user.email,
         profile_picture: user.profile_picture,
         gender: user.gender,
         occupation: user.occupation,
         license: user.license,
+        points: user.points,
         isHero: user.isHero,
-        handle: user.handle,
+        isRegistered: user.isRegistered
       });
     } catch (error) {
       console.error('Error fetching user information:', error);
