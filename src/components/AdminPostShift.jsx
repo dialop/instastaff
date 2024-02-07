@@ -23,12 +23,12 @@ const PostShiftForm = () => {
 
   const [formData, setFormData] = useState({
     facility_name: '',
-    workerType: '',
+    title: '',
     rate: '',
     gender: '',
     duration: '',
-    startDate: '',
-    startTime: '',
+    date: '',
+    start_time: '',
   });
 
 
@@ -91,7 +91,7 @@ const PostShiftForm = () => {
 
         <form className="space-y-4" >
           <FormControl fullWidth required>
-            <InputLabel htmlFor="facility">Hospital</InputLabel>
+            <InputLabel htmlFor="facility_name">Hospital</InputLabel>
             <Select
               value={formData.facility_name}
               onChange={handleInputChange}
@@ -114,9 +114,9 @@ const PostShiftForm = () => {
                 <FormLabel component="legend">Type of Worker</FormLabel>
                 <RadioGroup
                   row
-                  aria-label="workerType"
-                  name="workerType"
-                  value={formData.workerType}
+                  aria-label="title"
+                  name="title"
+                  value={formData.title}
                   onChange={handleInputChange}
                 >
                   <FormControlLabel
@@ -175,8 +175,8 @@ const PostShiftForm = () => {
               <Input fullWidth
                 label="Start Date"
                 type="date"
-                name="startDate"
-                value={formData.startDate}
+                name="date"
+                value={formData.date}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -188,8 +188,8 @@ const PostShiftForm = () => {
               <Input fullWidth
                 label="Start Time"
                 type="time"
-                name="startTime"
-                value={formData.startTime}
+                name="start_time"
+                value={formData.start_time}
                 InputLabelProps={{
                   shrink: true,
                 }}
