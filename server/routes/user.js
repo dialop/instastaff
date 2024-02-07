@@ -63,21 +63,21 @@ module.exports = (pool) => {
       occupation, 
       license,
       points, 
-      isHero,
-      isRegistered
+      is_hero,
+      is_registered
     } = req.body;
 
     try {
       const updateUserQuery = `
         UPDATE users
         SET first_name = $1, last_name = $2, handle = $3, email = $4, profile_picture = $5, 
-            gender = $6, occupation = $7, license = $8, points = $9, isHero = $10, isRegistered = $11
+            gender = $6, occupation = $7, license = $8, points = $9, is_hero = $10, is_registered = $11
         WHERE auth0_id = $12
         RETURNING *;
       `;
       const values = [
         first_name, last_name, handle, email, profile_picture, 
-        gender, occupation, license, points, isHero, isRegistered, auth0_id
+        gender, occupation, license, points, is_hero, is_registered, auth0_id
       ];
       const result = await pool.query(updateUserQuery, values);
 
@@ -120,8 +120,8 @@ module.exports = (pool) => {
         occupation: user.occupation,
         license: user.license,
         points: user.points,
-        isHero: user.isHero,
-        isRegistered: user.isRegistered
+        is_hero: user.is_hero,
+        is_registered: user.is_registered
       });
     } catch (error) {
       console.error('Error fetching user information:', error);

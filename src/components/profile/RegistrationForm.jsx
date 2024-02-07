@@ -38,8 +38,8 @@ const RegistrationForm = () => {
     occupation: 'Super Nurse',
     license: 'RN007',
     points: 100,
-    isHero: true, 
-    isRegistered: true,
+    is_hero: true, 
+    is_registered: true,
   });
 
   useEffect(() => {
@@ -129,9 +129,9 @@ const RegistrationForm = () => {
             </Typography>
             <Box className="flex items-center mt-3">
               <Checkbox
-                checked={formData.isHero}
+                checked={formData.is_hero}
                 onChange={handleChange}
-                name="isHero"
+                name="is_hero"
                 color="primary"
               />
               <Typography variant="body1" className="ml-2 italic text-blue-700">

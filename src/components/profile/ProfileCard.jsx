@@ -29,7 +29,7 @@ const ProfileCard = () => {
             <div className="flex flex-col items-center">
               <Avatar alt={`${profile.first_name} ${profile.last_name}`} src={profile.profile_picture} sx={{ width: 100, height: 100, mb: 2 }} />
               <Chip label={profile.gender} variant="outlined" sx={{ mb: 1 }} />
-              {profile.isHero && (
+              {profile.is_hero && (
                 <Chip icon={<BadgeIcon />} label="Emergency Hero" color="primary" sx={{ mb: 1 }} />
               )}
             </div>
