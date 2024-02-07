@@ -11,10 +11,10 @@ const CalendarComponent = (props) => {
 
     return (
       <div>
-        <h2>{date.toDateString()}</h2>
-        <ul>
+        <h2 className='react-calendar__navigation'>{date.toDateString()}</h2>
+        <ul className='react-calendar__navigation'>
           {shiftsForDate.map((shift, index) => (
-            <li key={index}>
+            <li  key={index}>
               <strong>Facility name: {shift.facility_name}</strong>
               <p>Location: {shift.address}, Toronto</p>
               <p>Shift Start Time: {shift.start_shift} AM</p>
@@ -32,7 +32,11 @@ const CalendarComponent = (props) => {
   };
 
  return (
-    <div className="flex mt-5 justify-center">
+  <>
+  <div className="heading flex flex-col justify-center items-center">
+  <h1 className="text-6xl py-8 text-[#24233E]">Calendar</h1>
+  </div>
+    <div className="flex mt-5 justify-center pb-10">
       <div className='react-calendar'>
         {renderShiftsForDate(state.date)}
       </div>
@@ -54,6 +58,7 @@ const CalendarComponent = (props) => {
         />
       </div>
     </div>
+    </>
   );
 };
 
