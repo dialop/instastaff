@@ -1,8 +1,8 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const LogoutButton = () => {
-  const { logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
+const LoginButton = () => {
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const userLogout = async () => {
     const userId = window.sessionStorage.getItem('userId');
@@ -31,7 +31,7 @@ const LogoutButton = () => {
       {!isAuthenticated && (
         <button
           className='bg-[#6547A5] hover:bg-[#7D67AC] text-white py-2.5 px-4 border-[#24233E] hover:border-transparent rounded'
-          onClick={() => logout({ returnTo: window.location.origin })}
+          onClick={() => loginWithRedirect({ returnTo: window.location.origin })}
         >
           Login
         </button>
@@ -47,4 +47,4 @@ const LogoutButton = () => {
   );
 };
 
-export default LogoutButton;
+export default LoginButton;
