@@ -1,10 +1,29 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import './CalendarStyle.css';
+import { useState } from 'react';
 
 const CalendarComponent = (props) => {
   const { state, handleCalendarDate, shiftsByUser, getShiftForDate } = props;
+  const [jobStatus, setJobStatus] = useState({ is_filled: false });
+  const [updateJob, setUpdateJob] = useState(false);
   console.log('shiftsByUser prop:', shiftsByUser);
+
+  const handleCancelShift = (shiftId) => {
+    try {
+      setJobStatus((prevJobStatus) => ({
+        ...prevJobStatus,
+        is_filled: false,
+      }));
+      setUpdateJob((prev) => !prev);
+      console.log(`Shift with ID ${shiftId} canceled`);
+    } catch (error) {
+      console.error('Error canceling shift:', error);
+    }
+
+    console.log(`Canceling shift with ID ${shiftId}`);
+  };
+
 
   const renderShiftsForDate = (date) => {
     const shiftsForDate = getShiftForDate(date);
@@ -21,6 +40,7 @@ const CalendarComponent = (props) => {
               <p>Shift Start Time: {shift.start_shift} AM</p>
               <p>Shift Duration: {shift.duration} hours</p>
               <p>Occupation Required: {shift.occupation}</p>
+              <button onClick={() => handleCancelShift(shift.id)}>Cancel</button>
             </li>
           ))}
         </ul>
