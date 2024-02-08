@@ -17,7 +17,8 @@ CREATE TABLE users (
   is_hero BOOLEAN DEFAULT FALSE,
   is_registered BOOLEAN DEFAULT FALSE,
   last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  token VARCHAR(255)
+  token VARCHAR(255),
+  is_admin BOOLEAN DEFAULT FALSE
 );
 
 -- JOB POSTINGS TABLE (without feedback_id foreign key initially)

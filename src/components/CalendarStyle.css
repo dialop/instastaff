@@ -13,6 +13,7 @@
   display: flex;
   justify-content: center;
  }
+
  .react-calendar__navigation button {
   color: #6f48eb;
   min-width: 44px;
@@ -94,7 +95,7 @@
  }
 
  .date-has-shift {
-  color: red ;
+  color: red;
   font-weight: bold;
  }
 

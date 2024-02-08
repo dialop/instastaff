@@ -71,7 +71,7 @@ const PostShiftForm = () => {
 
       console.log('Form submitted successfully:', postingResponse);
       
-      toast.success('Shift booked successfully!', {
+      toast.success('The new job has been successfully posted.', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

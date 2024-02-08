@@ -12,6 +12,7 @@ const CalendarComponent = (props) => {
     return (
       <div>
         <h2 className='react-calendar__navigation'>{date.toDateString()}</h2>
+        {shiftsForDate.length > 0 ? (
         <ul className='react-calendar__navigation'>
           {shiftsForDate.map((shift, index) => (
             <li  key={index}>
@@ -23,6 +24,9 @@ const CalendarComponent = (props) => {
             </li>
           ))}
         </ul>
+        ) : (
+          <p className='react-calendar__navigation'>No shifts scheduled for this date</p>
+        )}
       </div>
     );
   };
