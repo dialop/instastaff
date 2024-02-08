@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar, CardContent, Chip, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, Container, Paper } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/VerifiedUser';
@@ -9,19 +10,31 @@ import StarsIcon from '@mui/icons-material/Stars';
 
 const ProfileCard = () => {
   const [profile, setProfile] = useState({});
+  const { isAuthenticated } = useAuth0();
+  const [isRegistered, setIsRegistered] = useState(false);
+
 
   useEffect(() => {
     const userId = window.sessionStorage.getItem('userId');
-    if (userId) {
+    if (userId && isAuthenticated) {
       fetch(`/user/${userId}`)
         .then(response => response.json())
         .then(data => {
-          setProfile(data);
+          if (data.is_registered) {
+            setProfile(data);
+            setIsRegistered(true);
+          } else {
+            setIsRegistered(false);
+          }
         })
         .catch(error => console.error("Failed to fetch user data:", error));
     }
-  }, []);
+  }, [isAuthenticated]);
   
+  if (!isAuthenticated || !isRegistered) {
+    return null;
+  }
+
   return (
     <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
         <CardContent>
