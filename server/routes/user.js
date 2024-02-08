@@ -129,5 +129,23 @@ module.exports = (pool) => {
     }
   });
 
+  // DELETE route to remove a user
+  router.delete('/:userId', async (req, res) => {
+    const { userId } = req.params;
+    // Assuming you have authentication middleware to verify the accessToken
+    // and you're confident userId is the authenticated user's ID
+
+    try {
+      // Replace with your actual query to delete the user from the database
+      await pool.query('DELETE FROM users WHERE id = $1', [userId]);
+      res.status(200).send({ message: 'User deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).send('Server error');
+    }
+  });
+
+module.exports = router;
+
   return router;
 };
