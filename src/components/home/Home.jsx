@@ -1,8 +1,9 @@
 import React from 'react';
 import Hero from './Hero';
+import Banner from './Banner';
 import HowItWorks from './HowItWorks';
 import Features from './Features';
-import Banner from './Banner';
+import Testimonials from './Testimonials';
 
 const Home = () => {
  
@@ -12,6 +13,7 @@ const Home = () => {
     <Banner/>
     <HowItWorks/>
     <Features/>
+    <Testimonials/>
    </>
   );
 };
