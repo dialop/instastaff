@@ -59,13 +59,39 @@ export const useApplicationData = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/calendar")
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: ACTIONS.SHIFTS_BY_USER, payload: data }))
-      .catch((error) => {
-        //console.log("Error fetching shifts", error);
-      });
-  }, []);
+    const fetchCalendarData = async () => {
+      try {
+        if (isAuthenticated) {
+          setIsLoading(true);
+          const userId = window.sessionStorage.getItem('userId');
+          const response = await fetch(`/calendar/${userId}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch calendar data");
+          }
+          const data = await response.json();
+          dispatch({ type: ACTIONS.SHIFTS_BY_USER, payload: data });
+          setIsLoading(false);
+        }
+      } catch (error) {
+        setError(error);
+        console.error("Error fetching calendar data:", error);
+        setIsLoading(false);
+      }
+    };
+  
+    fetchCalendarData();
+  }, [isAuthenticated]);
+
+  
+
+  // useEffect(() => {
+  //   fetch("/calendar")
+  //     .then((response) => response.json())
+  //     .then((data) => dispatch({ type: ACTIONS.SHIFTS_BY_USER, payload: data }))
+  //     .catch((error) => {
+  //       //console.log("Error fetching shifts", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     fetch("/api/jobs")

@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 const { pool } = require("../lib/db");
 
-router.get("/", (req, res) => {
+router.get("/:user_id", (req, res) => {
 
   // Edit user ID with $ in query based on user cookies.
-  // const userId = req.params.user_id;
+  const userId = req.params.user_id;
   // console.log("Is it working?")
 
   //Hard coded for userID = 1;
@@ -21,9 +21,9 @@ router.get("/", (req, res) => {
       job_postings.facility_name AS facility_name,
       job_postings.facility_short_address AS address
     FROM job_postings 
-    JOIN users ON users.id = job_postings.user_id 
-    WHERE users.id = 1;
-    `
+    JOIN users ON users.id = job_postings.booked_by_user_id
+    WHERE job_postings.booked_by_user_id = $1;
+    `, [userId]
   ).then(({ rows: calendar }) => {
     res.json(calendar);
   }).catch((error) => {
