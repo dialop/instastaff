@@ -1,19 +1,35 @@
 // - NAV PAGE - //
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
+import { useAuth0 } from '@auth0/auth0-react';
 
 import LoginButton from './LoginButton';
 import SignUpButton from './SignUpButton';
 
+
 const Navbar = ({ isAdmin }) => {
   const [nav, setNav] = useState(false);
+  const [userData, setUserData] = useState(null);
   const location = useLocation();
+  const { isAuthenticated, user } = useAuth0();
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setUserData(user); 
+      console.log('from nav', userData);
+    }
+  }, [isAuthenticated, user]);
+  
+
+
   const handleNav = () => {
     setNav(!nav);
   };
+  
 
   const isActive = (pathname) => location.pathname === pathname;
 
@@ -23,7 +39,8 @@ const Navbar = ({ isAdmin }) => {
         <Link to="/">InstaStaff</Link> 
       </h1>
       <ul className='hidden md:flex items-center'>
-      {isAdmin && (
+      {userData && userData.is_admin && ( 
+
           <>
       <li className={`p-4 ${isActive('/post-jobs') ? 'border-t-4 border-[#24233E]' : ''}`}>
           <Link to="/post-shift">Post New Job</Link>

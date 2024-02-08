@@ -95,8 +95,8 @@
  }
 
  .date-has-shift {
-  color: red;
-  font-weight: bold;
+  background-color: lightblue; 
+  border-radius: 50%; 
  }
 
  .react-calendar__month-view__days__day--neighboringMonth {
