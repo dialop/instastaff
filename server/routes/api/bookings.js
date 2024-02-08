@@ -1,18 +1,26 @@
+// -- ROUTER FOR BOOKING SHIFTS -- //
+
 const express = require('express');
 require('dotenv').config();
 
 module.exports = (pool) => {
   const router = express.Router();
   
-  // Route to send an email notification
   router.post('/book-shift/:jobId', async (req, res) => {
     const { jobId } = req.params;
     const { userId } = req.body; // Use the user ID directly instead of Auth0 ID
     
+    // Check for existing booking for the same job by the same user
+    const existingBookingQuery = 'SELECT * FROM calendar WHERE user_id = $1 AND job_posting_id = $2';
+    const existingBookingResult = await pool.query(existingBookingQuery, [userId, jobId]);
+    if (existingBookingResult.rows.length > 0) {
+      return res.status(409).json({ message: 'You have already booked this shift.' });
+    }
+
     try {
       await pool.query('BEGIN');
     
-      // Retrieve user details based on userId
+      // Fetch user details based on userId
       const userQuery = 'SELECT * FROM users WHERE id = $1';
       const userResult = await pool.query(userQuery, [userId]);
       if (userResult.rows.length === 0) {
@@ -49,9 +57,9 @@ module.exports = (pool) => {
       res.status(500).json({ message: 'Error booking shift' });
     }
   });
-
   return router;
 };
+
 
 
 //Alvin 

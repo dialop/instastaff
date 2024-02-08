@@ -23,6 +23,9 @@ const Navbar = () => {
         <Link to="/">InstaStaff</Link> 
       </h1>
       <ul className='hidden md:flex items-center'>
+      <li className={`p-4 ${isActive('/post-jobs') ? 'border-t-4 border-[#24233E]' : ''}`}>
+          <Link to="/post-shift">Post New Job</Link>
+        </li>
         <li className={`p-4 ${isActive('/jobs') ? 'border-t-2 border-[#24233E]' : ''}`}>
           <Link to="/jobs">Jobs</Link>
         </li>

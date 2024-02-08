@@ -1,4 +1,4 @@
-// - MAIN EXPRESS SERVER -//
+// -- EXPRESS SERVER CONFIGURATION -- //
 
 // Importing required modules
 const express = require('express');
@@ -6,6 +6,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require('cors');
+
 // Load .env file from the root directory
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
@@ -20,7 +21,7 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-// middlewares
+// Middlewares
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
@@ -38,6 +39,7 @@ const mapsRoutes = require('./routes/map');
 const apiJobs = require('./routes/api/api_jobs');
 const emailNotificationRouter = require('./routes/api/email_notification');
 const apiBooking = require('./routes/api/bookings');
+const adminPostShift = require('./routes/post-shift');
 
 // Define API routes
 app.use('/api/jobs', apiJobs(pool));
@@ -47,6 +49,7 @@ app.use('/api/email', emailNotificationRouter);
 app.use('/api/bookings', apiBooking(pool));
 app.use('/calendar', calendarRouter);
 app.use('/user', userRouter(pool));
+app.use('/post-shift', adminPostShift);
 
 // Error handler middleware
 app.use((err, req, res, next) => {

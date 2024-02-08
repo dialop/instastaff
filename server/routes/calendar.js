@@ -1,35 +1,38 @@
-// -- CALENDAR ROUTES -- //
+// -- ROUTER FOR CALENDAR API -- //
 
 const express = require('express');
 const router = express.Router();
 const { pool } = require("../lib/db");
 
-router.get("/", (req, res) => {
+router.get("/api/calendar", async (req, res) => {
+  const userId = req.user ? req.user.id : null;
 
-  // Edit user ID with $ in query based on user cookies.
-  // const userId = req.params.user_id;
-  // console.log("Is it working?")
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized: User ID is missing or not authenticated." });
+  }
 
-  //Hard coded for userID = 1;
-  pool.query(
-    `
-    SELECT
-      job_postings.title AS occupation,
-      job_postings.date AS shift_date,
-      job_postings.start_time AS start_shift,
-      job_postings.duration AS duration,
-      job_postings.facility_name AS facility_name,
-      job_postings.facility_short_address AS address
-    FROM job_postings 
-    JOIN users ON users.id = job_postings.user_id 
-    WHERE users.id = 1;
-    `
-  ).then(({ rows: calendar }) => {
-    res.json(calendar);
-  }).catch((error) => {
-    console.error("Error executing SQL query:", error);
+  try {
+    // Query to fetch calendar data (booked shifts) for the authenticated user
+    const queryText = `
+      SELECT
+        job_postings.title AS occupation,
+        job_postings.date AS shift_date,
+        job_postings.start_time AS start_shift,
+        job_postings.duration,
+        job_postings.facility_name,
+        job_postings.facility_short_address AS address
+      FROM job_postings
+      JOIN users ON users.id = job_postings.booked_by_user_id
+      WHERE users.id = $1;
+    `;
+    const { rows: calendarEntries } = await pool.query(queryText, [userId]);
+
+    // calendar entries to the client
+    res.json(calendarEntries);
+  } catch (error) {
+    console.error("Error fetching calendar data:", error);
     res.status(500).json({ error: "Internal Server Error" });
-  });
+  }
 });
 
 module.exports = router;

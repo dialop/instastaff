@@ -7,11 +7,11 @@ import {
   Checkbox,
   Container,
   MenuItem,
-  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
-import { useRegistration } from '../../context/RegistrationContext';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -26,22 +26,40 @@ const Input = styled(TextField)({
 
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const { isRegistered, setIsRegistered } = useRegistration();
+  const [isRegistered, setIsRegistered] = useState();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     handle: '',
     email: '',
-    password: '',
     profile_picture: '',
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
-    isHero: true, 
-    points: 0,
+    points: 100,
+    is_hero: true, 
+    is_registered: true,
   });
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  // Check registration status when the component mounts.
+  useEffect(() => {
+    const userId = window.sessionStorage.getItem('userId');
+    if (userId) {
+      fetch(`/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.is_registered) {
+            setIsRegistered(true);
+          } else {
+            // Update form data if not registered
+            setFormData(prevState => ({ ...prevState, ...data }));
+          }
+        })
+        .catch(error => console.error("Failed to fetch user data:", error));
+    }
+  }, []);
+
+  // Set user data to form state.
   useEffect(() => {
     if (user) {
       const handle = `${user.given_name || ''}${user.family_name ? `_${user.family_name}` : ''}`.toLowerCase();
@@ -67,11 +85,10 @@ const RegistrationForm = () => {
       const accessToken = await getAccessTokenSilently();
       const userData = {
         ...formData,
-        auth0_id: user.sub, // Assuming `user.sub` contains the Auth0 user ID.
+        auth0_id: user.sub,
       };
       console.log(userData, accessToken);
       
-      // Logic to send data to backend.
       const response = await fetch('/user/update', {
         method: 'PUT',
         headers: {
@@ -85,22 +102,21 @@ const RegistrationForm = () => {
         throw new Error('Failed to update user data');
       }
       const responseData = await response.json();
-      console.log('Update successful:', responseData);
-
-      setIsRegistered(true);
-      setSnackbarOpen(true);
+      console.log('User registration submitted:', responseData);
       
-      alert("Registration complete. Welcome aboard!");
+      toast.success('Registration complete. Welcome aboard!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.error("Error during form submission:", error);
     }
-  };
-
-  const handleSnackbarClose = (reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSnackbarOpen(false);
   };
 
   if (!isAuthenticated || isRegistered) {
@@ -129,9 +145,9 @@ const RegistrationForm = () => {
             </Typography>
             <Box className="flex items-center mt-3">
               <Checkbox
-                checked={formData.isHero}
+                checked={formData.is_hero}
                 onChange={handleChange}
-                name="isHero"
+                name="is_hero"
                 color="primary"
               />
               <Typography variant="body1" className="ml-2 italic text-blue-700">
@@ -144,17 +160,6 @@ const RegistrationForm = () => {
           </Button>
         </form>
       </Container>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-        message="Registration complete. Welcome aboard!"
-        action={
-          <Button color="secondary" size="small" onClick={() => handleSnackbarClose()}>
-            Close
-          </Button>
-        }
-      />
     </>
   );
 };

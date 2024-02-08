@@ -1,4 +1,5 @@
-// Import necessary modules
+// -- SEND EMAIL NOTIFICATION ROUTE -- //
+
 const express = require('express');
 const router = express.Router();
 const mailgun = require('mailgun-js');

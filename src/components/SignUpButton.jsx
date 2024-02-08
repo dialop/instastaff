@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { json } from 'react-router-dom';
 
 const SignUpButton = () => {
   const { loginWithRedirect, isAuthenticated, user, getAccessTokenSilently } = useAuth0();
@@ -15,14 +14,14 @@ const SignUpButton = () => {
         const accessToken = await getAccessTokenSilently();
         const userData = {
           auth0_id: user.sub,
-          email: user.email,
           first_name: user.given_name,
           last_name: user.family_name,
+          email: user.email,
           profile_picture: user.picture,
           token: accessToken
         };
 
-        console.log(userData);
+        console.log("Sending Auth0 userData to server:", userData);
 
         const response = await fetch('/user', {
           method: 'POST',
@@ -37,8 +36,8 @@ const SignUpButton = () => {
           throw new Error('Failed to send user data to backend');
         }
         return response;
-
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Error sending user data to backend:', error);
       }
     }
@@ -46,14 +45,17 @@ const SignUpButton = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      sendUserDataToBackend().then(res => {
-        return res.json()
-      }).then(res => {
-        console.log(res);
-        window.sessionStorage.setItem('userId', res.id)
-      })
+      sendUserDataToBackend().then(response => {
+        if (response) {
+          response.json().then(data => {
+            console.log("Authentication response:", data);
+            // Assuming 'id' is a property of the JSON response from your backend
+            window.sessionStorage.setItem('userId', data.id);
+          }).catch(error => console.error('Error parsing JSON:', error));
+        }
+      }).catch(error => console.error('Error in sendUserDataToBackend:', error));
     } 
-  }, [isAuthenticated, sendUserDataToBackend]);
+  }, [isAuthenticated, sendUserDataToBackend]);  
 
   return !isAuthenticated && (
     <button

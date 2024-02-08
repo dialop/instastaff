@@ -1,4 +1,4 @@
-// useApplicationData.js
+// -- APPLICATION DATA MANAGEMENT --//
 
 import { createContext, useReducer, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -17,6 +17,8 @@ const initialState = {
   shiftsByUser: [],
   jobPostings: [],
   selectedJob: null,
+  calendarEntries: [], // Book: calendarEntries array in the state
+
 };
 
 function reducer(state, action) {
@@ -47,9 +49,12 @@ function reducer(state, action) {
           shiftsByUser: [...state.shiftsByUser, action.payload],
         };
         case ACTIONS.ADD_CALENDAR_ENTRY:
+          const newShiftsByUser = [...state.shiftsByUser, action.payload.newShift];
+          const newCalendarEntries = [...(state.calendarEntries || []), action.payload.calendarEntry];
           return {
             ...state,
-            calendarEnteries: [...state.calendarEnteries, action.payload], //book shift to add to calnedar 
+            shiftsByUser: newShiftsByUser,
+            calendarEntries: newCalendarEntries,
           };
 
     default:
@@ -83,32 +88,30 @@ export const useApplicationData = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-        console.log(isAuthenticated && user);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //       console.log(isAuthenticated && user);
 
-        const userId = window.sessionStorage.getItem('userId')
-        console.log(userId);
+  //       const userId = window.sessionStorage.getItem('userId')
+  //       console.log(userId);
         
-      if (isAuthenticated && user) {
-        setIsLoading(true);
-        try {
-          console.log("fire");
-          const response = await fetch("/api/user");
-          const data = await response.json();
-          setUserData(data);
-        } catch (error) {
-          setError(error);
-          console.error("Error fetching user data:", error);
-        }
-        setIsLoading(false);
-      }
-    };
+  //     if (isAuthenticated && user) {
+  //       setIsLoading(true);
+  //       try {
+  //         console.log("fire");
+  //         const response = await fetch("/api/user");
+  //         const data = await response.json();
+  //         setUserData(data);
+  //       } catch (error) {
+  //         setError(error);
+  //         console.error("Error fetching user data:", error);
+  //       }
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, [isAuthenticated, user]);
-
-
+  //   fetchData();
+  // }, [isAuthenticated, user]);
 
   const handleCalendarDate = (selectedDate) => {
     dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate });

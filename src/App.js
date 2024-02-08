@@ -1,3 +1,5 @@
+// -- APPLICATION ROUTING CONFIGURATION -- //
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Nav";
@@ -10,14 +12,9 @@ import ProfilePage from "./components/ProfilePage";
 import UserHeader from "./components/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
-import { RegistrationProvider } from './context/RegistrationContext';
 import MarkerDetail from "./components/MarkerDetail";
-
-
-
-function Home() {
-  return <div>{/* Home page content */}</div>;
-}
+import AdminPostShift from "./components/AdminPostShift";
+import Home from './components/home/Home';
 
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
@@ -27,28 +24,26 @@ function App() {
   };
 
   return (
-
-
     <ApplicationDataProvider>
       <JobsContextProvider>
-        <RegistrationProvider>
-          <Navbar />im
-          <UserHeader />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/maps" element={<MapPage />} />
-            <Route path="/jobs" element={<JobPostings />} />
-            <Route path="/jobs/:jobId" element={<JobPostings />} />
-            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-            <Route path="/marker-detail" element={<MarkerDetail updateCalendarState={addShift} />} />
-          </Routes>
-          <Footer />
-        </RegistrationProvider>
+        <Navbar />
+        <UserHeader />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/maps" element={<MapPage />} />
+          <Route path="/jobs" element={<JobPostings />} />
+          <Route path="/jobs/:jobId" element={<JobPostings />} />
+          <Route
+            path="/calendar"
+            element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />}
+          />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
+          <Route path="/marker-detail" element={<MarkerDetail updateCalendarState={addShift} />} />
+        </Routes>
+        <Footer />
       </JobsContextProvider>
     </ApplicationDataProvider>
-
   );
 }
 

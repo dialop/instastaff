@@ -6,15 +6,16 @@ CREATE TABLE users (
   auth0_id VARCHAR(255),
   first_name VARCHAR(255),
   last_name VARCHAR(255),
-  email VARCHAR(255) NOT NULL,
   handle VARCHAR(255),
+  email VARCHAR(255) NOT NULL,
   password VARCHAR(255),
   profile_picture VARCHAR(255),
   gender VARCHAR(50),
   occupation VARCHAR(255),
   license VARCHAR(255),
-  isHero BOOLEAN,
   points INTEGER DEFAULT 0,
+  is_hero BOOLEAN DEFAULT FALSE,
+  is_registered BOOLEAN DEFAULT FALSE,
   last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   token VARCHAR(255)
 );
@@ -62,7 +63,7 @@ CREATE TABLE messages (
 );
 
 
--- Calendar TABLE
+-- CALENDAR TABLE
 DROP TABLE IF EXISTS calendar CASCADE;
 CREATE TABLE calendar (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -72,7 +73,7 @@ CREATE TABLE calendar (
 );
 
 
--- Alter tables
+-- ALTER TABLES
 ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
 ALTER TABLE users ADD UNIQUE (email);
 ALTER TABLE job_postings ADD COLUMN facility_images VARCHAR(255);

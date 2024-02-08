@@ -1,34 +1,58 @@
-import React from 'react';
+// -- CALENDAR COMPONENT --//
+
+import React, { useContext, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import './CalendarStyle.css';
+import { ApplicationDataContext } from "../hooks/useApplicationData";
 
-const CalendarComponent = ({ state, handleCalendarDate, shiftsByUser, getShiftForDate }) => {
+const CalendarComponent = () => {
+  const { state, dispatch, handleCalendarDate, getShiftForDate, shiftsByUser } = useContext(ApplicationDataContext);
 
+  // Fetch booked shifts when component mounts or user state changes
+  useEffect(() => {
+    const fetchBookedShifts = async () => {
+      try {
+        const response = await fetch('/api/calendar', {
+          headers: {
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Error fetching booked shifts');
+        }
+        const data = await response.json();
+        // Store booked shifts in state
+        dispatch({ type: 'SHIFTS_BY_USER', payload: data });
+      } catch (error) {
+        console.error('Failed to fetch booked shifts:', error);
+      }
+    };
+
+    fetchBookedShifts();
+  }, [dispatch]); 
+
+  // Render shifts for the selected date
   const renderShiftsForDate = (date) => {
-    // Get shifts for the selected date
     const shiftsForDate = getShiftForDate(date);
-    // Check if there are shifts for the selected date
     if (shiftsForDate.length > 0) {
       return (
-        <div>
+        <div className="booked-shifts">
           <h2>Booked Shifts for {date.toDateString()}</h2>
-          <ul>
-            {shiftsForDate.map((shift, index) => (
-              <li key={index}>
-                <strong>Facility name: {shift.facility_name}</strong>
-                <p>Location: {shift.address}, Toronto</p>
-                <p>Shift Start Time: {shift.start_shift} AM</p>
-                <p>Shift Duration: {shift.duration} hours</p>
-                <p>Occupation Required: {shift.occupation}</p>
-              </li>
-            ))}
-          </ul>
+          {shiftsForDate.map((shift, index) => (
+            <div key={index} className="booked-shift">
+              <strong>{shift.facility_name}</strong>
+              <p>{shift.address}</p>
+              <p>{new Date(shift.start_shift).toLocaleTimeString()} AM</p>
+              <p>{shift.duration} hours</p>
+              <p>{shift.occupation}</p>
+            </div>
+          ))}
         </div>
       );
     }
-    return null; // Return null or a message if no shifts are booked for the selected date
+    return null;
   };
 
+  // Handle calendar change event
   const handleCalendarChange = (newDate) => {
     handleCalendarDate(newDate);
   };
