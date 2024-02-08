@@ -2,7 +2,7 @@ import React from "react";
 import { HiDocumentMagnifyingGlass } from "react-icons/hi2";
 import { FaUserNurse } from "react-icons/fa";
 import { FaCalendarPlus } from "react-icons/fa";
-import wavyline from '../../assets/wavyline.svg'
+import wavyline from "../../assets/wavyline.svg";
 
 const HowItWorks = () => {
   return (
@@ -20,9 +20,9 @@ const HowItWorks = () => {
             <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/4 p-4">
               <div className="flex flex-wrap items-center mb-7 -m-2">
                 <div className="w-auto p-2 ">
-                  <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-indigo-100 rounded-xl">
+                  <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-blue-100 rounded-xl">
                     <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <FaUserNurse  className="w-10 h-10 text-[#6547A5]" />
+                      <FaUserNurse className="w-10 h-10 text-[#6547A5]" />
                     </span>
                   </div>
                 </div>
@@ -31,23 +31,18 @@ const HowItWorks = () => {
                 </div>
               </div>
               <h3 className="text-center text-lg font-semibold leading-normal md:max-w-xs">
-                Aliquam erat volutpat. Integer malesuada turpis id fringilla
-                suscipit. Maecenas ultrices, orci vitae convallis mattis.
+                Sign up
               </h3>
             </div>
-            <div className="flex h-[220px] items-start">
-              <img
-                className="w-[400px] h-[auto]"
-                src={wavyline}
-                alt=""
-              ></img>
+            <div className="flex h-[150px] items-start">
+              <img className="w-[600px] h-[auto]" src={wavyline} alt=""></img>
             </div>
             <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/4 p-8">
               <div className="flex flex-wrap items-center mb-7 -m-2">
                 <div className="w-auto p-2 ">
-                  <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-indigo-100 rounded-xl">
+                  <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-blue-100 rounded-xl">
                     <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <HiDocumentMagnifyingGlass  className="w-10 h-10 text-[#6547A5]" />
+                      <HiDocumentMagnifyingGlass className="w-10 h-10 text-[#6547A5]" />
                     </span>
                   </div>
                 </div>
@@ -56,25 +51,21 @@ const HowItWorks = () => {
                 </div>
               </div>
               <h3 className="text-center text-lg font-semibold leading-normal md:max-w-xs">
-                Aliquam erat volutpat. Integer malesuada turpis id fringilla
-                suscipit. Maecenas ultrices, orci vitae convallis mattis.
+                Validate Profile
+                {/* Get your credentials accessed */}
               </h3>
             </div>
 
-            <div className="flex h-[220px] items-start">
-              <img
-                className="w-[400px] h-[auto]"
-                src={wavyline}
-                alt=""
-              ></img>
+            <div className="flex h-[150px] items-start">
+              <img className="w-[600px] h-[auto]" src={wavyline} alt=""></img>
             </div>
-           
+
             <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/4 p-8">
               <div className="flex flex-wrap items-center mb-7 -m-2">
                 <div className="w-auto p-2 ">
-                  <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-indigo-100 rounded-xl">
+                  <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-blue-100 rounded-xl">
                     <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <FaCalendarPlus  className="w-10 h-10 text-[#6547A5]" />
+                      <FaCalendarPlus className="w-10 h-10 text-[#6547A5]" />
                     </span>
                   </div>
                 </div>
@@ -83,8 +74,10 @@ const HowItWorks = () => {
                 </div>
               </div>
               <h3 className="text-center text-lg font-semibold leading-normal md:max-w-xs">
-                Aliquam erat volutpat. Integer malesuada turpis id fringilla
-                suscipit. Maecenas ultrices, orci vitae convallis mattis.
+                {/* Start booking!!   */}
+                "Initiate Booking/Posting" 
+                {/* "Access Booking/Posting"  */}
+                {/* "Start Finding Shifts or Candidates" */}
               </h3>
             </div>
           </div>
