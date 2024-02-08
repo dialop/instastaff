@@ -10,6 +10,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import notifications from "../helpers/notifications";
 import { useParams } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 TimeAgo.addDefaultLocale(en);
 
@@ -31,7 +32,31 @@ const JobPostings = () => {
   const [displaySearchResults, setDisplaySearchResults] = useState(false);
   const [searchResult, setSearchResult] = useState();
 
+//User ID
+  const { user, isAuthenticated } = useAuth0();
+  const [userId, setUserId] = useState(null);
+
   const prevJobIdRef = useRef();
+
+//Fetch User ID from DB
+const fetchUserId = async () => {
+  try {
+    const userId = window.sessionStorage.getItem('userId');
+    if (userId && isAuthenticated) {
+      const response = await fetch(`/user/${userId}`);
+      const data = await response.json();
+      console.log('user from job', data.userID);
+      setUserId(userId);
+    }
+  } catch (error) {
+    console.error("Failed to fetch user ID:", error);
+  }
+};
+
+useEffect(() => {
+  fetchUserId();
+}, [isAuthenticated]);
+
 
 useEffect(() => {
   prevJobIdRef.current = jobId;
@@ -70,8 +95,9 @@ useEffect(() => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(jobStatus),
+        body: JSON.stringify({ ...jobStatus, booked_by_user_id: userId }),
       });
+      console.log('response', response);
 
       if (response.ok) {
         setJobData((prevJobData) =>

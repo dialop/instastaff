@@ -44,15 +44,22 @@ router.get('/search', (req, res) => {
   router.put("/:id", (req, res) => {
     const id = req.params.id;
     const body = req.body
-    const is_filled = req.body.is_filled;
+    const { is_filled, booked_by_user_id } = req.body;
+    console.log('req.body', req.body);
+    // const is_filled = req.body.is_filled;
     return pool
     .query(
-      "UPDATE job_postings SET is_filled = $1 where id = $2 returning *",
-      [
-        is_filled, id
-      ]
-      )
+      //update user ID
+      "UPDATE job_postings SET is_filled = $1, booked_by_user_id = $2 WHERE id = $3 RETURNING *",
+      [is_filled, booked_by_user_id, id]
+    )
+      // "UPDATE job_postings SET is_filled = $1 where id = $2 returning *",
+      // [
+      //   is_filled, id
+      // ]
+      // )
       .then((result) => {
+        console.log('data from backend booking', result.rows);
         return res.json(result.rows);
       })
       .catch((err) => {
