@@ -1,30 +1,11 @@
-import React, {useState, useEffect } from 'react';
+import React from 'react';
 import { Typography, LinearProgress, Box } from '@mui/material';
+import { useRewards } from '../../../context/RewardsContext';
 
 const PointsProgress = () => {
-  const [currentPoints, setCurrentPoints] = useState(0);
+  const { points } = useRewards();
   const totalPoints = 500; 
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userId = window.sessionStorage.getItem('userId'); // Ensure userId is stored here upon login
-      if (!userId) return;
-
-      try {
-        const response = await fetch(`/user/${userId}`);
-        if (!response.ok) throw new Error('Failed to fetch user data');
-
-        const data = await response.json();
-        setCurrentPoints(data.points); // Assuming 'points' is the field you want from the response
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const progressPercent = (currentPoints / totalPoints) * 100;
+  const progressPercent = Math.min((points / totalPoints) * 100, 100); // Ensure percentage does not exceed 100
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" p={2}>
@@ -42,7 +23,7 @@ const PointsProgress = () => {
         />
       </Box>
       <Typography variant="subtitle1">
-        {`${currentPoints}/${totalPoints} points to your next reward!`}
+        {`${points}/${totalPoints} points to your next reward!`}
       </Typography>
     </Box>
   );
