@@ -5,6 +5,7 @@ const router = express.Router();
   1. POST user authentication info with Auth0.
   2. PUT registration info to user database.
   3. GET user data for Profile Card.
+  4. DELETE route to remove logged in user.
 */
 
 module.exports = (pool) => {
@@ -132,11 +133,8 @@ module.exports = (pool) => {
   // DELETE route to remove a user
   router.delete('/:userId', async (req, res) => {
     const { userId } = req.params;
-    // Assuming you have authentication middleware to verify the accessToken
-    // and you're confident userId is the authenticated user's ID
 
     try {
-      // Replace with your actual query to delete the user from the database
       await pool.query('DELETE FROM users WHERE id = $1', [userId]);
       res.status(200).send({ message: 'User deleted successfully' });
     } catch (error) {
