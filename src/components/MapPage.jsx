@@ -46,14 +46,15 @@ const MapPage = () => {
 
   
 
-  const markers = state.jobPostings.map((posting) => ({
+  const markers = Array.isArray(state.jobPostings) ? state.jobPostings.map((posting) => ({
     id: posting.id, // ID to each marker to identify
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
     description: `${posting.facility_name}\nLocation: ${posting.facility_short_address}\nShift Date: ${posting.date}\nShift Start Time: ${posting.start_time}\nShift Duration: ${posting.duration} hours`,
     imageUrl: posting.facility_images 
-  }));
+  })) : [];
+
   
   //console.log('photo', markers);
   
