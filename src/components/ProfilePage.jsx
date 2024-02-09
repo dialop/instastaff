@@ -3,12 +3,10 @@ import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
 
 import RegistrationForm from './profile/RegistrationForm';
 import ProfileCard from './profile/ProfileCard';
-
 import BarChartComponent from './profile/BarChartComponent';
-import Rewards from './profile/rewards/Rewards';
-import GiftCard from './profile/rewards/GiftCard'; 
-import PieChartInsentive from './profile/PieChartInsentive';
-
+import PieChartIncentive from './profile/PieChartIncentive';
+// import Rewards from './profile/rewards/Rewards';
+// import GiftCard from './profile/rewards/GiftCard'; 
 
 function ProfilePage() {
 
@@ -25,37 +23,25 @@ function ProfilePage() {
         <ProfileCard />
       </Box>
       
-      {/* Information Section */}
+      {/* Graph and Pie Chart Sections */}
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={8}>
+        {/* Graph Section */}
+        <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Rewards
-              </Typography>
-              <form noValidate autoComplete="off">
-                <Grid container spacing={3}>
-                  {/* Other input fields */}
-                </Grid>
-              </form>
+              <Typography variant="h6">Total Hours Summary</Typography>
+              <BarChartComponent />
             </CardContent>
           </Card>
-
-          {/* Rewards Section */}
-          <Rewards />
-          
-          {/* GiftCard Section */}
-          <GiftCard />
         </Grid>
-
-        {/* Graph and Pie Chart Sections */}
+        {/* Pie Chart Section */}
         <Grid item xs={12} md={6}>
-          <Typography variant="h6">Total Hours Summary</Typography>
-          <BarChartComponent />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6">Health/Facility Summary</Typography>
-          <PieChartInsentive />
+          <Card>
+            <CardContent>
+              <Typography variant="h6">Health/Facility Summary</Typography>
+              <PieChartIncentive />
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </Box>
@@ -63,3 +49,24 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+      // {/* Information Section */}
+      // <Grid container spacing={2}>
+      //   <Grid item xs={12} sm={6} md={8}>
+      //     <Card>
+      //       <CardContent>
+      //         <Typography variant="h5" gutterBottom>Rewards</Typography>
+      //         <form noValidate autoComplete="off">
+      //           <Grid container spacing={3}>
+      //           </Grid>
+      //         </form>
+      //       </CardContent>
+      //     </Card>
+
+      //     {/* Rewards Section */}
+      //     <Rewards />
+          
+      //     {/* GiftCard Section */}
+      //     <GiftCard />
+      //   </Grid>
+      // </Grid>
