@@ -49,7 +49,6 @@ const SignUpButton = () => {
         if (response) {
           response.json().then(data => {
             console.log("Authentication response:", data);
-            // Assuming 'id' is a property of the JSON response from your backend
             window.sessionStorage.setItem('userId', data.id);
           }).catch(error => console.error('Error parsing JSON:', error));
         }
