@@ -13,7 +13,7 @@ import ChatBox from "./components/ChatBox";
 import MarkerDetail from "./components/MarkerDetail";
 import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
-import { UserProvider } from './context/UserContext';
+import { RegistrationProvider } from "./context/Context";
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   };
 
   return (
-    <UserProvider>
+    <RegistrationProvider>
       <ApplicationDataProvider>
         <JobsContextProvider>
             <Navbar />
@@ -43,7 +43,7 @@ function App() {
             <Footer />
         </JobsContextProvider>
       </ApplicationDataProvider>
-    </UserProvider>
+    </RegistrationProvider>
   );
 }
 

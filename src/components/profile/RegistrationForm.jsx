@@ -10,9 +10,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-// import { useRegistration } from '../../context/RegistrationContext';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useRegistration } from '../../context/Context';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -27,7 +27,6 @@ const Input = styled(TextField)({
 
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  // const { isRegistered, setIsRegistered } = useRegistration();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -42,6 +41,8 @@ const RegistrationForm = () => {
     is_registered: true, 
     points: 100,
   });
+  const { setIsRegistered } = useRegistration();
+
 
   useEffect(() => {
     if (user) {
@@ -87,7 +88,7 @@ const RegistrationForm = () => {
       const responseData = await response.json();
       console.log('Update successful:', responseData);
 
-      // setIsRegistered(true);
+      setIsRegistered(true); // Update the registration state
       
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
