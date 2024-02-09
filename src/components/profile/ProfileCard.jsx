@@ -13,7 +13,6 @@ const ProfileCard = () => {
   const [profile, setProfile] = useState({});
   const { isAuthenticated } = useAuth0();
   const { isRegistered } = useRegistration();
-  // const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     const userId = window.sessionStorage.getItem('userId');
