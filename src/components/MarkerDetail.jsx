@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+// -- MARKER DETAIL COMPONENT -- //
+
+import React, { useState, useContext } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import "../styles/MarkerDetail.css";
 import notifications from "../helpers/notifications";
-import { useApplicationData } from "../hooks/useApplicationData";
+import { ApplicationDataContext } from "../hooks/useApplicationData";
 
-const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin }) => {
+const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onClose }) => {
   const [showChatBox, setShowChatBox] = useState(false);
-  // const { addShift } = useApplicationData(); // Removed unused 'state'
 
-  const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
-  // console.log("Auth0 Context:", { isAuthenticated, user, getAccessTokenSilently });
-  const userId = window.sessionStorage.getItem('userId')
+  // Context
+  const contextValue = useContext(ApplicationDataContext);
+  const { addCalendarEntry } = contextValue ?? {}; 
 
-  
+  // Auth
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const userId = user?.sub;
+
   const openDirections = () => {
+    // Open Google Maps directions
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLocation = {
@@ -31,53 +35,59 @@ const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin }) => {
   };
 
   const handleContactAdmin = (id) => {
+    // Contacting admin
     setShowChatBox(true);
     onContactAdmin(id);
   };
 
   const bookJob = async (id) => {
+    // Book a job
     if (!userId) {
       console.log('Please log in before booking.');
       return;
     }
     
     try {
-      
-      // const accessToken = await getAccessTokenSilently();
-      const response = await fetch(`/api/bookings/book-job/${id}`, {
+      const response = await fetch(`/api/bookings/book-shift/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({ user_id: userId }),
+        body: JSON.stringify({ userId }),
       });
   
       if (!response.ok) {
-        throw new Error('Failed to book job.');
+        const errorDetails = await response.json();
+        if (response.status === 409) {
+          alert(errorDetails.message);
+        } else {
+          throw new Error(`Failed to book job: ${errorDetails.message}`);
+        }
+      } else {
+        const bookingDetails = await response.json();
+        console.log('Booking successful:', bookingDetails);
+        addCalendarEntry({
+          newShift: bookingDetails.bookedShift,
+          calendarEntry: bookingDetails.calendarEntry
+        });
       }
-
-      const bookingDetails = await response.json();
-      console.log('Booking successful:', bookingDetails);
     } catch (error) {
       console.error('Booking error:', error);
     }
   };
-  
+
   return (
-    <div className="marker-window">
-      <img src={markerData.imageUrl} alt={markerData.title} className="marker-window-image" />
-      <h3>{markerData.title}</h3>
-      <p>{markerData.description}</p>
-      <div className="marker-window-buttons">
-        <button className="marker-window-button" onClick={() => viewJobDetails(markerData.id)}>View</button>
-        <button className="marker-window-button" onClick={() => handleContactAdmin(markerData.id)}>Contact</button>
-        {/* Updated Book button with disabled prop based on isAuthenticated */}
-        <button 
-          className="marker-window-button" 
-          onClick={() => bookJob(markerData.id)}
-          disabled={!userId}>Book</button>
-        <button className="marker-window-button green-button" onClick={openDirections}>Go</button>
+    <div className="marker-details-container bg-transparent max-w-80vw font-sans rounded-lg shadow-md">
+      <img src={markerData.imageUrl} alt={markerData.title} className="w-full h-160 object-cover" />
+      <div>
+        <h3 className="marker-details-title text-lg font-medium">{markerData.title}</h3>
+        <p className="marker-details-content p-2 text-sm font-normal">{markerData.description}</p>
+      </div>
+      <div className="marker-window-buttons flex justify-center gap-2 p-2">
+        <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => viewJobDetails(markerData.id)}>View</button>
+        <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => handleContactAdmin(markerData.id)}>Contact</button>
+        <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => bookJob(markerData.id)} disabled={!userId}>Book</button>
+        <button className="marker-window-button bg-green-500 text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 uppercase" onClick={openDirections}>Directions</button>
       </div>
       {showChatBox && (
         <div className="fixed bottom-0 right-0 mb-4 mr-4 w-64 p-4 bg-white rounded-lg shadow-lg">

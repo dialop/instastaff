@@ -64,7 +64,7 @@ CREATE TABLE messages (
 );
 
 
--- Calendar TABLE
+-- CALENDAR TABLE
 DROP TABLE IF EXISTS calendar CASCADE;
 CREATE TABLE calendar (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE calendar (
 );
 
 
--- Alter tables
+-- ALTER TABLES
 ALTER TABLE job_postings ADD COLUMN feedback_id INTEGER REFERENCES feedbacks(id) ON DELETE CASCADE;
 ALTER TABLE users ADD UNIQUE (email);
 ALTER TABLE job_postings ADD COLUMN facility_images VARCHAR(255);

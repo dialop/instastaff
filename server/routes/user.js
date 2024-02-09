@@ -1,3 +1,5 @@
+// -- USER ROUTES WITH AUTHENTICATION AND REGISTRATION -- //
+
 const express = require('express');
 const router = express.Router();
 

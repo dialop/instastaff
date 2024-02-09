@@ -1,4 +1,4 @@
-// -- CALENDAR ROUTES -- //
+// -- ROUTER FOR CALENDAR API -- //
 
 const express = require('express');
 const router = express.Router();
@@ -29,7 +29,7 @@ router.get("/:user_id", (req, res) => {
   }).catch((error) => {
     console.error("Error executing SQL query:", error);
     res.status(500).json({ error: "Internal Server Error" });
-  });
+  }); 
 });
 
 module.exports = router;
