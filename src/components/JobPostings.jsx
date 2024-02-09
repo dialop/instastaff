@@ -372,12 +372,26 @@ useEffect(() => {
                       <button
                         className="flex-1 bg-[#9e2e2a] text-white inline-block rounded-lg px-6 pb-2 pt-2.5 font-medium uppercase shadow-[0_2px_7px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700"
                         onClick={() => {
-                          setJobStatus((prevJobStatus) => ({
-                            ...prevJobStatus,
-                            is_filled: false,
-                          }));
-                          setUpdateJob((prev) => !prev);
-                        }}
+                        // Log the current job status before updating
+    console.log("Current job status:", jobStatus);
+
+    // Update job status
+    setJobStatus((prevJobStatus) => ({
+      ...prevJobStatus,
+      is_filled: false,
+      booked_by_user_id: null
+    }));
+
+    // Log the updated job status
+    console.log("Updated job status:", {
+      ...jobStatus,
+      is_filled: false,
+      booked_by_user_id: null
+    });
+
+    // Toggle updateJob state
+    setUpdateJob((prev) => !prev);
+  }}
                       >
                         Cancel Shift
                       </button>
