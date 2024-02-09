@@ -10,7 +10,7 @@ const data = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 
-const PieChartInsentive = () => (
+const PieChartIncentive = () => (
   <ResponsiveContainer width="100%" height={300}>
     <PieChart>
       <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
@@ -24,4 +24,4 @@ const PieChartInsentive = () => (
   </ResponsiveContainer>
 );
 
-export default PieChartInsentive;
+export default PieChartIncentive;
