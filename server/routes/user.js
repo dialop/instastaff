@@ -4,7 +4,7 @@ const router = express.Router();
 /* User Routes:
   1. POST user authentication info with Auth0.
   2. PUT registration info to user database.
-  3. GET user data for Profile Card.
+  3. GET user data.
   4. DELETE route to remove logged in user.
 */
 
@@ -107,7 +107,7 @@ module.exports = (pool) => {
       }
   
       const user = result.rows[0];
-      console.log('User data retrieved for Profile Card:', user);
+      console.log('User data retrieved:', user);
 
       res.json({
         id: user.id,
