@@ -7,23 +7,24 @@ const CalendarComponent = (props) => {
   const { state, handleCalendarDate, shiftsByUser, getShiftForDate } = props;
   const [jobStatus, setJobStatus] = useState({ is_filled: false });
   const [updateJob, setUpdateJob] = useState(false);
+  const [userId, setUserId] = useState(null);
   console.log('shiftsByUser prop:', shiftsByUser);
+  
 
   const handleCancelShift = (shiftId) => {
     try {
       setJobStatus((prevJobStatus) => ({
         ...prevJobStatus,
         is_filled: false,
+        booked_by_user_id: null
       }));
       setUpdateJob((prev) => !prev);
-      console.log(`Shift with ID ${shiftId} canceled`);
+      setUserId(null);
     } catch (error) {
-      console.error('Error canceling shift:', error);
+      console.error("Error canceling shift:", error);
     }
-
-    console.log(`Canceling shift with ID ${shiftId}`);
   };
-
+  
 
   const renderShiftsForDate = (date) => {
     const shiftsForDate = getShiftForDate(date);
