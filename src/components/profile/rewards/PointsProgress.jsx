@@ -1,27 +1,46 @@
-import React from 'react';
-// Import Material-UI components if needed for additional styling
+import React, {useState} from 'react';
+import { Typography, LinearProgress, Box } from '@mui/material';
 
-const PointsProgress = ({ currentPoints, totalPoints, nextRewardPoints }) => {
-  // Calculate the percentage of progress
+const PointsProgress = () => {
+  
+  const [currentPoints] = useState(150);
+  const totalPoints = 500;
+  const nextRewardPoints = totalPoints - currentPoints;
+  
   const progressPercent = (currentPoints / totalPoints) * 100;
 
   return (
-    <div className="flex flex-col items-center space-y-2 p-4">
-      <div className="text-lg font-medium">
-        {`${currentPoints}/${totalPoints} points`}
-      </div>
-      {/* Tailwind styled linear progress bar */}
-      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-        <div
-          className="bg-purple-600 h-2.5 rounded-full"
-          style={{ width: `${progressPercent}%` }}
-        ></div>
-      </div>
-      <div className="text-sm">
-        {`${nextRewardPoints} points to your next reward`}
-      </div>
-    </div>
+    <Box display="flex" flexDirection="column" alignItems="center" p={2}>
+      <Box width="100%" mb={0} sx={{ borderRadius: 20, overflow: 'hidden' }}>
+        <LinearProgress 
+          variant="determinate" 
+          value={progressPercent} 
+          sx={{
+            height: 10,
+            borderRadius: 20,
+            '& .MuiLinearProgress-bar': {
+              backgroundColor: 'rgba(0, 255, 0, 0.75)'
+            }
+          }}
+        />
+      </Box>
+      <Typography variant="subtitle1">
+        {`${currentPoints}/${totalPoints} points to your next reward!`}
+      </Typography>
+    </Box>
   );
 };
 
 export default PointsProgress;
+
+{/* <Box display="flex" flexDirection="column" alignItems="center" p={2}>
+<Typography variant="h6" gutterBottom>
+  
+</Typography>
+<Box width="100%" mb={2}>
+  <LinearProgress variant="determinate" value={progressPercent} />
+</Box>
+<Typography variant="subtitle1">
+  {`${currentPoints}/${totalPoints} points to your next reward!`}
+</Typography>
+</Box> */}
