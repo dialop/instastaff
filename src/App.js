@@ -13,6 +13,8 @@ import ChatBox from "./components/ChatBox";
 import MarkerDetail from "./components/MarkerDetail";
 import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
+import { UserProvider } from './context/UserContext';
+
 
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
@@ -22,24 +24,26 @@ function App() {
   };
 
   return (
-    <ApplicationDataProvider>
-      <JobsContextProvider>
-          <Navbar />
-          <UserHeader />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/maps" element={<MapPage />} />
-            <Route path="/jobs" element={<JobPostings />} />
-            <Route path="/jobs/:jobId" element={<JobPostings />} />
-            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-            <Route path="/marker-detail" element={<MarkerDetail />} />
-            <Route path="/post-shift" element={<AdminPostShift />} /> 
-          </Routes>
-          <Footer />
-      </JobsContextProvider>
-    </ApplicationDataProvider>
+    <UserProvider>
+      <ApplicationDataProvider>
+        <JobsContextProvider>
+            <Navbar />
+            <UserHeader />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/maps" element={<MapPage />} />
+              <Route path="/jobs" element={<JobPostings />} />
+              <Route path="/jobs/:jobId" element={<JobPostings />} />
+              <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
+              <Route path="/marker-detail" element={<MarkerDetail />} />
+              <Route path="/post-shift" element={<AdminPostShift />} /> 
+            </Routes>
+            <Footer />
+        </JobsContextProvider>
+      </ApplicationDataProvider>
+    </UserProvider>
   );
 }
 
