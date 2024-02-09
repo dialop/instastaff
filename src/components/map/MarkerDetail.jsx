@@ -1,11 +1,9 @@
-// -- MARKER DETAIL COMPONENT -- //
-
 import React, { useState, useContext } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import notifications from "../helpers/notifications";
-import { ApplicationDataContext } from "../hooks/useApplicationData";
+import notifications from "../../helpers/notifications";
+import { ApplicationDataContext } from "../../hooks/useApplicationData";
 
-const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onClose }) => {
+const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin,  }) => {
   const [showChatBox, setShowChatBox] = useState(false);
 
   // Context
@@ -32,13 +30,14 @@ const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onClose }) =
         alert('Could not determine your location. Please enable location services in your browser.');
       }
     );
+  
   };
 
-  const handleContactAdmin = (id) => {
-    // Contacting admin
-    setShowChatBox(true);
-    onContactAdmin(id);
-  };
+  // const handleContactAdmin = (id) => {
+  //   // Contacting admin
+  //   setShowChatBox(true);
+  //   onContactAdmin(id);
+  // };
 
   const bookJob = async (id) => {
     // Book a job
@@ -85,8 +84,8 @@ const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin, onClose }) =
       </div>
       <div className="marker-window-buttons flex justify-center gap-2 p-2">
         <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => viewJobDetails(markerData.id)}>View</button>
-        <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => handleContactAdmin(markerData.id)}>Contact</button>
-        <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => bookJob(markerData.id)} disabled={!userId}>Book</button>
+        {/* <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => handleContactAdmin(markerData.id)}>Contact</button> */}
+        {/* <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => bookJob(markerData.id)} disabled={!userId}>Book</button> */}
         <button className="marker-window-button bg-green-500 text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 uppercase" onClick={openDirections}>Directions</button>
       </div>
       {showChatBox && (

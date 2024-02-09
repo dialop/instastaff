@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import MarkerDetail from './MarkerDetail';
 import ReactDOM from 'react-dom';
-import '../styles/Map.css';
 
 const Map = ({ location, borders, markers, origin, destination, viewJobDetails }) => {
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { JobsContext } from "../context";
+import { JobsContext } from "../../context";
 import Modal from "./JobPostingsModal";
 import { FaCheckToSlot } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
@@ -8,7 +8,7 @@ import "moment-timezone";
 import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import notifications from "../helpers/notifications";
+import notifications from "../../helpers/notifications";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 

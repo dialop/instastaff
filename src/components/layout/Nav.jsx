@@ -1,4 +1,4 @@
-// - NAV PAGE - //
+// - NAVBAR COMPONENT - //
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,15 +6,15 @@ import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
 import { useAuth0 } from '@auth0/auth0-react';
 
-import LoginButton from './LoginButton';
-import SignUpButton from './SignUpButton';
+import LoginButton from '../user/LoginButton';
+import SignUpButton from '../user/SignUpButton';
 
 
 const Navbar = ({ isAdmin }) => {
   const [nav, setNav] = useState(false);
   const [userData, setUserData] = useState(null);
   const location = useLocation();
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, logout } = useAuth0();
 
 
   useEffect(() => {
@@ -24,7 +24,11 @@ const Navbar = ({ isAdmin }) => {
     }
   }, [isAuthenticated, user]);
   
+  const handleLogout = () => {
 
+
+    logout({ returnTo: window.location.origin });
+  };
 
   const handleNav = () => {
     setNav(!nav);
@@ -77,7 +81,7 @@ const Navbar = ({ isAdmin }) => {
         <li className='p-6'><Link to="/profile" className='flex justify-center items-center text-2xl' onClick={handleNav}>Profile</Link></li>
         <div className='flex flex-col items-center'>
           <button className='bg-transparent hover:bg-[#7D67AC] hover:text-white py-2 px-4 mb-4 border border-[#5b588a] hover:border-transparent rounded'>Register</button>
-          <button className='bg-[#6547A5] hover:bg-[#7D67AC] text-white py-2.5 px-4 border-[#24233E] hover:border-transparent rounded'>Login</button>
+          <button onClick={handleLogout} className='bg-[#6547A5] hover:bg-[#7D67AC] text-white py-2.5 px-4 border-[#24233E] hover:border-transparent rounded'>Login</button>
         </div>
       </ul>
     </div>

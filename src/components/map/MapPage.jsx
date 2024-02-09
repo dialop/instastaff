@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Map from './Map';
-import { useApplicationData } from '../hooks/useApplicationData';
-import JobPostingsModal from './JobPostingsModal';
+import { useApplicationData } from '../../hooks/useApplicationData';
+import JobPostingsModal from '../job_posting/JobPostingsModal';
 
 const MapPage = () => {
   const [selectedJobId, setSelectedJobId] = useState(null);
