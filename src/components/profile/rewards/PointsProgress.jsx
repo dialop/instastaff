@@ -2,11 +2,8 @@ import React, {useState} from 'react';
 import { Typography, LinearProgress, Box } from '@mui/material';
 
 const PointsProgress = () => {
-  
   const [currentPoints] = useState(150);
-  const totalPoints = 500;
-  const nextRewardPoints = totalPoints - currentPoints;
-  
+  const totalPoints = 500;  
   const progressPercent = (currentPoints / totalPoints) * 100;
 
   return (
@@ -32,15 +29,3 @@ const PointsProgress = () => {
 };
 
 export default PointsProgress;
-
-{/* <Box display="flex" flexDirection="column" alignItems="center" p={2}>
-<Typography variant="h6" gutterBottom>
-  
-</Typography>
-<Box width="100%" mb={2}>
-  <LinearProgress variant="determinate" value={progressPercent} />
-</Box>
-<Typography variant="subtitle1">
-  {`${currentPoints}/${totalPoints} points to your next reward!`}
-</Typography>
-</Box> */}
