@@ -16,6 +16,7 @@ TimeAgo.addDefaultLocale(en);
 
 const JobPostings = () => {
   const { jobData, setJobData } = useContext(JobsContext);
+    const { user, isAuthenticated } = useAuth0();
 
   const params = useParams();
   //console.log(params);
@@ -34,7 +35,7 @@ const JobPostings = () => {
   const [searchResult, setSearchResult] = useState();
 
 //User ID
-  const { user, isAuthenticated } = useAuth0();
+
   const [userId, setUserId] = useState(null);
 
   const prevJobIdRef = useRef();

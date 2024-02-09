@@ -1,33 +1,37 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import './CalendarStyle.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { JobsContext } from "../context";
 
 const CalendarComponent = (props) => {
   const { state, handleCalendarDate, shiftsByUser, getShiftForDate } = props;
   const [jobStatus, setJobStatus] = useState({ is_filled: false });
   const [updateJob, setUpdateJob] = useState(false);
   const [userId, setUserId] = useState(null);
-  console.log('shiftsByUser prop:', shiftsByUser);
+  const { cancelJob } = useContext(JobsContext);
+  // console.log('shiftsByUser prop:', shiftsByUser);
   
 
-  const handleCancelShift = (shiftId) => {
-    try {
-      setJobStatus((prevJobStatus) => ({
-        ...prevJobStatus,
-        is_filled: false,
-        booked_by_user_id: null
-      }));
-      setUpdateJob((prev) => !prev);
-      setUserId(null);
-    } catch (error) {
-      console.error("Error canceling shift:", error);
-    }
-  };
+  // const handleCancelShift = (shiftId) => {
+  //   try {
+  //     setJobStatus((prevJobStatus) => ({
+  //       ...prevJobStatus,
+  //       is_filled: false,
+  //       booked_by_user_id: null
+  //     }));
+  //     setUpdateJob((prev) => !prev);
+  //     setUserId(null);
+  //   } catch (error) {
+  //     console.error("Error canceling shift:", error);
+  //   }
+  // };
   
 
   const renderShiftsForDate = (date) => {
     const shiftsForDate = getShiftForDate(date);
+
+    console.log('shiftsForDate:', shiftsForDate);
 
     return (
       <div>
@@ -41,7 +45,7 @@ const CalendarComponent = (props) => {
               <p>Shift Start Time: {shift.start_shift} AM</p>
               <p>Shift Duration: {shift.duration} hours</p>
               <p>Occupation Required: {shift.occupation}</p>
-              <button onClick={() => handleCancelShift(shift.id)}>Cancel</button>
+              <button onClick={() => handleCancelShift(shift.job_id)}>Cancel</button>
             </li>
           ))}
         </ul>
@@ -52,9 +56,16 @@ const CalendarComponent = (props) => {
     );
   };
 
+  const handleCancelShift = (jobId) => {
+    console.log('Cancelling job with jobId:', jobId);
+    cancelJob(jobId);
+  };
+
   const handleCalendarChange = (newDate) => {
     handleCalendarDate(newDate);
   };
+
+
 
  return (
   <>

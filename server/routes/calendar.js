@@ -14,6 +14,7 @@ router.get("/:user_id", (req, res) => {
   pool.query(
     `
     SELECT
+    job_postings.id AS job_id,
       job_postings.title AS occupation,
       job_postings.date AS shift_date,
       job_postings.start_time AS start_shift,
