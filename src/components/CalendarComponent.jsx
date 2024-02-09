@@ -56,10 +56,10 @@ const CalendarComponent = (props) => {
     );
   };
 
-  const handleCancelShift = (jobId) => {
-    console.log('Cancelling job with jobId:', jobId);
-    cancelJob(jobId);
-  };
+const handleCancelShift = async (jobId) => {
+  console.log('Cancelling job with jobId:', jobId);
+  await cancelJob(jobId);
+};
 
   const handleCalendarChange = (newDate) => {
     handleCalendarDate(newDate);

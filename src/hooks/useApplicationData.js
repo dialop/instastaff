@@ -46,6 +46,12 @@ function reducer(state, action) {
           ...state,
           shiftsByUser: [...state.shiftsByUser, action.payload],
         };
+
+        // case ACTIONS.CANCEL_JOB:
+        //   return {
+        //     ...state,
+        //     shiftsByUser: state.shiftsByUser.filter(shift => shift.id !== action.payload)
+        //   };
     default:
       return state;
   }
@@ -139,6 +145,10 @@ export const useApplicationData = () => {
         shift.shift_date && shift.shift_date.split("T")[0] === formattedDate
     );
   };
+
+  // const handleCancelShift = (jobId) => {
+  //   dispatch({ type: ACTIONS.CANCEL_JOB, payload: jobId });
+  // };
 
   const setSelectedJob = (job) => {
     dispatch({ type: ACTIONS.SET_SELECTED_JOB, payload: job });

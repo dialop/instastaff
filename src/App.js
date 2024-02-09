@@ -15,7 +15,7 @@ import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
 
 function App() {
-  const { addShift, state, handleCalendarDate, getShiftForDate } = useApplicationData();
+  const { addShift, state, handleCalendarDate, getShiftForDate} = useApplicationData();
 
   const handleContactAdmin = (id) => {
     //console.log("Admin contacted with ID:", id);
@@ -31,7 +31,10 @@ function App() {
             <Route path="/maps" element={<MapPage />} />
             <Route path="/jobs" element={<JobPostings />} />
             <Route path="/jobs/:jobId" element={<JobPostings />} />
-            <Route path="/calendar" element={<CalendarComponent state={state} handleCalendarDate={handleCalendarDate} addShift={addShift} getShiftForDate={getShiftForDate} />} />
+            <Route path="/calendar" element={<CalendarComponent state={state} 
+            handleCalendarDate={handleCalendarDate} 
+            addShift={addShift} 
+            getShiftForDate={getShiftForDate}/>} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
             <Route path="/marker-detail" element={<MarkerDetail />} />
