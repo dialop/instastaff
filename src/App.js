@@ -13,7 +13,7 @@ import ChatBox from "./components/ChatBox";
 import MarkerDetail from "./components/MarkerDetail";
 import AdminPostShift from "./components/AdminPostShift";
 import Home from './components/home/Home'
-import { RegistrationProvider } from "./context/Context";
+import { RegistrationProvider } from "./context/RegistrationContext";
 
 
 function App() {

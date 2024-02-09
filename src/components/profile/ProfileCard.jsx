@@ -7,15 +7,13 @@ import WorkIcon from '@mui/icons-material/Work';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
-import { useRegistration } from '../../context/Context';
+import { useRegistration } from '../../context/RegistrationContext';
 
 const ProfileCard = () => {
   const [profile, setProfile] = useState({});
   const { isAuthenticated } = useAuth0();
-  // const [isRegistered, setIsRegistered] = useState(false);
   const { isRegistered } = useRegistration();
-
-
+  // const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     const userId = window.sessionStorage.getItem('userId');
@@ -25,9 +23,6 @@ const ProfileCard = () => {
         .then(data => {
           if (data.is_registered) {
             setProfile(data);
-            // setIsRegistered(true);
-          } else {
-            // setIsRegistered(false);
           }
         })
         .catch(error => console.error("Failed to fetch user data:", error));

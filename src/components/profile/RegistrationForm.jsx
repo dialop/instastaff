@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useRegistration } from '../../context/Context';
+import { useRegistration } from '../../context/RegistrationContext';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -88,7 +88,7 @@ const RegistrationForm = () => {
       const responseData = await response.json();
       console.log('Update successful:', responseData);
 
-      setIsRegistered(true); // Update the registration state
+      setIsRegistered(true);
       
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
