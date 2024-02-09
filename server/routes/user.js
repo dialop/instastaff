@@ -94,7 +94,7 @@ module.exports = (pool) => {
     }
   });
 
-  // GET user data for Profile Card.
+  // GET user data.
   router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
   
