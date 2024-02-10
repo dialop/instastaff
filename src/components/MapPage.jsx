@@ -51,9 +51,10 @@ const MapPage = () => {
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
-    description: `${posting.facility_name} <p>\nLocation: ${posting.facility_short_address}</p>`,
+    description: `${posting.facility_name}Location: ${posting.facility_short_address}`,
     imageUrl: posting.facility_images 
   }));
+  
   
   //console.log('photo', markers);
   
