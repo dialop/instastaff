@@ -47,7 +47,6 @@ const fetchUserId = async () => {
     if (userId && isAuthenticated) {
       const response = await fetch(`/user/${userId}`);
       const data = await response.json();
-      console.log('user from job', data.userID);
       setUserId(userId);
     }
   } catch (error) {

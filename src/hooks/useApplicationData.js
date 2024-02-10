@@ -86,7 +86,7 @@ export const useApplicationData = () => {
     };
   
     fetchCalendarData();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   
 

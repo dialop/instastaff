@@ -21,7 +21,6 @@ const SignUpButton = () => {
           token: accessToken
         };
 
-        console.log("Sending Auth0 userData to server:", userData);
 
         const response = await fetch('/user', {
           method: 'POST',
@@ -48,7 +47,7 @@ const SignUpButton = () => {
       sendUserDataToBackend().then(response => {
         if (response) {
           response.json().then(data => {
-            console.log("Authentication response:", data);
+
             window.sessionStorage.setItem('userId', data.id);
           }).catch(error => console.error('Error parsing JSON:', error));
         }

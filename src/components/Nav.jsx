@@ -18,7 +18,6 @@ const Navbar = ({ isAdmin }) => {
   useEffect(() => {
     if (isAuthenticated) {
       setUserData(user); 
-      console.log('from nav', userData);
     }
   }, [isAuthenticated, user]);
 
