@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
 import { useAuth0 } from '@auth0/auth0-react';
+import logo from '../../assets/instastaff_transparent-logo.png';
 
 import LoginButton from '../user/LoginButton';
 import SignUpButton from '../user/SignUpButton';
@@ -28,9 +29,12 @@ const Navbar = () => {
 
   return (
     <div className='flex justify-between items-center h-24 mx-auto px-20 text-black bg-[#B8E4FF] drop-shadow-md'>
-      <h1 className='w-full text-3xl font-bold text-[#24233E]'>
-        <Link to="/">InstaStaff</Link>
-      </h1>
+      <Link to="/">
+        <div className='flex items-center h-full'>
+          <img src={logo} alt="InstaStaff Logo" className='h-20' /> {/* Adjust h-6 as needed */}
+          <h1 className='text-3xl font-bold text-[#24233E]' style={{ lineHeight: 'inherit' }}>InstaStaff</h1>
+        </div>
+      </Link>
       <ul className='hidden md:flex items-center'>
         {isAdmin ? (
           <>
