@@ -11,6 +11,7 @@ function JobsContextProvider({children}){
     
 
     const cancelJob = async (jobId) => {
+      console.log('Current jobData:', jobData);
         try {
           const response = await fetch(`/api/jobs/${jobId}`, {
             method: 'PUT',
@@ -24,6 +25,7 @@ function JobsContextProvider({children}){
             const updatedJobData = jobData.map((job) =>
               job.id === jobId ? { ...job, is_filled: false } : job
             );
+            console.log('Updated jobData:', updatedJobData);
             setJobData(updatedJobData);
           } else {
             console.error('Failed to cancel job:', response.statusText);
@@ -48,7 +50,9 @@ function JobsContextProvider({children}){
               prevJobData.map((job) =>
                 job.id === updatedJob.id ? updatedJob : job
               )
+              
             );
+            console.log('Updated job:', updatedJob);
           } else {
             console.error('Failed to update job:', response.statusText);
           }

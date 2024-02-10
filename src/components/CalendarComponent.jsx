@@ -20,6 +20,7 @@ const CalendarComponent = (props) => {
 
 
   const handleCancelShift = async (jobId) => {
+    console.log('Cancelling job with ID:', jobId);
     await cancelJob(jobId);
   };
 

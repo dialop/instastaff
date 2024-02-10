@@ -86,39 +86,120 @@ useEffect(() => {
 
 };
 
-  const handleupdateJob = async (e) => {
-    let id = Number(jobId);
-    try {
-      const url = `http://localhost:3000/api/jobs/${id}`;
-      const method = "PUT";
-      const response = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...jobStatus, booked_by_user_id: userId }),
-      });
-      console.log('response', response);
+const handleCancelShift = async () => {
+  console.log('Current jobData:', jobData);
+  try {
+    const response = await fetch(`/api/jobs/${jobId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ is_filled: false, booked_by_user_id: null }),
+    });
 
-      if (response.ok) {
-        setJobData((prevJobData) =>
-          prevJobData.map((job) =>
-            job.id === id ? { ...job, is_filled: !prevJobData.is_filled, booked_by_user_id: userId, } : job
-          )
-        );
-        //console.log("Job Status updated successfully", jobStatus);
-        if(!jobStatus.is_filled){
-          window.location.reload();
-        }
-        setUpdateJob(false);
-        // setBookedByUserId(null);
-      } else {
-        console.error("Error updating job status:", response.statusText);
-      }
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
+    if (response.ok) {
+      const updatedJobData = jobData.map((job) =>
+        job.id === jobId ? { ...job, is_filled: false } : job
+      );
+      console.log('Updated jobData:', updatedJobData);
+      setJobData(updatedJobData);
+    } else {
+      console.error('Failed to cancel job:', response.statusText);
     }
-  };
+  } catch (error) {
+    console.error('Error canceling job:', error);
+  }
+};
+
+const handleupdateJob = async () => {
+  let id = Number(jobId);
+  try {
+    const url = `http://localhost:3000/api/jobs/${id}`;
+    const method = "PUT";
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...jobStatus, booked_by_user_id: userId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error updating job status: ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+    throw error;
+  }
+};
+
+
+const handleAcceptShift = async () => {
+  try {
+    console.log("Updating local state:", { is_filled: true });
+    // Update the job status locally
+    setJobStatus((prevJobStatus) => ({
+      ...prevJobStatus,
+      is_filled: true,
+    }));
+
+    console.log("Local state updated successfully:", { is_filled: true });
+
+    // Update the job status on the server
+    console.log("Sending server request to update job status:", { is_filled: true });
+    await handleupdateJob();
+    console.log("Server request to update job status successful");
+    // Update the job data in the context
+    const updatedJobData = jobData.map((job) =>
+      job.id === jobId ? { ...job, is_filled: true } : job
+    );
+    console.log("Updated job data:", updatedJobData);
+    setJobData(updatedJobData);
+    console.log("Job data updated in context", updatedJobData);
+
+    // Additional console log to ensure function execution
+    console.log("Shift accepted successfully");
+    console.log("Clicked job:", clickedJob(jobId));
+    handleNotifications(clickedJob(jobId));
+  } catch (error) {
+    console.error("Error accepting job:", error);
+  }
+};
+
+
+  // const handleupdateJob = async (e) => {
+  //   let id = Number(jobId);
+  //   try {
+  //     const url = `http://localhost:3000/api/jobs/${id}`;
+  //     const method = "PUT";
+  //     const response = await fetch(url, {
+  //       method,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ ...jobStatus, booked_by_user_id: userId }),
+  //     });
+  //     console.log('response', response);
+
+  //     if (response.ok) {
+  //       setJobData((prevJobData) =>
+  //         prevJobData.map((job) =>
+  //           job.id === id ? { ...job, is_filled: !prevJobData.is_filled, booked_by_user_id: userId, } : job
+  //         )
+  //       );
+  //       //console.log("Job Status updated successfully", jobStatus);
+  //       if(!jobStatus.is_filled){
+  //         window.location.reload();
+  //       }
+  //       setUpdateJob(false);
+  //       // setBookedByUserId(null);
+  //     } else {
+  //       console.error("Error updating job status:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("There was a problem with the fetch operation:", error);
+  //   }
+  // };
 
   const handleNotifications = async (job) => {
     const sendAppNotifications = notifications(job);
@@ -373,15 +454,7 @@ useEffect(() => {
                       </button>
                       <button
                         className="flex-1 bg-[#9e2e2a] text-white inline-block rounded-lg px-6 pb-2 pt-2.5 font-medium uppercase shadow-[0_2px_7px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700"
-                        onClick={() => {
-                          setJobStatus((prevJobStatus) => ({
-                            ...prevJobStatus,
-                            is_filled: false,
-                            booked_by_user_id: null
-                          }));
-                          setUpdateJob((prev) => !prev);
-                          // setUserId(null);
-                        }}
+                        onClick={handleCancelShift}
                       >
                         Cancel Shift
                       </button>
@@ -396,14 +469,7 @@ useEffect(() => {
                       </button>
                       <button
                         className="flex-1 bg-[#6547A5] text-white inline-block rounded-lg px-6 pb-2 pt-2.5 font-medium uppercase shadow-[0_2px_7px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700"
-                        onClick={() => {
-                          setJobStatus((prevJobStatus) => ({
-                            ...prevJobStatus,
-                            is_filled: true,
-                          }));
-                          setUpdateJob((prev) => !prev);
-                          handleNotifications(clickedJob(jobId));
-                        }}
+                        onClick={handleAcceptShift}
                       >
                         Accept Job
                       </button>
