@@ -22,9 +22,9 @@ import { RewardsProvider } from "./context/RewardsContext";
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate} = useApplicationData();
 
-  const handleContactAdmin = (id) => {
-    //console.log("Admin contacted with ID:", id);
-  };
+  // const handleContactAdmin = (id) => {
+  //   //console.log("Admin contacted with ID:", id);
+  // };
 
   return (
     <RegistrationProvider>
@@ -43,7 +43,6 @@ function App() {
             addShift={addShift} 
             getShiftForDate={getShiftForDate}/>} />
                 <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
                 <Route path="/marker-detail" element={<MarkerDetail />} />
                 <Route path="/post-shift" element={<AdminPostShift />} /> 
               </Routes>

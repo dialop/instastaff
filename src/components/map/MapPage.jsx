@@ -1,17 +1,20 @@
 // -- MAP VIEW: JOB POSTINGS COMPONENT -- //
 
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Map from './Map';
 import { useApplicationData } from '../../hooks/useApplicationData';
-import JobPostingsModal from '../job_posting/JobPostingsModal';
+import MarkerDetail from '../map/MarkerDetail'; // Import MarkerDetail instead of JobPostingsModal
 
 const MapPage = () => {
   const [selectedJobId, setSelectedJobId] = useState(null);
-
-  // Hooks
-  const navigate = useNavigate();
   const { state, setSelectedJob } = useApplicationData();
+
+  // close MarkerDetail Modal
+  const closeMarkerWindow = () => {
+    console.log("Closing marker window");
+    setSelectedJobId(null);
+  };
 
   // Center of the map based on the borders
   function calculateCenter(borders) {
@@ -48,34 +51,34 @@ const MapPage = () => {
   // Center of the map based on the borders
   const location = calculateCenter(borders);
 
-  
-
   const markers = Array.isArray(state.jobPostings) ? state.jobPostings.map((posting) => ({
     id: posting.id, // ID to each marker to identify
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
-    description: `${posting.facility_name}Location: ${posting.facility_short_address}`,
+    description: `${posting.facility_name} Location: ${posting.facility_short_address}`,
     imageUrl: posting.facility_images 
   })) : [];
 
-  
-  
-  //console.log('photo', markers);
-  
   const selectedMarker = markers.find((marker) => marker.id === selectedJobId);
 
-  // Function to view job details
+  // Adjust viewJobDetails to handle marker click instead of navigating
   const viewJobDetails = (jobId) => {
+    setSelectedJobId(jobId); // Set the selected job ID
+    // Optionally, you can still set the selected job in context if needed elsewhere
     const job = state.jobPostings.find((job) => job.id === jobId);
-    setSelectedJob(job); 
-    navigate(`/jobs/${jobId}`);
+    setSelectedJob(job);
   };
 
   return (
     <div>
       <Map location={location} borders={borders} markers={markers} viewJobDetails={viewJobDetails} />
-      {selectedMarker && <JobPostingsModal job={selectedMarker} />} 
+      {selectedMarker && (
+        <MarkerDetail
+          markerData={selectedMarker}
+          onClose={closeMarkerWindow} // Pass the function to close MarkerDetail
+        />
+      )}
     </div>
   );
 };

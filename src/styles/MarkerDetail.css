@@ -1,9 +1,13 @@
-/* Add this to your global stylesheet (e.g., styles.css) */
+/* Add this to a CSS file that is imported into your project, like 'overrides.css' */
 .gm-style .gm-style-iw-c {
   padding: 0 !important; /* Override padding and set to 0 */
 }
 
-.gm-style .gm-style-iw-d { /* This class is for the div inside the container which may also have padding */
+.gm-style .gm-style-iw-d {
   overflow: hidden !important; /* Might need to reset overflow */
   padding: 0 !important; /* Override padding and set to 0 */
+}
+
+.gm-ui-hover-effect {
+  display: none !important;
 }
