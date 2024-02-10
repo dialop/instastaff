@@ -14,7 +14,7 @@ const HowItWorks = () => {
           </h2>
           <p className="text-center w-full mb-24 text-lg text-gray-900 font-medium mt-8"></p>
           <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/4 p-4">
+            <div className="flex flex-col justify-center items-center w-full md:w-1/2 lg:w-1/4 p-4">
               <div className="flex flex-wrap items-center mb-7 -m-2">
                 <div className="w-auto p-2 ">
                   <div className="relative w-20 h-20 text-2xl font-bold font-heading bg-blue-100 rounded-xl">
@@ -23,9 +23,9 @@ const HowItWorks = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex-1 p-2">
+                {/* <div className="flex-1 p-2">
                   <div className="w-full h-px bg-gray-200"></div>
-                </div>
+                </div> */}
               </div>
               <h3 className="text-center text-lg font-semibold leading-normal md:max-w-xs">
                 Sign up
@@ -43,9 +43,9 @@ const HowItWorks = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex-1 p-2">
+                {/* <div className="flex-1 p-2">
                   <div className="w-full h-px bg-gray-200"></div>
-                </div>
+                </div> */}
               </div>
               <h3 className="text-center text-lg font-semibold leading-normal md:max-w-xs">
                 Validate Profile
@@ -65,12 +65,12 @@ const HowItWorks = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex-1 p-2">
+                {/* <div className="flex-1 p-2">
                   <div className="w-full h-px bg-gray-200"></div>
-                </div>
+                </div> */}
               </div>
               <h3 className="text-center text-lg font-semibold leading-normal md:max-w-xs">
-                "Initiate Booking/Posting"
+                Initiate Booking/Posting
               </h3>
             </div>
           </div>
