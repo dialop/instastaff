@@ -87,7 +87,7 @@ useEffect(() => {
 };
 
 const handleCancelShift = async () => {
-  console.log('Current jobData:', jobData);
+
   try {
     const response = await fetch(`/api/jobs/${jobId}`, {
       method: 'PUT',
@@ -101,7 +101,7 @@ const handleCancelShift = async () => {
       const updatedJobData = jobData.map((job) =>
         job.id === jobId ? { ...job, is_filled: false, booked_by_user_id: null } : job
       );
-      console.log('Updated jobData:', updatedJobData);
+
       setJobData(updatedJobData);
     } else {
       console.error('Failed to cancel job:', response.statusText);
@@ -136,7 +136,7 @@ const handleupdateJob = async () => {
 
 const handleAcceptShift = async () => {
   try {
-    console.log("Updating local state:", { is_filled: true });
+    
     // Update the job status locally
     setJobStatus((prevJobStatus) => ({
       ...prevJobStatus,
@@ -144,23 +144,15 @@ const handleAcceptShift = async () => {
       booked_by_user_id: userId
     }));
 
-    console.log("Local state updated successfully:", { is_filled: true });
-
-    // Update the job status on the server
-    console.log("Sending server request to update job status:", { is_filled: true });
     await handleupdateJob();
-    console.log("Server request to update job status successful");
+
     // Update the job data in the context
     const updatedJobData = jobData.map((job) =>
       job.id === jobId ? { ...job, is_filled: true, booked_by_user_id: userId } : job
     );
-    console.log("Updated job data:", updatedJobData);
-    setJobData(updatedJobData);
-    console.log("Job data updated in context", updatedJobData);
 
-    // Additional console log to ensure function execution
-    console.log("Shift accepted successfully");
-    console.log("Clicked job:", clickedJob(jobId));
+    setJobData(updatedJobData);
+
     handleNotifications(clickedJob(jobId));
   } catch (error) {
     console.error("Error accepting job:", error);
