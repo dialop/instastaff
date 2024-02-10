@@ -44,12 +44,13 @@ const CalendarComponent = (props) => {
         {shiftsForDate.length > 0 ? (
           <ul className='react-calendar__navigation'>
             {shiftsForDate.map((shift, index) => (
+              
               <li key={index}>
                 <strong>Facility name: {shift.facility_name}</strong>
-                <p>Location: {shift.address}, Toronto</p>
-                <p>Shift Start Time: {shift.start_shift} AM</p>
+                <p>Location: {shift.facility_short_address}, Toronto</p>
+                <p>Shift Start Time: {shift.start_time} AM</p>
                 <p>Shift Duration: {shift.duration} hours</p>
-                <p>Occupation Required: {shift.occupation}</p>
+                <p>Occupation Required: {shift.title}</p>
                 <button onClick={() => handleCancelShift(shift.id)}>Cancel</button>
               </li>
             ))}
