@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import PointsProgress from './profile/rewards/PointsProgress';
+import PointsProgress from '../profile/rewards/PointsProgress';
 
 const UserHeader = () => {
 const { user } = useAuth0();

@@ -1,39 +1,17 @@
-import React from 'react';
+import {React, useState, useEffect, useContext} from 'react';
 import Calendar from 'react-calendar';
 import './CalendarStyle.css';
-import { useState, useContext, useEffect } from 'react';
 import { JobsContext } from "../context";
 
 const CalendarComponent = (props) => {
-  const { state, handleCalendarDate, shiftsByUser, getShiftForDate} = props;
+  const { state, handleCalendarDate, shiftsByUser, getShiftForDate } = props;
   const [jobStatus, setJobStatus] = useState({ is_filled: false });
   const [updateJob, setUpdateJob] = useState(false);
   const [userId, setUserId] = useState(null);
   const { cancelJob } = useContext(JobsContext);
-  const {calendarDate, setCalendarDate} = useState([]);
   // console.log('shiftsByUser prop:', shiftsByUser);
   
-  //  const fetchCalendarData = async () => {
-  //     try {
-  //         const userId = window.sessionStorage.getItem('userId');
-  //         const response = await fetch(`/calendar/${userId}`);
-  //         if (!response.ok) {
-  //           throw new Error("Failed to fetch calendar data");
-  //         }
-  //         const data = await response.json();
-  //         setCalendarDate(data);
-  //         console.log('Calendar Data:', data);
-  //       } catch (error) {
-  //       console.error("Error fetching calendar data:", error);
-  //     }
-  //   };
 
-  // useEffect(() => {
-  //   console.log('state data', state.date)
-  //   fetchCalendarData();
-
-  // }, []);
- 
   // const handleCancelShift = (shiftId) => {
   //   try {
   //     setJobStatus((prevJobStatus) => ({
@@ -87,6 +65,7 @@ const handleCancelShift = async (jobId) => {
     console.log('New Date:', newDate);
     handleCalendarDate(newDate);
   };
+
 
 
  return (

@@ -1,20 +1,24 @@
-// - NAV PAGE - //
+// - NAVBAR COMPONENT - //
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
 import { useAuth0 } from '@auth0/auth0-react';
 
-import LoginButton from './LoginButton';
-import SignUpButton from './SignUpButton';
+import LoginButton from '../user/LoginButton';
+import SignUpButton from '../user/SignUpButton';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const location = useLocation();
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, logout } = useAuth0();
 
   const isAdmin = isAuthenticated && user && user.email === 'admin@gmail.com';
+
+  const handleLogout = () => {
+    logout({ returnTo: window.location.origin });
+  };
 
   const handleNav = () => {
     setNav(!nav);
@@ -51,11 +55,9 @@ const Navbar = () => {
             <li className={`p-4 ${isActive('/profile') ? 'border-t-2 border-[#24233E]' : ''}`}>
               <Link to="/profile">Profile</Link>
             </li>
-
           </>
         ) : null}
         <p className='flex w-16 justify-center'> | </p>
-
         <SignUpButton />
         <LoginButton />
       </ul>
@@ -67,6 +69,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 
 {/* <ul className={nav ? 'fixed left-0 top-0 w-full h-full bg-[#6547A5] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
 <li className='p-6'><Link to="/jobs" className='flex justify-center items-center text-2xl' onClick={handleNav}>Jobs</Link></li>

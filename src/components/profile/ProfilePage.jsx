@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
 
-import RegistrationForm from './profile/RegistrationForm';
-import ProfileCard from './profile/ProfileCard';
-import BarChartComponent from './profile/BarChartComponent';
-import PieChartIncentive from './profile/PieChartIncentive';
+import RegistrationForm from './RegistrationForm';
+import ProfileCard from './ProfileCard';
+import BarChartComponent from './BarChartComponent';
+import PieChartIncentive from './PieChartIncentive';
 // import Rewards from './profile/rewards/Rewards';
 // import GiftCard from './profile/rewards/GiftCard'; 
 

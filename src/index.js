@@ -11,6 +11,8 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+
+
 // Render the app inside the root
 root.render(
   <React.StrictMode>
