@@ -19,7 +19,7 @@ module.exports = (pool) => {
       first_name, 
       last_name, 
       email, 
-      profile_picture 
+      profile_picture
     } = req.body;
 
     try {
@@ -65,7 +65,7 @@ module.exports = (pool) => {
       license,
       points, 
       is_hero,
-      is_registered
+      is_registered,
     } = req.body;
 
     try {
@@ -122,7 +122,8 @@ module.exports = (pool) => {
         license: user.license,
         points: user.points,
         is_hero: user.is_hero,
-        is_registered: user.is_registered
+        is_registered: user.is_registered,
+        is_admin: user.is_admin
       });
     } catch (error) {
       console.error('Error fetching user information:', error);
