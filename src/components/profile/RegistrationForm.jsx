@@ -13,6 +13,7 @@ import {
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRegistration } from '../../context/RegistrationContext';
+import { useRewards } from '../../context/RewardsContext';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -28,6 +29,7 @@ const Input = styled(TextField)({
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { isRegistered, setIsRegistered } = useRegistration();
+  const { setTriggerRefresh } = useRewards();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -88,6 +90,7 @@ const RegistrationForm = () => {
       console.log('Update successful:', responseData);
 
       setIsRegistered(true);
+      setTriggerRefresh(prev => !prev);
       
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
