@@ -3,9 +3,9 @@ import { Facebook, Twitter, Instagram } from '@mui/icons-material';
 
 const Footer = () => {
   return (
-    <div className="bg-custom-gray">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="bg-custom-gray flex justify-center">
+      <div className="w-full container flex flex-col justify-between py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
           <div className="col-span-1 lg:col-span-1">
             <h6 className="text-lg font-semibold mb-2">InstaStaff</h6>
             <p>

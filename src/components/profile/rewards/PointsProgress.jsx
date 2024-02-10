@@ -4,8 +4,13 @@ import { useRewards } from '../../../context/RewardsContext';
 
 const PointsProgress = () => {
   const { points } = useRewards();
+  const userId = window.sessionStorage.getItem('userId');
   const totalPoints = 500; 
   const progressPercent = Math.min((points / totalPoints) * 100, 100); // Ensure percentage does not exceed 100
+
+  if (!userId) {
+    return null;
+  }
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" p={2}>

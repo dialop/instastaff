@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import medStaff from "../../assets/medStaff.svg";
 
+import { CSSTransition } from "react-transition-group";
+import "../../App.css";
+
+
 const Hero = () => {
+  const [showImage, setShowImage] = useState(false);
+  const [showText, setShowText] = useState(false);
+
+  const nodeRef = useRef(null);
+  const textNodeRef = useRef(null);
+
+  useEffect(() => {
+    setShowImage(true);
+    setShowText(true);
+  }, []);
+
   return (
     <>
-      <section>
-        <div className="w-full flex justify-center overflow-hidden">
-          <div className="w-full">
-            <div className="relative overflow-hidden">
+      <section className="100vh text-white">
+        <div className="w-full flex justify-center ">
+          <div className="w-full container ">
+            <div className="relative">
               <div className="relative z-20 flex flex-wrap justify-between items-center -m-22">
-                <div className="flex flex-col h-[80vh] justify-center w-full lg:w-1/2 p-24 lg:pr-0 lg:pl-28 lg:py-28">
-                  <h2 className="mb-7 text-4xl md:text-5xl xl:text-10xl font-bold">
+                <div ref={textNodeRef} className="flex flex-col h-[80vh] justify-center w-full lg:w-1/2 p-24 lg:pr-0 lg:pl-28 lg:py-28">
+                  <h2 className="mb-7 text-4xl md:text-5xl xl:text-10xl font-bold text-black">
                     ADVANCE YOUR NURSING CAREER
                     {/* WITH INSTASTAFF */}
                   </h2>
@@ -36,11 +51,20 @@ const Hero = () => {
                  
                 </div>
                 <div className="w-full lg:w-1/2">
+                <CSSTransition
+                    in={showImage}
+                    timeout={2000}
+                    classNames="slide"
+                    unmountOnExit
+                    nodeRef={nodeRef}
+                  >
                   <img
+                  ref={nodeRef}
                     className="w-[1000px] h-[auto]"
                     src={medStaff}
                     alt=""
                   ></img>
+                   </CSSTransition>
                 </div>
               </div>
             </div>

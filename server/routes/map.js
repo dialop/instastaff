@@ -1,4 +1,4 @@
-// - MAP ROUTES - //
+// - MAP JOB LISTINGS ROUTE - //
 
 const express = require('express');
 const router = express.Router();

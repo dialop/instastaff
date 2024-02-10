@@ -1,4 +1,4 @@
-// useApplicationData.js
+// -- APPLICATION DATA MANAGEMENT --//
 
 import { createContext, useReducer, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,6 +9,7 @@ export const ACTIONS = {
   SET_JOB_POSTINGS: "SET_JOB_POSTINGS",
   SET_SELECTED_JOB: "SET_SELECTED_JOB",
   ADD_SHIFT: "ADD_SHIFT", // Book: New action for adding a shift
+  ADD_CALENDAR_ENTRY: "ADD_CALENDAR_ENTRY", // Book: calendar 
 };
 
 const initialState = {
@@ -16,6 +17,8 @@ const initialState = {
   shiftsByUser: [],
   jobPostings: [],
   selectedJob: null,
+  calendarEntries: [], // Book: calendarEntries array in the state
+
 };
 
 function reducer(state, action) {
@@ -41,7 +44,6 @@ function reducer(state, action) {
         selectedJob: action.payload,
       };
       case ACTIONS.ADD_SHIFT:
-        // Assuming the payload contains the new shift object
         return {
           ...state,
           shiftsByUser: [...state.shiftsByUser, action.payload],
@@ -138,13 +140,17 @@ export const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_DATE, payload: selectedDate });
   };
 
-  const getShiftForDate = (date) => {
-    const formattedDate = date.toISOString().split("T")[0];
+ const getShiftForDate = (date) => {
+  const formattedDate = date.toISOString().split("T")[0];
+  if (Array.isArray(state.shiftsByUser)) { // Ensure state.shiftsByUser is an array
     return state.shiftsByUser.filter(
-      (shift) =>
-        shift.shift_date && shift.shift_date.split("T")[0] === formattedDate
+      (shift) => shift.shift_date && shift.shift_date.split("T")[0] === formattedDate
     );
-  };
+  }
+  return []; // If state.shiftsByUser is not an array, return an empty array
+};
+
+
 
   // const handleCancelShift = (jobId) => {
   //   dispatch({ type: ACTIONS.CANCEL_JOB, payload: jobId });
@@ -159,6 +165,12 @@ export const useApplicationData = () => {
     dispatch({ type: ACTIONS.ADD_SHIFT, payload: newShift });
   };
 
+
+  // Book: Function to add a new shift to calendar
+  const addCalendarEntry = (newEntry) => {
+    dispatch({ type: ACTIONS.ADD_CALENDAR_ENTRY, payload: newEntry });
+  };
+
   return {
     state,
     handleCalendarDate,
@@ -167,19 +179,19 @@ export const useApplicationData = () => {
     isLoading,
     error,
     setSelectedJob,
-    addShift, // Book: Make sure to export the addShift function
+    addShift, // Book
+    addCalendarEntry, // Book
   };
 };
 
 export const ApplicationDataContext = createContext();
 
 export const ApplicationDataProvider = ({ children }) => {
-  const { state, setSelectedJob } = useApplicationData();
+  const applicationData = useApplicationData();
+  // useApplicationData returns an object that includes addCalendarEntry, state, and any other functions or state variables you need
 
   return (
-    <ApplicationDataContext.Provider
-      value={{ selectedJob: state.selectedJob, setSelectedJob }}
-    >
+    <ApplicationDataContext.Provider value={applicationData}>
       {children}
     </ApplicationDataContext.Provider>
   );

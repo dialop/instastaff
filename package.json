@@ -6,6 +6,9 @@
     "@auth0/auth0-react": "^2.2.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.7",
     "@mui/lab": "^5.0.0-alpha.163",
     "@mui/material": "^5.15.7",
@@ -25,6 +28,7 @@
     "express-openid-connect": "^2.17.1",
     "google-map-react": "^2.2.1",
     "google-maps-api": "^2.0.1",
+    "http-proxy-middleware": "^2.0.6",
     "javascript-time-ago": "^2.5.9",
     "mailgun-js": "^0.22.0",
     "mailgun.js": "^10.0.1",
@@ -44,6 +48,7 @@
     "react-scripts": "5.0.1",
     "react-time-ago": "^7.2.1",
     "react-toastify": "^10.0.4",
+    "react-transition-group": "^4.4.5",
     "recharts": "^2.11.0",
     "simplebar": "^6.2.5",
     "simplebar-react": "^3.2.4",
@@ -57,7 +62,6 @@
     "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    
     "db:reset": "node server/bin/resetdb.js"
   },
   "eslintConfig": {

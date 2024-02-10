@@ -1,40 +1,35 @@
+// -- MAP GENERATOR COMPONENT -- //
+
 import React, { useEffect, useRef, useState } from 'react';
 import MarkerDetail from './MarkerDetail';
 import ReactDOM from 'react-dom';
-import '../styles/Map.css';
 
 const Map = ({ location, borders, markers, origin, destination, viewJobDetails }) => {
+
   const mapRef = useRef(null);
+
   const [map, setMap] = useState(null);
   const [markerWindow, setMarkerWindow] = useState([]);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
 
   useEffect(() => {
     const initMap = () => {
-      //console.log("Initializing the map...");
       const mapOptions = {
         zoom: 13.5,
         center: location,
         styles: [
-          { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-          { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill' },
-          { featureType: 'poi', elementType: 'geometry' },
-          { featureType: 'poi.park', elementType: 'geometry' },
-          { featureType: 'road', elementType: 'geometry' },
-          { featureType: 'road.arterial', elementType: 'labels.text.fill' },
-          { featureType: 'road.highway', elementType: 'geometry' },
-          { featureType: 'road.local', elementType: 'labels.text.fill' },
-          { featureType: 'transit.line', elementType: 'geometry' },
-          { featureType: 'water', elementType: 'geometry' },
+          // Map styles
         ],
       };
       const newMap = new window.google.maps.Map(mapRef.current, mapOptions);
       setMap(newMap);
 
+      
       const newDirectionsRenderer = new window.google.maps.DirectionsRenderer();
       newDirectionsRenderer.setMap(newMap);
       setDirectionsRenderer(newDirectionsRenderer);
 
+      // Add markers and event listeners
       markers.forEach((markerData) => {
         const marker = new window.google.maps.Marker({
           position: {
@@ -53,6 +48,7 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
         });
       });
 
+      // Draw borders
       borders.forEach((borderPath) => {
         const borderCoordinates = borderPath.map((coord) =>
           new window.google.maps.LatLng(coord.lat, coord.lng)
@@ -68,6 +64,7 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
         shadedArea.setMap(newMap);
       });
 
+      // Display route if origin and destination given
       if (origin && destination) {
         calculateAndDisplayRoute(newDirectionsRenderer, origin, destination);
       }
@@ -97,9 +94,9 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
     };
 
     const displayRouteInfo = (distance, duration) => {
-      //console.log(`Distance: ${distance}, Duration: ${duration}`);
     };
 
+    // Load Google Maps script
     if (!window.google || !window.google.maps) {
       const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       const script = document.createElement('script');
@@ -112,6 +109,7 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
       initMap();
     }
 
+    // Clean up function
     return () => {
       window.initMap = null;
     };
