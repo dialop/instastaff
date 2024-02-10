@@ -9,8 +9,7 @@ const Footer = () => {
           <div className="col-span-1 lg:col-span-1">
             <h6 className="text-lg font-semibold mb-2">InstaStaff</h6>
             <p>
-              Our vision is to provide convenience and help increase your sales business.
-            </p>
+            Our aim is to streamline labor and work exchanges in the medical field by offering logistical and operational support to healthcare professionals and providers.            </p>
             <div className="flex mt-4">
               <a href="#!" className="text-gray-900 mr-2">
                 <Facebook />
