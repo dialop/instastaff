@@ -8,7 +8,7 @@ const HowItWorks = () => {
   return (
     <>
       <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto ">
+        <div className="container mx-auto p-16">
           <h2 className="text-center text-6xl md:text-7xl font-bold w-full">
             Designed to Meet Your Expectations{" "}
           </h2>
@@ -17,7 +17,7 @@ const HowItWorks = () => {
           </p>
           <div className="flex flex-wrap xl:items-center">
             <div className="w-full md:w-1/2 p-8">
-              <img className="w-[100%] " src={support} alt="" />
+              <img className="w-[100%] transform hover:translate-x-16 transition ease-in-out duration-1000" src={support} alt="" />
             </div>
             <div className="w-full flex justify-center md:w-1/2 p-8 ">
               <div className="md:max-w-md">
