@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import notifications from "../../helpers/notifications";
 import { ApplicationDataContext } from "../../hooks/useApplicationData";
 
 const MarkerDetail = ({ markerData, viewJobDetails, onContactAdmin,  }) => {
