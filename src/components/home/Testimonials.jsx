@@ -13,7 +13,7 @@ const Testimonials = () => {
         </p>
         <div className="container px-4 mx-auto">
           <div className="w-[100%] flex -m-8 sm:flex-col items-center md:flex-row md:items-center">
-            <div className="px-8 md:w-1/3 bg-white rounded-lg mr-2 mb-2">
+            <div className="p-8 md:w-1/3 bg-white rounded-lg mr-2 mb-2">
               <div className="py-8 md:max-w-xs mx-auto text-justify">
                 <div className="flex justify-center mb-6 -m-1">
                   <div className="w-auto p-1">
@@ -100,7 +100,7 @@ const Testimonials = () => {
                 </h3>
               </div>
             </div>
-            <div className="px-8 md:w-1/3 bg-white rounded-lg mr-2 mb-2">
+            <div className="p-8 md:w-1/3 bg-white rounded-lg mr-2 mb-2">
               <div className="py-8 md:max-w-xs mx-auto text-justify">
                 <div className="flex justify-center mb-6 -m-1">
                   <div className="w-auto p-1">
@@ -187,7 +187,7 @@ const Testimonials = () => {
                 </h3>
               </div>
             </div>
-            <div className="px-8 md:w-1/3 bg-white rounded-lg mb-2">
+            <div className="p-8 md:w-1/3 bg-white rounded-lg mb-2">
               <div className="py-8 md:max-w-xs mx-auto text-justify">
                 <div className="flex justify-center mb-6 -m-1">
                   <div className="w-auto p-1">

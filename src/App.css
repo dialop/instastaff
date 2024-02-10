@@ -1,38 +1,47 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: rgb(240, 246, 246);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  overflow: hidden;
+}
+/* Initial state of your image. It's positioned 100px to the left and hidden */
+.slide-enter {
+  transform: translateX(100%);
+  opacity: -3;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* State of your image at the end of the enter transition */
+.slide-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: opacity 1000ms, transform 1000ms;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Initial state of your image before it leaves the DOM */
+.slide-exit {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-.App-link {
-  color: #61dafb;
+/* State of your image at the end of the exit transition */
+.slide-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: opacity 1000ms, transform 1000ms;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-out; /* Match the timing with your CSSTransition timeout */
 }

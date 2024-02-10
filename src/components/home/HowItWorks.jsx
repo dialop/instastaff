@@ -8,7 +8,7 @@ const HowItWorks = () => {
   return (
     <>
       <section className="w-full pt-40 pb-32 bg-white overflow-hidden">
-        <div className="w-full container px-4 mx-auto">
+        <div className="w-full container px-11 mx-auto">
           <h2 className="text-center text-6xl md:text-7xl font-bold w-full">
             How It Works
           </h2>
