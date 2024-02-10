@@ -2,12 +2,33 @@ import React, { useState, useContext, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import './CalendarStyle.css';
 import { JobsContext } from "../context";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const CalendarComponent = (props) => {
+  const { user, isAuthenticated } = useAuth0();
   const { state, handleCalendarDate, shiftsByUser} = props;
   const { jobData } = useContext(JobsContext);
-  const { cancelJob } = useContext(JobsContext);
+  // const { cancelJob } = useContext(JobsContext);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+
+  const fetchUserId = async () => {
+    try {
+      const userId = window.sessionStorage.getItem('userId');
+      if (userId && isAuthenticated) {
+        const response = await fetch(`/user/${userId}`);
+        const data = await response.json();
+        setUserId(userId);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user ID:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchUserId();
+  }, [isAuthenticated]);
 
   const handleCalendarChange = (newDate) => {
     handleCalendarDate(newDate);
@@ -21,7 +42,7 @@ const CalendarComponent = (props) => {
 
   const handleCancelShift = async (jobId) => {
     console.log('Cancelling job with ID:', jobId);
-    await cancelJob(jobId);
+    // await cancelJob(jobId);
   };
 
 
@@ -34,7 +55,8 @@ const CalendarComponent = (props) => {
       return (
         jobDate.getDate() === selectedDate.getDate() &&
         jobDate.getMonth() === selectedDate.getMonth() &&
-        jobDate.getFullYear() === selectedDate.getFullYear()
+        jobDate.getFullYear() === selectedDate.getFullYear() &&
+        job.booked_by_user_id === userId 
       );
     });
   

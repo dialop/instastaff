@@ -99,7 +99,7 @@ const handleCancelShift = async () => {
 
     if (response.ok) {
       const updatedJobData = jobData.map((job) =>
-        job.id === jobId ? { ...job, is_filled: false } : job
+        job.id === jobId ? { ...job, is_filled: false, booked_by_user_id: null } : job
       );
       console.log('Updated jobData:', updatedJobData);
       setJobData(updatedJobData);
@@ -121,7 +121,7 @@ const handleupdateJob = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...jobStatus, booked_by_user_id: userId }),
+      body: JSON.stringify({ ...jobStatus, is_filled: true, booked_by_user_id: userId }),
     });
 
     if (!response.ok) {
@@ -141,6 +141,7 @@ const handleAcceptShift = async () => {
     setJobStatus((prevJobStatus) => ({
       ...prevJobStatus,
       is_filled: true,
+      booked_by_user_id: userId
     }));
 
     console.log("Local state updated successfully:", { is_filled: true });
@@ -151,7 +152,7 @@ const handleAcceptShift = async () => {
     console.log("Server request to update job status successful");
     // Update the job data in the context
     const updatedJobData = jobData.map((job) =>
-      job.id === jobId ? { ...job, is_filled: true } : job
+      job.id === jobId ? { ...job, is_filled: true, booked_by_user_id: userId } : job
     );
     console.log("Updated job data:", updatedJobData);
     setJobData(updatedJobData);
