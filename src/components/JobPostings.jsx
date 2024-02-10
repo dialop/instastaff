@@ -103,7 +103,7 @@ useEffect(() => {
       if (response.ok) {
         setJobData((prevJobData) =>
           prevJobData.map((job) =>
-            job.id === id ? { ...job, is_filled: !prevJobData.is_filled } : job
+            job.id === id ? { ...job, is_filled: !prevJobData.is_filled, booked_by_user_id: userId, } : job
           )
         );
         //console.log("Job Status updated successfully", jobStatus);
@@ -380,7 +380,7 @@ useEffect(() => {
                             booked_by_user_id: null
                           }));
                           setUpdateJob((prev) => !prev);
-                          setUserId(null);
+                          // setUserId(null);
                         }}
                       >
                         Cancel Shift

@@ -6,9 +6,9 @@ import { useState } from 'react'
 const JobsContext = createContext()
 
 function JobsContextProvider({children}){
-
-    const {jobData, setJobData} = useJobs()
+  const { jobData, setJobData} = useJobs();
     const [isCancelled, setIsCancelled] = useState(false);
+    
 
     const cancelJob = async (jobId) => {
         try {
@@ -33,6 +33,30 @@ function JobsContextProvider({children}){
         }
       };
 
+      const updateJob = async (updatedJob) => {
+        try {
+          const response = await fetch(`/api/jobs/${updatedJob.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedJob),
+          });
+    
+          if (response.ok) {
+            setJobData((prevJobData) =>
+              prevJobData.map((job) =>
+                job.id === updatedJob.id ? updatedJob : job
+              )
+            );
+          } else {
+            console.error('Failed to update job:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error updating job:', error);
+        }
+      };
+
     return (
         <JobsContext.Provider
             value={
@@ -40,7 +64,8 @@ function JobsContextProvider({children}){
                   jobData,
                   setJobData,
                   isCancelled,
-                  cancelJob
+                  cancelJob,
+                  updateJob
                 }
             }
         >
