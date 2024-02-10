@@ -150,7 +150,6 @@ const handleAcceptShift = async () => {
     const updatedJobData = jobData.map((job) =>
       job.id === jobId ? { ...job, is_filled: true, booked_by_user_id: userId } : job
     );
-    console.log('job updated', updatedJobData);
 
     setJobData(updatedJobData);
 
