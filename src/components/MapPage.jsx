@@ -68,7 +68,6 @@ const MapPage = () => {
 
   return (
     <div>
-      <h1>Maps</h1>
       <Map location={location} borders={borders} markers={markers} viewJobDetails={viewJobDetails} />
       {selectedMarker && <JobPostingsModal job={selectedMarker} />} {/* Render JobPostingsModal if a marker is selected */}
     </div>

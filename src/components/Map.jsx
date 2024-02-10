@@ -13,7 +13,7 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
     const initMap = () => {
       //console.log("Initializing the map...");
       const mapOptions = {
-        zoom: 13.4,
+        zoom: 13.5,
         center: location,
         styles: [
           { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
