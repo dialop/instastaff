@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { JobsContext } from "../../context";
+import { useRewards } from "../../context/RewardsContext";
 import Modal from "./JobPostingsModal";
 import { FaCheckToSlot } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
@@ -16,7 +17,8 @@ TimeAgo.addDefaultLocale(en);
 
 const JobPostings = () => {
   const { jobData, setJobData } = useContext(JobsContext);
-    const { user, isAuthenticated } = useAuth0();
+  const { addPoints } = useRewards();
+  const { isAuthenticated } = useAuth0();
 
   const params = useParams();
   //console.log(params);
@@ -136,7 +138,6 @@ const handleupdateJob = async () => {
 
 const handleAcceptShift = async () => {
   try {
-    
     // Update the job status locally
     setJobStatus((prevJobStatus) => ({
       ...prevJobStatus,
@@ -152,6 +153,7 @@ const handleAcceptShift = async () => {
     );
 
     setJobData(updatedJobData);
+    addPoints(250);
 
     handleNotifications(clickedJob(jobId));
   } catch (error) {
