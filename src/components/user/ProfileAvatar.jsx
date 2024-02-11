@@ -10,19 +10,16 @@ const ProfileAvatar = () => {
   const { user, isAuthenticated } = useAuth0();
   const { isRegistered } = useRegistration();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [twinkle, setTwinkle] = useState(isAuthenticated && isRegistered);
+  const [twinkle, setTwinkle] = useState(isAuthenticated);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      setTwinkle(isRegistered);
-    }
+    setTwinkle(isAuthenticated);
   }, [isAuthenticated, isRegistered]);
 
   const handleClick = (event) => {
-    setTwinkle(false);
-
     if (isRegistered) {
+      setTwinkle(false);
       setAnchorEl(anchorEl ? null : event.currentTarget);
     } else {
       navigate('/profile');
