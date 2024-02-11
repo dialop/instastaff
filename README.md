@@ -1,4 +1,4 @@
-# Express React Starter
+# Instastaff
 
 This is a template for using Express and React in the same project. It is based on Create React App.
 
