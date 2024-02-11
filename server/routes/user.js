@@ -3,12 +3,13 @@
 const express = require('express');
 const router = express.Router();
 
-/* User Routes:
-  1. POST user authentication info with Auth0.
-  2. PUT registration info to user database.
-  3. GET user data.
-  4. DELETE route to remove logged in user.
-*/
+/** User Routes:
+ * POST user authentication info with Auth0.
+ * PUT registration info to user database.
+ * PUT points to user.
+ * GET user data.
+ * DELETE route to remove logged in user.
+ */
 
 module.exports = (pool) => {
 
@@ -92,6 +93,43 @@ module.exports = (pool) => {
       }
     } catch (err) {
       console.error('Error updating user data:', err);
+      res.status(500).send('Server error');
+    }
+  });
+
+  // PUT points to user.
+  router.put('/updatePoints', async (req, res) => {
+    const { auth0_id, pointsToAdd } = req.body;
+
+    try {
+      const fetchCurrentPoints = await pool.query(
+        'SELECT points FROM users WHERE auth0_id = $1',
+        [auth0_id]
+      );
+
+      if (fetchCurrentPoints.rows.length === 0) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      const currentPoints = fetchCurrentPoints.rows[0].points;
+      const newPoints = currentPoints + pointsToAdd;
+
+      const updatePointsQuery = `
+        UPDATE users
+        SET points = $1
+        WHERE auth0_id = $2
+        RETURNING *;
+      `;
+      const updatedUser = await pool.query(updatePointsQuery, [newPoints, auth0_id]);
+
+      if (updatedUser.rows.length > 0) {
+        console.log("User points updated:", updatedUser.rows[0]);
+        res.json(updatedUser.rows[0]);
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (err) {
+      console.error('Error updating user points:', err);
       res.status(500).send('Server error');
     }
   });
