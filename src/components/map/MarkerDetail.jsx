@@ -1,15 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { ApplicationDataContext } from "../../hooks/useApplicationData";
-import "../../styles/MarkerDetail.css"
+import "../../styles/MarkerDetail.css";
 
-const MarkerDetail = ({ markerData, viewJobDetails, onClose, onContactAdmin,  }) => {
+const MarkerDetail = ({ markerData, viewJobDetails, onClose, onContactAdmin, openDirections }) => {
   const [showChatBox, setShowChatBox] = useState(false);
-  const closeMarkerWindow = () => {
-    // setShowChatBox(false);
-    console.log("close");
+  const modalRef = useRef(); // Create a ref for the modal
 
-  }
+  // Close the modal if clicked outside of it
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      if (typeof onClose === 'function') {
+        onClose(); // Call onClose if it's a function
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // Remove event listener when the component unmounts
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]); // Dependency array updated to include onClose
+
   // Context
   const contextValue = useContext(ApplicationDataContext);
   const { addCalendarEntry } = contextValue ?? {}; 
@@ -18,28 +33,8 @@ const MarkerDetail = ({ markerData, viewJobDetails, onClose, onContactAdmin,  })
   const { user, isAuthenticated, isLoading } = useAuth0();
   const userId = user?.sub;
 
-  const openDirections = () => {
-    // Open Google Maps directions
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const userLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        const directionsURL = `https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${markerData.lat},${markerData.lng}`;
-        window.open(directionsURL, '_blank');
-      },
-      (error) => {
-        console.error('Error getting user location:', error);
-        alert('Could not determine your location. Please enable location services in your browser.');
-      }
-    );
-  
-  };
-
-  
   return (
-    <div className="marker-details-container bg-white rounded-lg shadow-lg overflow-hidden transform transition-opacity duration-500 ease-in opacity-0 animate-fade-in">
+    <div className="marker-details-container bg-white rounded-lg shadow-lg overflow-hidden transform transition-opacity duration-500 ease-in opacity-0 animate-fade-in" ref={modalRef}>
       <img src={markerData.imageUrl} alt={markerData.title} className="w-full object-cover transition-opacity duration-700 ease-in-out" style={{ height: '200px' }} />
 
       <div className="p-4">
@@ -48,7 +43,7 @@ const MarkerDetail = ({ markerData, viewJobDetails, onClose, onContactAdmin,  })
         </div>
         <p className="text-l">{markerData.description}</p>
         <div className="text-gray-600 text-sm my-2">
-          <span className="font-bold">4.2</span> ★★★★☆ <span>874 reviews</span>
+          <span className="font-bold">4.2</span> ★★★★☆ <span>74 reviews</span>
         </div>
         <div className="bg-green-100 text-green-800 p-2 rounded my-2">
           Fully wheelchair accessible

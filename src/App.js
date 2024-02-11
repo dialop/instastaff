@@ -18,12 +18,15 @@ import Home from './components/home/Home'
 import { RegistrationProvider } from "./context/RegistrationContext";
 import { RewardsProvider } from "./context/RewardsContext";
 
-
 function App() {
-  const { addShift, state, handleCalendarDate, getShiftForDate} = useApplicationData();
+  const { addShift, state, handleCalendarDate, getShiftForDate, markerData, viewJobDetails} = useApplicationData();
 
   const handleContactAdmin = (id) => {
     //console.log("Admin contacted with ID:", id);
+  };
+
+  const handleClose = () => {
+    // Logic to handle closing the modal
   };
 
   return (
@@ -44,7 +47,7 @@ function App() {
             getShiftForDate={getShiftForDate}/>} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/chat" element={<ChatBox onContactAdmin={handleContactAdmin} />} />
-                <Route path="/marker-detail" element={<MarkerDetail />} />
+                <Route path="/marker-detail" element={<MarkerDetail markerData={markerData} viewJobDetails={viewJobDetails} onClose={handleClose} onContactAdmin={handleContactAdmin} />} />
                 <Route path="/post-shift" element={<AdminPostShift />} /> 
               </Routes>
               <Footer />
