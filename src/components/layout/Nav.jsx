@@ -9,6 +9,7 @@ import logo from '../../assets/instastaff_transparent-logo.png';
 
 import LoginButton from '../user/LoginButton';
 import SignUpButton from '../user/SignUpButton';
+import ProfileAvatar from '../user/ProfileAvatar';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -62,6 +63,7 @@ const Navbar = () => {
           </>
         ) : null}
         <p className='flex w-16 justify-center'> | </p>
+        {isAuthenticated && <li className="mr-4"><ProfileAvatar /></li>}
         <SignUpButton />
         <LoginButton />
       </ul>
