@@ -10,11 +10,30 @@ export const RewardsProvider = ({ children }) => {
   const [points, setPoints] = useState(0);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
 
-  const addPoints = (newPoints, showToast = true) => {
-    setPoints(prevPoints => {
-      const updatedPoints = prevPoints + newPoints;
+  const addPoints = async (newPoints, showToast = true) => {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) return;
+  
+    try {
+      // Assuming your backend expects a userId and the amount of points to add
+      const response = await fetch(`/points`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          // Include any other headers your backend requires
+        },
+        body: JSON.stringify({ userId, pointsToAdd: newPoints }), // Adjust to use userId
+      });
+  
+      if (!response.ok) throw new Error('Failed to update points');
+  
+      const data = await response.json();
+      const updatedPoints = data.points; // Adjust based on your actual API response structure
+  
+      setPoints(updatedPoints);
+  
       if (showToast) {
-        toast.success(<div>You gained {newPoints} points!<br />Total earned: {updatedPoints} rewards.</div>, {
+        toast.success(`You gained ${newPoints} points! Total earned: ${updatedPoints} rewards.`, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
@@ -25,9 +44,11 @@ export const RewardsProvider = ({ children }) => {
           theme: "light",
         });
       }
-      return updatedPoints;
-    });
-  };
+    } catch (error) {
+      console.error('Error updating points:', error);
+      // Optionally, handle the error with a notification to the user
+    }
+  };  
 
   useEffect(() => {
     const fetchPoints = async () => {
@@ -35,7 +56,7 @@ export const RewardsProvider = ({ children }) => {
       if (!userId) return;
 
       try {
-        const response = await fetch(`/user/${userId}`);
+        const response = await fetch(`/user/points`);
         if (!response.ok) throw new Error('Failed to fetch points');
 
         const data = await response.json();
