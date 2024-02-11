@@ -35,11 +35,7 @@ export const RewardsProvider = ({ children }) => {
       if (!userId) return;
 
       try {
-        const response = await fetch(`/user/${userId}`, {
-          headers: {
-            // Include headers for authentication if needed
-          },
-        });
+        const response = await fetch(`/user/${userId}`);
         if (!response.ok) throw new Error('Failed to fetch points');
 
         const data = await response.json();
