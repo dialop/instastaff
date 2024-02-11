@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Card, CardContent, Chip, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Avatar, Card, CardContent, Chip, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/VerifiedUser';
 import WorkIcon from '@mui/icons-material/Work';
@@ -14,7 +14,6 @@ const ProfileBookmark = () => {
     last_name: 'Doe',
     handle: 'jane_doe_nurse',
     email: 'jane.doe@example.com',
-    profile_picture: 'https://i.pravatar.cc/300',
     gender: 'Female',
     occupation: 'Super Nurse',
     license: 'RN007',
