@@ -29,7 +29,7 @@ const Input = styled(TextField)({
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { isRegistered, setIsRegistered } = useRegistration();
-  const { setTriggerRefresh, addPoints } = useRewards();
+  const { addPoints } = useRewards();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
