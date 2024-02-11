@@ -229,7 +229,7 @@ const handleAcceptShift = async () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="container h-[100vh] m-20 min-w-[320px]">
+        <div className="container m-20 min-w-[320px]">
           <div className="heading flex flex-col justify-center items-center">
             <h1 className="text-6xl pb-8 text-[#24233E]">Jobs</h1>
             <div className="flex mb-16">
@@ -381,7 +381,7 @@ const handleAcceptShift = async () => {
           {open ? (
             <>
               <Modal>
-                <div className="relative flex flex-col gap-2 bg-white p-8 rounded-lg h-[600px] w-[38vw] min-w-[330px]">
+                <div className="relative flex flex-col gap-2 bg-white p-8 rounded-lg w-[650px] min-w-[350px] h-auto">
                   <h1 className="text-5xl text-black mt-4 mb-1 ">
                     {clickedJob(jobId).facility_name}
                   </h1>
@@ -417,7 +417,7 @@ const handleAcceptShift = async () => {
                     Gender : {clickedJob(jobId).gender}
                   </p>
                   {/* <p className="text-black mt-4"> */}
-                  <ul className="text-black mt-1">
+                  <ul className="text-black mt-1 mb-20">
                     Provide compassionate and professional nursing care to
                     patients.
                     <br />
