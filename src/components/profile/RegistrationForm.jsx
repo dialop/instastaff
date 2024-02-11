@@ -29,7 +29,7 @@ const Input = styled(TextField)({
 const RegistrationForm = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { isRegistered, setIsRegistered } = useRegistration();
-  const { setTriggerRefresh } = useRewards();
+  const { setTriggerRefresh, addPoints } = useRewards();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -90,8 +90,6 @@ const RegistrationForm = () => {
       console.log('Update successful:', responseData);
 
       setIsRegistered(true);
-      setTriggerRefresh(prev => !prev);
-      
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
         autoClose: 1000,
@@ -102,6 +100,7 @@ const RegistrationForm = () => {
         progress: undefined,
         theme: "light",
       });
+      addPoints(100);
     } catch (error) {
       console.error("Error during form submission:", error);
     }
