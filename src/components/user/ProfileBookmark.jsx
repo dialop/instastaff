@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Card, CardContent, Chip, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/VerifiedUser';
@@ -7,19 +7,32 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
 import { green } from '@mui/material/colors';
+import { useAuth0 } from '@auth0/auth0-react'; // Import useAuth0 for authentication status
+import { useRegistration } from '../../context/RegistrationContext'; // Adjust the path as necessary
 
 const ProfileBookmark = () => {
-  const profile = {
-    first_name: 'Jane',
-    last_name: 'Doe',
-    handle: 'jane_doe_nurse',
-    email: 'jane.doe@example.com',
-    gender: 'Female',
-    occupation: 'Super Nurse',
-    license: 'RN007',
-    is_hero: true,
-    points: 120,
-  };
+  const [profile, setProfile] = useState({});
+  const { isAuthenticated } = useAuth0();
+  const { isRegistered } = useRegistration();
+
+  useEffect(() => {
+    const userId = window.sessionStorage.getItem('userId');
+    if (userId && isAuthenticated && isRegistered) {
+      fetch(`/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.is_registered) {
+            setProfile(data);
+          }
+        })
+        .catch(error => console.error("Failed to fetch user data:", error));
+    }
+  }, [isRegistered, isAuthenticated]);
+
+  // Early return if not authenticated or registered to avoid unnecessary render
+  if (!isAuthenticated || !isRegistered || !profile) {
+    return null;
+  }
 
   return (
     <Card className="mx-auto mt-10 bg-white shadow-lg" sx={{ maxWidth: 345 }}>
