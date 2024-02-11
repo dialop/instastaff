@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Avatar, Popover } from '@mui/material';
+import { Popover } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ProfileBookmark from './ProfileBookmark'; // Ensure this path matches where your ProfileBookmark component is located
+import ProfileBookmark from './ProfileBookmark'; // Ensure the path is correct
 
 const ProfileAvatar = () => {
   const { user, isAuthenticated } = useAuth0();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [twinkle, setTwinkle] = useState(true); // State to manage twinkle effect
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setTwinkle(false); // Turn off twinkle effect once avatar is clicked
   };
 
   const handleClose = () => {
@@ -17,38 +19,30 @@ const ProfileAvatar = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'profile-popover' : undefined;
 
   if (!isAuthenticated) return null;
 
-  const avatarStyle = {
-    width: 48,
-    height: 48,
-    cursor: 'pointer',
-    '&:hover': {
-      opacity: 0.8, // Change opacity on hover
-      boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)', // Add a subtle shadow effect on hover
-    },
-  };
-
-  const avatarContent = user.picture ? (
-    <Avatar
-      alt={user.name}
-      src={user.picture}
-      sx={avatarStyle}
-      onClick={handleClick}
-    />
-  ) : (
-    <Avatar sx={avatarStyle} onClick={handleClick}>
-      <AccountCircleIcon sx={{ color: "#C0ABF4" }} />
-    </Avatar>
-  );
+  // Conditionally apply the twinkle animation class based on the twinkle state
+  const avatarClass = `h-12 w-12 rounded-full cursor-pointer ${twinkle ? 'animate-twinkle' : ''}`;
 
   return (
     <div className="flex items-center mr-4">
-      {avatarContent}
+      {user.picture ? (
+        <img
+          className={avatarClass}
+          src={user.picture}
+          alt={user.name}
+          onClick={handleClick}
+        />
+      ) : (
+        <div
+          className={`${avatarClass} flex justify-center items-center bg-gray-200`}
+          onClick={handleClick}
+        >
+          <AccountCircleIcon style={{ color: "#C0ABF4" }} />
+        </div>
+      )}
       <Popover
-        id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
