@@ -3,16 +3,15 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
 
-
 body {
   margin: 0;
-  font-family: 'Plus Jakarta Sans';
+  font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f7f9fd;
 }
 
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+/* Custom close button styles */
+.close-button {
+  @apply absolute top-4 right-4 p-2 bg-white text-gray-800 text-lg rounded-full shadow-md hover:bg-gray-100;
+}

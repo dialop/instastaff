@@ -3,7 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { ApplicationDataContext } from "../../hooks/useApplicationData";
 import "../../styles/MarkerDetail.css"
 
-const MarkerDetail = ({ markerData, viewJobDetails, onClose}) => {
+const MarkerDetail = ({ markerData, viewJobDetails, onClose, onContactAdmin,  }) => {
+  const [showChatBox, setShowChatBox] = useState(false);
   const closeMarkerWindow = () => {
     // setShowChatBox(false);
     console.log("close");
@@ -14,7 +15,7 @@ const MarkerDetail = ({ markerData, viewJobDetails, onClose}) => {
   const { addCalendarEntry } = contextValue ?? {}; 
 
   // Auth
-  const{ user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const userId = user?.sub;
 
   const openDirections = () => {
@@ -36,41 +37,39 @@ const MarkerDetail = ({ markerData, viewJobDetails, onClose}) => {
   
   };
 
-  const CloseButton = ({ onClick }) => (
-    <button
-      className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center absolute top-2 right-2"
-      onClick={onClick}
-    >
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-  <span className="sr-only">Close</span>
-</button>
-  );
-  
-
   
   return (
-    <div className="marker-details-container bg-transparent max-w-80vw font-sans rounded-lg shadow-md relative">
-    {/* Custom close button */}
-    <CloseButton onClick={onClose} />
+    <div className="marker-details-container bg-white rounded-lg shadow-lg overflow-hidden transform transition-opacity duration-500 ease-in opacity-0 animate-fade-in">
+      <img src={markerData.imageUrl} alt={markerData.title} className="w-full object-cover transition-opacity duration-700 ease-in-out" style={{ height: '200px' }} />
 
-    <img src={markerData.imageUrl} alt={markerData.title} className="image-cover" />
-          
-    <div>
-      <h3 className="marker-details-title text-lg font-medium">{markerData.title}</h3>
-      <p className="marker-details-content p-2 text-sm font-normal">{markerData.description}</p>
-    </div>
-      
-      <div className="marker-window-buttons flex justify-center gap-2 p-2">
-        <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => viewJobDetails(markerData.id)}>View</button>
-        {/* <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => handleContactAdmin(markerData.id)}>Contact</button> */}
-        {/* <button className="marker-window-button bg-[rgb(101,71,165)] text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-[rgb(91,61,155)] focus:outline-none focus:ring-2 focus:ring-[rgb(101,71,165)] focus:ring-opacity-50 uppercase" onClick={() => bookJob(markerData.id)} disabled={!userId}>Book</button> */}
-        <button className="marker-window-button bg-green-500 text-white py-1 px-2 text-sm rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 uppercase" onClick={openDirections}>Directions</button>
+      <div className="p-4">
+        <div className="flex justify-between items-center">
+          <h3 className="text-xl font-semibold">{markerData.title}</h3>
+        </div>
+        <p className="text-l">{markerData.description}</p>
+        <div className="text-gray-600 text-sm my-2">
+          <span className="font-bold">4.2</span> ★★★★☆ <span>874 reviews</span>
+        </div>
+        <div className="bg-green-100 text-green-800 p-2 rounded my-2">
+          Fully wheelchair accessible
+        </div>
+        <div className="flex space-x-2 my-2">
+          <span className="bg-blue-100 text-blue-800 p-1 rounded">Restroom</span>
+          <span className="bg-blue-100 text-blue-800 p-1 rounded">Parking</span>
+          <span className="bg-blue-100 text-blue-800 p-1 rounded">Relaxation Space</span>
+        </div>
       </div>
-      
-    
+
+      <div className="flex justify-around p-4 border-t border-gray-200">
+        <button className="bg-[#6547A5] text-white py-2 px-4 rounded-lg uppercase shadow hover:scale-105 transform transition-transform duration-300" onClick={() => viewJobDetails(markerData.id)}>
+          View
+        </button>
+        <button className="bg-green-700 text-white py-2 px-4 rounded-lg uppercase shadow hover:scale-105 transform transition-transform duration-300" onClick={openDirections}>
+          Directions
+        </button>
+      </div>
     </div>
   );
 };
 
+export default MarkerDetail;

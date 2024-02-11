@@ -8,13 +8,20 @@
   padding: 0 !important; /* Override padding and set to 0 */
 }
 
-.gm-ui-hover-effect {
+/* .gm-ui-hover-effect {
   display: none !important;
+} */
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 3;
+  }
 }
 
-/* Add this to ensure the image covers the full object */
-.gm-style .gm-style-iw-c img {
-  width: 100%; /* Ensure the image takes the full width of the container */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Cover the entire area of the container */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-in-out 1 forwards;
 }
