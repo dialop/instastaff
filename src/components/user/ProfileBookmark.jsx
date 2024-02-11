@@ -37,17 +37,16 @@ const ProfileBookmark = () => {
   return (
     <Card className="mx-auto mt-10 bg-white shadow-lg" sx={{ maxWidth: 345 }}>
       <CardContent>
+        <Typography variant="h5" component="h2" className="font-bold text-center">
+            {profile.first_name} {profile.last_name}
+        </Typography>
         <div className="flex flex-col items-center">
-          <Avatar alt={`${profile.first_name} ${profile.last_name}`} src={profile.profile_picture} sx={{ width: 100, height: 100, mb: 2 }} />
-          <Chip label={profile.gender} variant="outlined" color="primary" sx={{ mb: 1, borderColor: green[500], color: green[500] }} />
           {profile.is_hero && (
             <Chip icon={<BadgeIcon />} label="Emergency Hero" color="primary" sx={{ mb: 1, backgroundColor: green[500], color: 'white' }} />
           )}
+          <Chip label={profile.gender} variant="outlined" color="primary" sx={{ mb: 1, borderColor: green[500], color: green[500] }} />
         </div>
         <Divider sx={{ my: 2 }} />
-        <Typography variant="h5" component="h2" className="font-bold mb-2 text-center">
-          {profile.first_name} {profile.last_name}
-        </Typography>
         <List dense>
           <ListItem>
             <ListItemIcon>
