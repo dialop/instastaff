@@ -4,11 +4,11 @@ import { blue } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import EditIcon from '@mui/icons-material/Edit'; 
-import BarChartComponent from './profile/BarChartComponent';
-import Rewards from './profile/rewards/Rewards';
-import GiftCard from './profile/rewards/GiftCard'; 
-import PieChartInsentive from './profile/PieChartInsentive';
-import RegistrationForm from './profile/RegistrationForm';
+import BarChartComponent from './BarChartComponent';
+import Rewards from './rewards/Rewards';
+import GiftCard from './rewards/GiftCard'; 
+import PieChartInsentive from './PieChartInsentive';
+import RegistrationForm from './RegistrationForm';
 
 // Define a styled Avatar component
 const SmallAvatar = styled(Avatar)(({ theme }) => ({

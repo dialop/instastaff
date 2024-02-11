@@ -1,15 +1,19 @@
+// -- MAP VIEW: JOB POSTINGS COMPONENT -- //
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Map from './Map';
-import { useApplicationData } from '../hooks/useApplicationData';
-import JobPostingsModal from './JobPostingsModal';
+import { useApplicationData } from '../../hooks/useApplicationData';
+import JobPostingsModal from '../job_posting/JobPostingsModal';
 
 const MapPage = () => {
-  const navigate = useNavigate();
-  const { state, setSelectedJob } = useApplicationData();
   const [selectedJobId, setSelectedJobId] = useState(null);
 
-  // Function to calculate the center of the map based on the borders
+  // Hooks
+  const navigate = useNavigate();
+  const { state, setSelectedJob } = useApplicationData();
+
+  // Center of the map based on the borders
   function calculateCenter(borders) {
     let latSum = 0;
     let lngSum = 0;
@@ -29,7 +33,7 @@ const MapPage = () => {
     };
   }
 
-  //borders of map
+  // Borders of map
   const borders = [
     [
       { lat: 43.6817, lng: -79.4572 },
@@ -41,35 +45,37 @@ const MapPage = () => {
     ]
   ];
 
-  // center of the map based on the borders
+  // Center of the map based on the borders
   const location = calculateCenter(borders);
 
   
 
-  const markers = state.jobPostings.map((posting) => ({
+  const markers = Array.isArray(state.jobPostings) ? state.jobPostings.map((posting) => ({
     id: posting.id, // ID to each marker to identify
     lat: parseFloat(posting.facility_latitude),
     lng: parseFloat(posting.facility_longitude),
     title: posting.title,
-    description: `${posting.facility_name} <p>\nLocation: ${posting.facility_short_address}</p>`,
+    description: `${posting.facility_name}Location: ${posting.facility_short_address}`,
     imageUrl: posting.facility_images 
-  }));
+  })) : [];
+
+  
   
   //console.log('photo', markers);
   
   const selectedMarker = markers.find((marker) => marker.id === selectedJobId);
 
-  // map marker to view job details
+  // Function to view job details
   const viewJobDetails = (jobId) => {
     const job = state.jobPostings.find((job) => job.id === jobId);
     setSelectedJob(job); 
-    navigate(`/jobs/${jobId}`); // go to job postings page
+    navigate(`/jobs/${jobId}`);
   };
 
   return (
     <div>
       <Map location={location} borders={borders} markers={markers} viewJobDetails={viewJobDetails} />
-      {selectedMarker && <JobPostingsModal job={selectedMarker} />} {/* Render JobPostingsModal if a marker is selected */}
+      {selectedMarker && <JobPostingsModal job={selectedMarker} />} 
     </div>
   );
 };

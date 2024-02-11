@@ -1,17 +1,19 @@
+// -- APPLICATION ROUTING CONFIGURATION -- //
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Nav";
-import Footer from "./components/Footer";
+import Navbar from "./components/layout/Nav";
+import Footer from "./components/layout/Footer";
 import CalendarComponent from "./components/CalendarComponent";
-import MapPage from "./components/MapPage";
-import JobPostings from "./components/JobPostings";
+import MapPage from "./components/map/MapPage";
+import JobPostings from "./components/job_posting/JobPostings";
 import { JobsContextProvider } from "./context/index";
-import ProfilePage from "./components/ProfilePage";
-import UserHeader from "./components/UserHeader";
+import ProfilePage from "./components/profile/ProfilePage";
+import UserHeader from "./components/layout/UserHeader";
 import { ApplicationDataProvider, useApplicationData } from "./hooks/useApplicationData";
 import ChatBox from "./components/ChatBox";
-import MarkerDetail from "./components/MarkerDetail";
-import AdminPostShift from "./components/AdminPostShift";
+import MarkerDetail from "./components/map/MarkerDetail";
+import AdminPostShift from "./components/user/AdminPostShift";
 import Home from './components/home/Home'
 import { RegistrationProvider } from "./context/RegistrationContext";
 import { RewardsProvider } from "./context/RewardsContext";
