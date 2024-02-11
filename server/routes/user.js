@@ -98,7 +98,7 @@ module.exports = (pool) => {
   });
 
   // PUT points to user.
-  router.put('/updatePoints', async (req, res) => {
+  router.put('/points', async (req, res) => {
     const { userId, pointsToAdd } = req.body; // Use userId instead of auth0_id
 
     try {
