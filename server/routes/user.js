@@ -99,12 +99,12 @@ module.exports = (pool) => {
 
   // PUT points to user.
   router.put('/updatePoints', async (req, res) => {
-    const { auth0_id, pointsToAdd } = req.body;
+    const { userId, pointsToAdd } = req.body; // Use userId instead of auth0_id
 
     try {
       const fetchCurrentPoints = await pool.query(
-        'SELECT points FROM users WHERE auth0_id = $1',
-        [auth0_id]
+        'SELECT points FROM users WHERE id = $1', // Changed to use id for user identification
+        [userId]
       );
 
       if (fetchCurrentPoints.rows.length === 0) {
@@ -117,10 +117,10 @@ module.exports = (pool) => {
       const updatePointsQuery = `
         UPDATE users
         SET points = $1
-        WHERE auth0_id = $2
+        WHERE id = $2 // Changed to use id for user identification
         RETURNING *;
       `;
-      const updatedUser = await pool.query(updatePointsQuery, [newPoints, auth0_id]);
+      const updatedUser = await pool.query(updatePointsQuery, [newPoints, userId]);
 
       if (updatedUser.rows.length > 0) {
         console.log("User points updated:", updatedUser.rows[0]);
