@@ -14,7 +14,7 @@ export const RewardsProvider = ({ children }) => {
     setPoints(prevPoints => {
       const updatedPoints = prevPoints + newPoints;
       if (showToast) {
-        toast.success(`You earned ${newPoints} points!`, {
+        toast.success(`You earned ${newPoints} points! Total earned: ${updatedPoints}`, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
