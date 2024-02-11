@@ -14,11 +14,12 @@ const Map = ({ location, borders, markers, origin, destination, viewJobDetails }
 
   useEffect(() => {
     const initMap = () => {
+      console.log("Initializing the map...");
       const mapOptions = {
-        zoom: 13.5,
+        zoom: 13.4,
         center: location,
         styles: [
-          // Map styles
+          { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
         ],
       };
       const newMap = new window.google.maps.Map(mapRef.current, mapOptions);
