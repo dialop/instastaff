@@ -42,39 +42,39 @@ const ProfileBookmark = () => {
         </Typography>
         <div className="flex flex-col items-center">
           {profile.is_hero && (
-            <Chip icon={<BadgeIcon />} label="Emergency Hero" color="primary" sx={{ mb: 1, backgroundColor: green[500], color: 'white' }} />
+            <Chip icon={<BadgeIcon />} label="Emergency Hero" color="primary" sx={{ mb: 1, backgroundColor: "primary", color: 'white' }} />
           )}
-          <Chip label={profile.gender} variant="outlined" color="primary" sx={{ mb: 1, borderColor: green[500], color: green[500] }} />
+          <Chip label={profile.gender} variant="outlined" sx={{ mb: 1 }} />
         </div>
         <Divider sx={{ my: 2 }} />
         <List dense>
           <ListItem>
             <ListItemIcon>
-              <AccountBoxIcon sx={{ color: green[500] }} />
+              <AccountBoxIcon sx={{ color: "#6547A5" }} />
             </ListItemIcon>
             <ListItemText primary="Username" secondary={profile.handle} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <WorkIcon sx={{ color: green[500] }} />
+              <WorkIcon sx={{ color: "#6547A5" }} />
             </ListItemIcon>
             <ListItemText primary="Occupation" secondary={profile.occupation} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <LicenseIcon sx={{ color: green[500] }} />
+              <LicenseIcon sx={{ color: "#6547A5" }} />
             </ListItemIcon>
             <ListItemText primary="License" secondary={profile.license} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <EmailIcon sx={{ color: green[500] }} />
+              <EmailIcon sx={{ color: "#6547A5" }} />
             </ListItemIcon>
             <ListItemText primary="Email" secondary={profile.email} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <StarsIcon sx={{ color: green[500] }} />
+              <StarsIcon sx={{ color: "#6547A5" }} />
             </ListItemIcon>
             <ListItemText primary="Rewards" secondary={`${profile.points} points`} />
           </ListItem>

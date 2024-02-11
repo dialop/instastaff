@@ -48,11 +48,11 @@ const ProfileAvatar = () => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'center', // Adjusted to 'center' from 'left'
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'center', // Adjusted to 'center' from 'left'
         }}
         disableRestoreFocus
       >
