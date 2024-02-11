@@ -8,7 +8,7 @@ import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
 import { green } from '@mui/material/colors';
 
-const ProfileCard = () => {
+const ProfileBookmark = () => {
   const profile = {
     first_name: 'Jane',
     last_name: 'Doe',
@@ -73,4 +73,4 @@ const ProfileCard = () => {
   );
 };
 
-export default ProfileCard;
+export default ProfileBookmark;
