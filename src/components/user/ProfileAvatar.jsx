@@ -54,7 +54,17 @@ const ProfileAvatar = () => {
 
   return (
     <div className="flex items-center mr-4">
-      <Tooltip title={!isRegistered ? "Click me to complete your registration!" : ""}>
+      <Tooltip 
+        title={!isRegistered ? "Click me to be taken to registration. Complete the form!" : ""}
+        arrow
+        sx={{
+          typography: 'body1',
+          '& .MuiTooltip-tooltip': {
+            color: 'white',
+            fontSize: '5em',
+          },
+        }}
+      >
         {avatarContent}
       </Tooltip>
       <Popover
