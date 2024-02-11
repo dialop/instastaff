@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Card, CardContent, Chip, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Card, CardContent, Chip, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/VerifiedUser';
 import WorkIcon from '@mui/icons-material/Work';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
-import { green } from '@mui/material/colors';
-import { useAuth0 } from '@auth0/auth0-react'; // Import useAuth0 for authentication status
-import { useRegistration } from '../../context/RegistrationContext'; // Adjust the path as necessary
+import { useAuth0 } from '@auth0/auth0-react';
+import { useRegistration } from '../../context/RegistrationContext';
 
 const ProfileBookmark = () => {
   const [profile, setProfile] = useState({});
@@ -29,7 +28,6 @@ const ProfileBookmark = () => {
     }
   }, [isRegistered, isAuthenticated]);
 
-  // Early return if not authenticated or registered to avoid unnecessary render
   if (!isAuthenticated || !isRegistered || !profile) {
     return null;
   }
