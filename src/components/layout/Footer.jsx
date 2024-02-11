@@ -3,7 +3,7 @@ import { Facebook, Twitter, Instagram } from '@mui/icons-material';
 
 const Footer = () => {
   return (
-    <div className="bg-custom-gray flex justify-center">
+    <div className="bg-[#B8E4FF] flex justify-center">
       <div className="w-full container flex flex-col justify-between py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
           <div className="col-span-1 lg:col-span-1">
