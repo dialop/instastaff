@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const RewardsContext = createContext();
 
@@ -7,6 +9,25 @@ export const useRewards = () => useContext(RewardsContext);
 export const RewardsProvider = ({ children }) => {
   const [points, setPoints] = useState(0);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
+
+  const addPoints = (newPoints, showToast = true) => {
+    setPoints(prevPoints => {
+      const updatedPoints = prevPoints + newPoints;
+      if (showToast) {
+        toast.success(`You earned ${newPoints} points!`, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      return updatedPoints;
+    });
+  };
 
   useEffect(() => {
     const fetchPoints = async () => {
@@ -32,7 +53,7 @@ export const RewardsProvider = ({ children }) => {
   }, [triggerRefresh]); // Ensure this effect runs every time triggerRefresh changes
 
   return (
-    <RewardsContext.Provider value={{ points, setPoints, triggerRefresh, setTriggerRefresh }}>
+    <RewardsContext.Provider value={{ points, setPoints, triggerRefresh, setTriggerRefresh, addPoints }}>
       {children}
     </RewardsContext.Provider>
   );
