@@ -4,8 +4,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import PointsProgress from '../profile/rewards/PointsProgress';
 
 const UserHeader = () => {
-  const { user, isAuthenticated } = useAuth0();
-  const isAdmin = isAuthenticated && user && user.email === 'nurse.instastaff@gmail.com';
+  const { user } = useAuth0();
+  const isAdmin =  user && user.email === 'nurse.instastaff@gmail.com';
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#6547A5' }}>
