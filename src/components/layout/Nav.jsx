@@ -16,8 +16,6 @@ const Navbar = () => {
   const location = useLocation();
   const { isAuthenticated, user, logout } = useAuth0();
 
-  const isAdmin = user && user.email === 'nurse.instastaff@gmail.com';
-
   const handleNav = () => {
     setNav(!nav);
   };
@@ -72,7 +70,7 @@ const Navbar = () => {
             <Switch checked={adminView} onChange={handleToggleAdminView} />
           </div>
         )}
-        {isAuthenticated && <li className="mr-4"><ProfileAvatar /></li>}
+        {isAuthenticated && !adminView && <li className="mr-4"><ProfileAvatar /></li>}
         <SignUpButton />
         <LoginButton />
       </ul>
