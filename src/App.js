@@ -17,7 +17,7 @@ import AdminPostShift from "./components/user/AdminPostShift";
 import Home from './components/home/Home'
 import { RegistrationProvider } from "./context/RegistrationContext";
 import { RewardsProvider } from "./context/RewardsContext";
-
+import { AdminProvider } from "./context/AdminContext";
 
 function App() {
   const { addShift, state, handleCalendarDate, getShiftForDate} = useApplicationData();
@@ -27,7 +27,8 @@ function App() {
   };
 
   return (
-    <RegistrationProvider>
+    <AdminProvider>
+      <RegistrationProvider>
       <RewardsProvider>
         <ApplicationDataProvider>
           <JobsContextProvider>
@@ -52,6 +53,7 @@ function App() {
         </ApplicationDataProvider>
       </RewardsProvider>
     </RegistrationProvider>
+    </AdminProvider>
   );
 }
 
