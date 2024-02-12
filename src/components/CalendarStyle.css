@@ -116,9 +116,10 @@
   color: white;
  }
 
-.date-has-shift {
-  background-color: lightblue;
-  border-radius: 50%; 
+.react-calendar .date-has-shift {
+  font-size: 1.3em;
+  color: #6f48eb;
+  text-decoration: underline;
  }
 
  .react-calendar__month-view__days__day--neighboringMonth {
@@ -129,3 +130,4 @@
   background-color: lightblue;
   height: 85px;
 }
+
