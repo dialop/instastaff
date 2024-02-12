@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
 import { useAuth0 } from '@auth0/auth0-react';
+import { useAdmin } from '../../context/AdminContext'; // Import useAdmin
 import logo from '../../assets/instastaff_transparent-logo.png';
 import Switch from '@mui/material/Switch';
 
@@ -12,16 +13,16 @@ import ProfileAvatar from '../user/ProfileAvatar';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const [adminView, setAdminView] = useState(false); // Added state for admin view
   const location = useLocation();
-  const { isAuthenticated, user, logout } = useAuth0();
+  const { isAuthenticated } = useAuth0();
+  const { isAdmin, setAdmin } = useAdmin(); // Use the admin context
 
   const handleNav = () => {
     setNav(!nav);
   };
 
   const handleToggleAdminView = () => {
-    setAdminView(!adminView);
+    setAdmin(!isAdmin); // Toggle admin view using context
   };
 
   const isActive = (pathname) => location.pathname === pathname;
@@ -37,7 +38,7 @@ const Navbar = () => {
       <ul className='hidden md:flex items-center'>
         {isAuthenticated && (
           <>
-            {adminView ? (
+            {isAdmin ? (
               <>
                 <li className={`p-4 ${isActive('/post-jobs') ? 'border-t-4 border-[#24233E]' : ''}`}>
                   <Link to="/post-shift">Post New Job</Link>
@@ -67,10 +68,10 @@ const Navbar = () => {
         <p className='flex w-16 justify-center'> | </p>
         {isAuthenticated && (
           <div className="flex items-center">
-            <Switch checked={adminView} onChange={handleToggleAdminView} />
+            <Switch checked={isAdmin} onChange={handleToggleAdminView} />
           </div>
         )}
-        {isAuthenticated && !adminView && <li className="mr-4"><ProfileAvatar /></li>}
+        {isAuthenticated && !isAdmin && <li className="mr-4"><ProfileAvatar /></li>}
         <SignUpButton />
         <LoginButton />
       </ul>
