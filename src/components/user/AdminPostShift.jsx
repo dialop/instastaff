@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Container, Button, FormControl, FormControlLabel, InputLabel, Radio, RadioGroup, FormLabel, Grid, MenuItem, Select, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -17,20 +16,18 @@ const Input = styled(TextField)({
   },
 });
 
-
 const PostShiftForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    facility_name: '',
-    title: '',
-    rate: '',
-    gender: '',
-    duration: '',
-    date: '',
-    start_time: '',
+    facility_name: 'Aurelia Medical Group',
+    title: 'Registered Nurse',
+    gender: 'any',
+    rate: '100',
+    duration: '10',
+    date: '2024-02-16',
+    start_time: '06:00:00',
   });
-
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -57,7 +54,6 @@ const PostShiftForm = () => {
         body: JSON.stringify({
           formData,
         }),
-
       });
       console.log("checking");
 
@@ -67,7 +63,6 @@ const PostShiftForm = () => {
   
       const responseData = await postingResponse.json();
       console.log("Shifts posted:", responseData);
-
 
       console.log('Form submitted successfully:', postingResponse);
       
@@ -80,22 +75,19 @@ const PostShiftForm = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
 
       navigate('/jobs');
 
     } catch (error) {
       console.error('Error during posting process', error);
     }
-
   };
-
 
   return (
     <>
       <h1 className="text-6xl p-8 text-[#24233E] text-center">Post New Job</h1>
-      <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5" >
-
+      <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5 mb-20" >
         <form className="space-y-4" onSubmit={handleFormSubmit}>
           <FormControl fullWidth required>
             <InputLabel htmlFor="facility_name">Hospital</InputLabel>
@@ -154,7 +146,7 @@ const PostShiftForm = () => {
             </Select>
           </FormControl>
 
-          <Grid container spacing={3} >
+          <Grid container spacing={3}>
             <Grid item xs={6}>
               <Input fullWidth
                 label="Rate"
@@ -203,7 +195,7 @@ const PostShiftForm = () => {
                 onChange={handleInputChange}
                 required
                 inputProps={{
-                  step: 300,
+                  step: 300, // 5 minutes
                 }}
               />
             </Grid>
@@ -215,7 +207,6 @@ const PostShiftForm = () => {
         </form>
       </Container>
     </>
-
   );
 };
 
