@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoMdClose } from "react-icons/io";
 import { GiHamburger } from "react-icons/gi";
 import { useAuth0 } from '@auth0/auth0-react';
-import { useAdmin } from '../../context/AdminContext'; // Import useAdmin
+import { useAdmin } from '../../context/AdminContext';
 import logo from '../../assets/instastaff_transparent-logo.png';
 import Switch from '@mui/material/Switch';
 
@@ -13,16 +13,22 @@ import ProfileAvatar from '../user/ProfileAvatar';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const location = useLocation();
   const { isAuthenticated } = useAuth0();
-  const { isAdmin, setAdmin } = useAdmin(); // Use the admin context
+  const { isAdmin, setAdmin } = useAdmin(); 
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNav = () => {
     setNav(!nav);
   };
 
   const handleToggleAdminView = () => {
-    setAdmin(!isAdmin); // Toggle admin view using context
+    if (isAdmin) {
+      navigate('/jobs');
+    } else {
+      navigate('/post-shift');
+    }
+    setAdmin(!isAdmin);
   };
 
   const isActive = (pathname) => location.pathname === pathname;
