@@ -5,7 +5,7 @@ import PointsProgress from '../profile/rewards/PointsProgress';
 
 const UserHeader = () => {
   const { user, isAuthenticated } = useAuth0();
-  const isAdmin = isAuthenticated && user && user.email === 'admin@gmail.com';
+  const isAdmin = isAuthenticated && user && user.email === 'nurse.instastaff@gmail.com';
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#6547A5' }}>
