@@ -62,7 +62,9 @@
     "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "db:reset": "node server/bin/resetdb.js"
+    "db:reset": "node server/bin/resetdb.js",
+    "test": "NODE_ENV=test npx cypress open",
+    "test:headless": "NODE_ENV=test npx cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -83,6 +85,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^7.1.0",
     "cypress": "^13.6.4",
     "html-webpack-plugin": "^5.6.0",
