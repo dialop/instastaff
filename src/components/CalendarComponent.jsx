@@ -61,10 +61,10 @@ const CalendarComponent = (props) => {
     });
   
     return (
-      <div>
+      <div className=''>
         <h3 className='react-calendar__navigation'>Shifts for {selectedDate.toDateString()}:</h3>
         {shiftsForDate.length > 0 ? (
-          <ul className='react-calendar__navigation'>
+          <ul className='react-calendar__shift-card'>
             {shiftsForDate.map((shift, index) => (
               
               <li key={index}>
@@ -78,7 +78,7 @@ const CalendarComponent = (props) => {
             ))}
           </ul>
         ) : (
-          <p>No shifts scheduled for this date</p>
+          <p className='p-8 flex justify-center'>No shifts scheduled for this date</p>
         )}
       </div>
     );
@@ -89,12 +89,13 @@ const CalendarComponent = (props) => {
       <div className="heading flex flex-col justify-center items-center">
         <h1 className="text-6xl py-8 text-[#24233E]">Calendar</h1>
       </div>
-      <div className="flex mt-5 justify-center pb-10">
+      <div className="flex mt-5 items-center justify-center px-40 pb-10 h-[70vh] w-[100vw]">
         <div className='react-calendar'>
-        {renderShiftDetails()}
+          {renderShiftDetails()}
         </div>
         <div>
           <Calendar
+            className='ml-4'
             onChange={handleCalendarChange}
             value={state.date}
             tileClassName={({ date }) => {
