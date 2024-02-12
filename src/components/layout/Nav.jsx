@@ -71,11 +71,13 @@ const Navbar = () => {
             )}
           </>
         )}
-        <p className='flex w-16 justify-center'> | </p>
         {isAuthenticated && (
-          <div className="flex items-center">
-            <Switch checked={isAdmin} onChange={handleToggleAdminView} />
-          </div>
+          <>
+            <p className='flex w-16 justify-center'> | </p>
+            <div className="flex items-center">
+              <Switch checked={isAdmin} onChange={handleToggleAdminView} />
+            </div>
+          </>
         )}
         {isAuthenticated && !isAdmin && <li className="mr-4"><ProfileAvatar /></li>}
         <SignUpButton />
