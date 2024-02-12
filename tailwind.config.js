@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'custom-gray': '#d3dce7',
+        'custom-green': '#00FF00'
       },
       keyframes: {
         twinkle: {
