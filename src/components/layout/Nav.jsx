@@ -16,7 +16,7 @@ const Navbar = () => {
   const location = useLocation();
   const { isAuthenticated, user, logout } = useAuth0();
 
-  const isAdmin = isAuthenticated && user && user.email === 'admin@gmail.com';
+  const isAdmin = isAuthenticated && user && user.email === 'nurse.instastaff@gmail.com';
 
   const handleLogout = () => {
     logout({ returnTo: window.location.origin });
