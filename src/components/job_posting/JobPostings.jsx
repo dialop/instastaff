@@ -12,6 +12,8 @@ import en from "javascript-time-ago/locale/en.json";
 import notifications from "../../helpers/notifications";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -105,6 +107,16 @@ const handleCancelShift = async () => {
       );
 
       setJobData(updatedJobData);
+      toast.error('Shift was cancelled!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     } else {
       console.error('Failed to cancel job:', response.statusText);
     }
