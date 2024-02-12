@@ -20,13 +20,13 @@ const PostShiftForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    facility_name: '',
-    title: '',
-    rate: '',
-    gender: '',
-    duration: '',
-    date: '',
-    start_time: '',
+    facility_name: 'Aurelia Medical Group',
+    title: 'Registered Nurse',
+    gender: 'any',
+    rate: '100',
+    duration: '10',
+    date: '2024-02-16',
+    start_time: '06:00:00',
   });
 
   const handleInputChange = (event) => {
