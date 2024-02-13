@@ -124,7 +124,7 @@ export const RewardsProvider = ({ children }) => {
   }, [triggerRefresh]);
 
   return (
-    <RewardsContext.Provider value={{ points, setPoints, triggerRefresh, setTriggerRefresh, addPoints }}>
+    <RewardsContext.Provider value={{ points, setPoints, triggerRefresh, setTriggerRefresh, addPoints, removePoints }}>
       {children}
     </RewardsContext.Provider>
   );
