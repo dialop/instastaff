@@ -16,7 +16,7 @@ const RewardsBadges = () => {
     <Container >
       <CardContent maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
         <Grid container spacing={2} alignItems="center">
-
+          <Typography>Badges Earned</Typography>
         </Grid>
       </CardContent>
     </Container>
