@@ -62,6 +62,47 @@ export const RewardsProvider = ({ children }) => {
     }
   };  
 
+  const removePoints = async (pointsToRemove, showToast = true) => {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      console.log('No userId found in sessionStorage for removing points.');
+      return;
+    }
+  
+    console.log(`Removing ${pointsToRemove} points for user ${userId}.`);
+    try {
+      const response = await fetch(`/user/${userId}/points`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Ensure your backend supports deducting points
+        body: JSON.stringify({ pointsToAdd: -pointsToRemove }),
+      });
+  
+      if (!response.ok) throw new Error('Failed to update points');
+  
+      const data = await response.json();
+      console.log(`Points removed successfully. New total: ${data.points}`);
+      setPoints(data.points);
+  
+      if (showToast) {
+        toast.error(`You lost ${pointsToRemove} points! Total points: ${data.points}`, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error('Error removing points:', error);
+    }
+};
+
   useEffect(() => {
     const fetchPoints = async () => {
       const userId = sessionStorage.getItem('userId');
