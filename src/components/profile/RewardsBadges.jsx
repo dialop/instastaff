@@ -23,8 +23,8 @@ const RewardsBadges = () => {
   ];
 
   return (
-    <Container>
-      <CardContent sx={{ padding: '20px', maxWidth: 'sm', margin: 'auto', backgroundColor: 'white', borderRadius: '16px', boxShadow: '0px 4px 12px rgba(0,0,0,0.1)', marginTop: '20px' }}>
+    <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">      
+      <CardContent>
         <Grid container justifyContent="center" alignItems="center" sx={{ marginBottom: '20px' }}>
           <Chip icon={<EmojiEventsIcon />} color="primary" label="Badges Earned" sx={{ fontSize: '1rem', margin: '10px', backgroundColor: '#6547A5' }} />
         </Grid>
@@ -49,7 +49,7 @@ const RewardsBadges = () => {
           ))}
         </Grid>
         <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: '20px' }}>
-          <Chip icon={<StarIcon />} color="primary" label="Rewards Earned" sx={{ fontSize: '1rem', margin: '10px', backgroundColor: '#6547A5' }} />
+          <Chip icon={<StarIcon />} color="primary" label="Redeem Rewards" sx={{ fontSize: '1rem', margin: '10px', backgroundColor: '#6547A5' }} />
         </Grid>
       </CardContent>
     </Container>
