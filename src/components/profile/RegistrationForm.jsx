@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import Confetti from 'react-confetti'; // Import the Confetti component
 import { useRegistration } from '../../context/RegistrationContext';
 import { useRewards } from '../../context/RewardsContext';
 
@@ -27,7 +26,7 @@ const Input = styled(TextField)({
   },
 });
 
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { isRegistered, setIsRegistered } = useRegistration();
   const { addPoints } = useRewards();
@@ -46,7 +45,6 @@ const RegistrationForm = () => {
     points: 100,
   });
 
-  const [showConfetti, setShowConfetti] = useState(false); // State to control confetti
 
   useEffect(() => {
     if (user) {
@@ -67,16 +65,7 @@ const RegistrationForm = () => {
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
   
-  // show confetti
-  useEffect(() => {
-    console.log(showConfetti, "confetti show");
-    let timer;
-    if (showConfetti) {
-        timer = setTimeout(() => setShowConfetti(false), 5000);
-    }
-    return () => clearTimeout(timer);
-}, [showConfetti]);
-
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,9 +92,7 @@ const RegistrationForm = () => {
       const responseData = await response.json();
       console.log('Update successful:', responseData);
 
-      console.log("Before setting showConfetti to true:", showConfetti);
-
-      showConfetti(true);
+      props.setShowConfetti(true);
 
       
       setIsRegistered(true);
@@ -167,7 +154,6 @@ const RegistrationForm = () => {
             Submit
           </Button>
         </form>
-        {<Confetti width={3000} height={1000} numberOfPieces={200} />}{/* Show confetti if showConfetti is true */}
       </Container>
     </>
   );
