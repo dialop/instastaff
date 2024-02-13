@@ -3,6 +3,7 @@ import { Box, Grid, Container } from '@mui/material';
 
 import RegistrationForm from './RegistrationForm';
 import ProfileCard from './ProfileCard';
+import RewardsBadges from './RewardsBadges';
 import BarChartGraph from './BarChartGraph';
 import PieChartIncentive from './PieChartIncentive';
 
@@ -14,13 +15,29 @@ function ProfilePage() {
         <RegistrationForm />
       </Box>
 
-      {/* Profile Card: Post-Registration */}
-      <Container maxWidth="sm" style={{ margin: 'auto' }}>
-        <ProfileCard />
-      </Container>
+      {/* Profile Card and Rewards Badges: Post-Registration */}
+      <Grid container spacing={4} justifyContent="center">
+        {/* Profile Card */}
+        <Grid item xs={12} md={6}>
+          <Container maxWidth="sm">
+            <ProfileCard />
+          </Container>
+        </Grid>
+        
+        {/* Rewards Badges */}
+        <Grid item xs={12} md={6}>
+          <Container maxWidth="sm">
+            <RewardsBadges />
+          </Container>
+        </Grid>
+      </Grid>
+      
+      {/* Spacing between the rows */}
+      <Box my={4}> {/* Adjust vertical margin as needed for space between rows */}
+      </Box>
       
       {/* Graphic Summaries Section */}
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={4} justifyContent="center">
         {/* Bar Chart */}
         <Grid item xs={12} md={6}>
           <Container maxWidth="sm">
@@ -35,6 +52,11 @@ function ProfilePage() {
           </Container>
         </Grid>
       </Grid>
+      
+      {/* Spacing before the footer */}
+      <Box my={4}> {/* Adjust vertical margin as needed for space before the footer */}
+        {/* Footer Content Here */}
+      </Box>
     </Box>
   );
 }
