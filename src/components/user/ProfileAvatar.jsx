@@ -55,7 +55,7 @@ const ProfileAvatar = () => {
   return (
     <div className="flex items-center mr-4">
       <Tooltip 
-        title={!isRegistered ? "Click me to be taken to registration. Complete the form!" : ""}
+        title={!isRegistered ? "Click me and complete your registration!" : ""}
         arrow
         sx={{
           typography: 'body1',

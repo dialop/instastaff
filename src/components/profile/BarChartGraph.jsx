@@ -69,7 +69,7 @@ const BarChartGraph = () => {
   return (
     <Card>
     <CardContent>
-      <Typography variant="h6">Total Hours Summary</Typography>
+      <Typography variant="h6">Total Hours Worked</Typography>
       {isLoading && <div>Loading...</div>}
         {error && <div>Error: {error.message}</div>}
         {!isLoading && !error && (
