@@ -26,24 +26,19 @@ function ProfilePage() {
         {showConfetti && <Confetti recycle={false} onConfettiComplete={ () => setShowConfetti(false) } width={3000} height={1000} numberOfPieces={400} />}{/* Show confetti if showConfetti is true */}
       </Box>
       
-      {/* Graph and Pie Chart Sections */}
+      {/* Graphic Summaries Section */}
       <Grid container spacing={2}>
-        {/* Graph Section */}
+        
+        {/* Bar Chart */}
         <Grid item xs={12} md={6}>
-
-              <BarChartComponent />
-
-
+          <BarChartComponent />
         </Grid>
-        {/* Pie Chart Section */}
+        
+        {/* Pie Chart */}
         <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Health/Facility Summary</Typography>
-              <PieChartIncentive />
-            </CardContent>
-          </Card>
+          <PieChartIncentive />
         </Grid>
+      
       </Grid>
     </Box>
   );

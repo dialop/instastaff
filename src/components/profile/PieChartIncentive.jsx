@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
+import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
 
 const data = [
   { name: '?', value: 63 },
@@ -11,7 +12,10 @@ const data = [
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 
 const PieChartIncentive = () => (
-  <ResponsiveContainer width="100%" height={300}>
+  <Card>
+    <CardContent>
+      <Typography variant="h6">Health/Facility Summary</Typography>
+      <ResponsiveContainer width="100%" height={300}>
     <PieChart>
       <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
         {data.map((entry, index) => (
@@ -22,6 +26,9 @@ const PieChartIncentive = () => (
       <Legend />
     </PieChart>
   </ResponsiveContainer>
+    </CardContent>
+  </Card>
+
 );
 
 export default PieChartIncentive;
