@@ -102,7 +102,7 @@ const RegistrationForm = (props) => {
       // Show success message
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
