@@ -98,14 +98,13 @@ module.exports = (pool) => {
   });
 
   // PUT points to user.
-  router.put('/updatePoints', async (req, res) => {
-    const { auth0_id, pointsToAdd } = req.body;
+  router.put('/:userId/points', async (req, res) => {
+    const userId = req.params.userId; // Using userId from URL params
+    const { pointsToAdd } = req.body;
 
     try {
-      const fetchCurrentPoints = await pool.query(
-        'SELECT points FROM users WHERE auth0_id = $1',
-        [auth0_id]
-      );
+      // Adjust the query to use userId for lookup instead of auth0_id
+      const fetchCurrentPoints = await pool.query('SELECT points FROM users WHERE id = $1', [userId]);
 
       if (fetchCurrentPoints.rows.length === 0) {
         return res.status(404).json({ message: 'User not found' });
@@ -114,13 +113,8 @@ module.exports = (pool) => {
       const currentPoints = fetchCurrentPoints.rows[0].points;
       const newPoints = currentPoints + pointsToAdd;
 
-      const updatePointsQuery = `
-        UPDATE users
-        SET points = $1
-        WHERE auth0_id = $2
-        RETURNING *;
-      `;
-      const updatedUser = await pool.query(updatePointsQuery, [newPoints, auth0_id]);
+      const updatePointsQuery = 'UPDATE users SET points = $1 WHERE id = $2 RETURNING *;';
+      const updatedUser = await pool.query(updatePointsQuery, [newPoints, userId]);
 
       if (updatedUser.rows.length > 0) {
         console.log("User points updated:", updatedUser.rows[0]);
