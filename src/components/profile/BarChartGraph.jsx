@@ -17,7 +17,7 @@ const BarChartGraph = () => {
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        if (isAuthenticated) {
+      
           setIsLoading(true);
           const userId = window.sessionStorage.getItem('userId');
           const response = await fetch(`/calendar/${userId}`);
@@ -27,7 +27,7 @@ const BarChartGraph = () => {
           const data = await response.json();
           setCalendarData(data);
           setIsLoading(false);
-        }
+    
       } catch (error) {
         console.error("Error fetching calendar data:", error);
         setIsLoading(false);
@@ -35,7 +35,7 @@ const BarChartGraph = () => {
     };
 
     fetchCalendarData();
-  }, [isAuthenticated]);
+  }, []);
 
   
   
@@ -71,7 +71,8 @@ const BarChartGraph = () => {
     <CardContent>
       <Typography variant="h6">Total Hours Summary</Typography>
       {isLoading && <div>Loading...</div>}
-      {calendarData && (
+        {error && <div>Error: {error.message}</div>}
+        {!isLoading && !error && (
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={aggregatedData.length > 0 ? aggregatedData : [{ month: 0, Hours: 0 }]}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -82,7 +83,7 @@ const BarChartGraph = () => {
             <Bar dataKey="Hours" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
-      )}
+      )} 
     </CardContent>
   </Card>
   );
