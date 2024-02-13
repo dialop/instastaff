@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Container } from '@mui/material';
 
 import RegistrationForm from './RegistrationForm';
 import ProfileCard from './ProfileCard';
@@ -7,33 +7,33 @@ import BarChartComponent from './BarChartComponent';
 import PieChartIncentive from './PieChartIncentive';
 
 function ProfilePage() {
-
   return (
     <Box m={3}>
-      
       {/* Registration Form */}
       <Box mb={3}>
         <RegistrationForm />
       </Box>
 
       {/* Profile Card: Post-Registration */}
-      <Box m={3}>
+      <Container maxWidth="sm" style={{ margin: 'auto' }}>
         <ProfileCard />
-      </Box>
+      </Container>
       
       {/* Graphic Summaries Section */}
-      <Grid container spacing={2}>
-        
+      <Grid container spacing={2} justifyContent="center">
         {/* Bar Chart */}
         <Grid item xs={12} md={6}>
-          <BarChartComponent />
+          <Container maxWidth="sm">
+            <BarChartComponent />
+          </Container>
         </Grid>
         
         {/* Pie Chart */}
         <Grid item xs={12} md={6}>
-          <PieChartIncentive />
+          <Container maxWidth="sm">
+            <PieChartIncentive />
+          </Container>
         </Grid>
-      
       </Grid>
     </Box>
   );
