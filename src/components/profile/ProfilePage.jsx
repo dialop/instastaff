@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
+import { Box, Grid, Container } from '@mui/material';
 
 import RegistrationForm from './RegistrationForm';
 import ProfileCard from './ProfileCard';
-import BarChartComponent from './BarChartComponent';
+import RewardsBadges from './RewardsBadges';
+import BarChartGraph from './BarChartGraph';
 import PieChartIncentive from './PieChartIncentive';
 import Confetti from 'react-confetti';
 // import Rewards from './profile/rewards/Rewards';
@@ -14,62 +15,58 @@ function ProfilePage() {
   
   return (
     <Box m={3}>
-      
       {/* Registration Form */}
       <Box mb={3}>
         <RegistrationForm setShowConfetti={setShowConfetti} />
       </Box>
 
-      {/* Profile Card: Post-Registration */}
-      <Box m={3}>
-        <ProfileCard />
+      {/* Profile Card and Rewards Badges: Post-Registration */}
+      <Grid container spacing={0} justifyContent="center">
+        {/* Profile Card */}
+        <Grid item xs={12} md={6} lg={4}>
+          {/* Apply custom padding using the sx prop */}
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
+            <ProfileCard />
         {showConfetti && <Confetti recycle={false} onConfettiComplete={ () => setShowConfetti(false) } width={3000} height={1000} numberOfPieces={400} />}{/* Show confetti if showConfetti is true */}
-      </Box>
-      
-      {/* Graph and Pie Chart Sections */}
-      <Grid container spacing={2}>
-        {/* Graph Section */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Hours Summary</Typography>
-              <BarChartComponent />
-            </CardContent>
-          </Card>
+          </Container>
         </Grid>
-        {/* Pie Chart Section */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Health/Facility Summary</Typography>
-              <PieChartIncentive />
-            </CardContent>
-          </Card>
+        
+        {/* Rewards Badges */}
+        <Grid item xs={12} md={6} lg={4}>
+          {/* Apply custom padding using the sx prop */}
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
+            <RewardsBadges />
+          </Container>
         </Grid>
       </Grid>
+      
+      {/* Spacing between the rows */}
+      <Box my={4}>
+      </Box>
+      
+      {/* Graphic Summaries Section */}
+      <Grid container spacing={0} justifyContent="center">
+        {/* Bar Chart */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
+            <BarChartGraph />
+          </Container>
+        </Grid>
+        
+        {/* Pie Chart */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
+            <PieChartIncentive />
+          </Container>
+        </Grid>
+      </Grid>
+      
+      {/* Spacing before the footer */}
+      <Box my={4}>
+        {/* Footer Content Here */}
+      </Box>
     </Box>
   );
 }
 
 export default ProfilePage;
-
-      // {/* Information Section */}
-      // <Grid container spacing={2}>
-      //   <Grid item xs={12} sm={6} md={8}>
-      //     <Card>
-      //       <CardContent>
-      //         <Typography variant="h5" gutterBottom>Rewards</Typography>
-      //         <form noValidate autoComplete="off">
-      //           <Grid container spacing={3}>
-      //           </Grid>
-      //         </form>
-      //       </CardContent>
-      //     </Card>
-
-      //     {/* Rewards Section */}
-      //     <Rewards />
-          
-      //     {/* GiftCard Section */}
-      //     <GiftCard />
-      //   </Grid>
-      // </Grid>

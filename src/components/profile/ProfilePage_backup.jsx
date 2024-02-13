@@ -4,7 +4,7 @@ import { blue } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import EditIcon from '@mui/icons-material/Edit'; 
-import BarChartComponent from './BarChartComponent';
+import BarChartGraph from './BarChartGraph';
 import Rewards from './rewards/Rewards';
 import GiftCard from './rewards/GiftCard'; 
 import PieChartInsentive from './PieChartInsentive';
@@ -248,7 +248,7 @@ function ProfilePage() {
         <Grid item xs={12} md={6}>
           <Typography variant="h6">Total Hours Summary</Typography>
           <Paper>
-            <BarChartComponent />
+            <BarChartGraph />
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
