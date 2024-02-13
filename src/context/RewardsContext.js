@@ -94,7 +94,7 @@ export const RewardsProvider = ({ children }) => {
       if (showToast) {
         toast.error(
           <div>
-            <em>Naughty, naughty!</em> <br />
+            ❗ <em>Naughty, naughty!</em> <br />
             You lost {pointsToRemove} points!<br />
             Total earned: {data.points}
           </div>
