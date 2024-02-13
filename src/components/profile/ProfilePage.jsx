@@ -3,7 +3,7 @@ import { Box, Grid, Container } from '@mui/material';
 
 import RegistrationForm from './RegistrationForm';
 import ProfileCard from './ProfileCard';
-import BarChartComponent from './BarChartComponent';
+import BarChartGraph from './BarChartGraph';
 import PieChartIncentive from './PieChartIncentive';
 
 function ProfilePage() {
@@ -24,7 +24,7 @@ function ProfilePage() {
         {/* Bar Chart */}
         <Grid item xs={12} md={6}>
           <Container maxWidth="sm">
-            <BarChartComponent />
+            <BarChartGraph />
           </Container>
         </Grid>
         

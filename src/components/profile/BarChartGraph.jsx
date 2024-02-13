@@ -10,7 +10,7 @@ const data = [
   { name: 'Mar', Hours: 69}
 ];
 
-const BarChartComponent = () => (
+const BarChartGraph = () => (
   <Card>
     <CardContent>
       <Typography variant="h6">Total Hours Summary</Typography>
@@ -28,4 +28,4 @@ const BarChartComponent = () => (
   </Card>
 );
 
-export default BarChartComponent;
+export default BarChartGraph;
