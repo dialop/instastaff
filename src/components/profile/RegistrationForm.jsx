@@ -41,8 +41,7 @@ const RegistrationForm = (props) => {
     occupation: 'Super Nurse',
     license: 'RN007',
     is_hero: true,
-    is_registered: true, 
-    points: 100,
+    is_registered: true
   });
 
 
@@ -96,7 +95,7 @@ const RegistrationForm = (props) => {
 
       
       setIsRegistered(true);
-      addPoints(100);
+      addPoints(250);
       
       
       // Show success message
