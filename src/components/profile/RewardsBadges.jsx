@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, CardContent, Typography, Grid } from '@mui/material';
+import { Container, CardContent, Typography, Grid, Avatar, Tooltip } from '@mui/material';
 import { useRewards } from '../../context/RewardsContext';
 
 // Import images
@@ -17,23 +17,27 @@ const RewardsBadges = () => {
 
   // Use imported images
   const badges = [
-    { src: loveBadge, alt: "Love Badge" },
-    { src: teamworkBadge, alt: "Teamwork Badge" },
-    { src: plantBadge, alt: "Plant Badge" },
+    { src: loveBadge, alt: "Love Badge", label: "Love" },
+    { src: teamworkBadge, alt: "Teamwork Badge", label: "Teamwork" },
+    { src: plantBadge, alt: "Plant Badge", label: "Growth" },
   ];
 
   return (
     <Container>
       <CardContent maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
-        <Grid container spacing={2} alignItems="center">
+        <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={12}>
-            <Typography variant="h6">Badges Earned</Typography>
+            <Typography variant="h6" align="center">Badges Earned</Typography>
           </Grid>
           {badges.map((badge, index) => (
             <Grid item key={index}>
-              <div className="inline-flex overflow-hidden rounded-full">
-                <img src={badge.src} alt={badge.alt} className="w-16 h-16 object-cover" />
-              </div>
+              <Tooltip title={badge.label} placement="top">
+                <Avatar
+                  src={badge.src}
+                  alt={badge.alt}
+                  sx={{ width: 64, height: 64, boxShadow: 3 }}
+                />
+              </Tooltip>
             </Grid>
           ))}
         </Grid>
