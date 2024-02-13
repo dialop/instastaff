@@ -27,12 +27,10 @@ function ProfilePage() {
       <Grid container spacing={2}>
         {/* Graph Section */}
         <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Hours Summary</Typography>
+
               <BarChartComponent />
-            </CardContent>
-          </Card>
+
+
         </Grid>
         {/* Pie Chart Section */}
         <Grid item xs={12} md={6}>
