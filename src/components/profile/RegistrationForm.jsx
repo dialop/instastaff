@@ -42,7 +42,6 @@ const RegistrationForm = (props) => {
     license: 'RN007',
     is_hero: true,
     is_registered: true, 
-    points: 100,
   });
 
 
@@ -65,8 +64,6 @@ const RegistrationForm = (props) => {
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
   
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -91,15 +88,11 @@ const RegistrationForm = (props) => {
       }
       const responseData = await response.json();
       console.log('Update successful:', responseData);
-
       props.setShowConfetti(true);
 
-      
       setIsRegistered(true);
-      addPoints(100);
-      
-      
-      // Show success message
+      addPoints(250);
+
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
         autoClose: 2000,
