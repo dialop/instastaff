@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +8,6 @@ const BarChartGraph = () => {
   const [calendarData, setCalendarData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { user, isAuthenticated } = useAuth0();
   const [aggregatedData, setAggregatedData] = useState([]);
   
   
