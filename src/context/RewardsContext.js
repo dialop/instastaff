@@ -46,7 +46,12 @@ export const RewardsProvider = ({ children }) => {
       console.log(`Points added successfully. Total points: ${updatedPoints}`);
   
       if (showToast) {
-        toast.success(`You got ${newPoints} points! Total earned: ${updatedPoints}`, {
+        toast.success(
+          <div>
+            You got {newPoints} points!<br />
+            Total earned: {updatedPoints}
+          </div>
+          , {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -87,7 +92,13 @@ export const RewardsProvider = ({ children }) => {
       setPoints(data.points);
   
       if (showToast) {
-        toast.error(`You lost ${pointsToRemove} points! Total points: ${data.points}`, {
+        toast.error(
+          <div>
+            <em>Naughty, naughty!</em> <br />
+            You got {pointsToRemove} points!<br />
+            Total earned: {data.points}
+          </div>
+          , {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
