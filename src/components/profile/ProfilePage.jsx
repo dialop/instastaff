@@ -16,45 +16,47 @@ function ProfilePage() {
       </Box>
 
       {/* Profile Card and Rewards Badges: Post-Registration */}
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={0} justifyContent="center">
         {/* Profile Card */}
-        <Grid item xs={12} md={6}>
-          <Container maxWidth="sm">
+        <Grid item xs={12} md={6} lg={4}>
+          {/* Apply custom padding using the sx prop */}
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
             <ProfileCard />
           </Container>
         </Grid>
         
         {/* Rewards Badges */}
-        <Grid item xs={12} md={6}>
-          <Container maxWidth="sm">
+        <Grid item xs={12} md={6} lg={4}>
+          {/* Apply custom padding using the sx prop */}
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
             <RewardsBadges />
           </Container>
         </Grid>
       </Grid>
       
       {/* Spacing between the rows */}
-      <Box my={4}> {/* Adjust vertical margin as needed for space between rows */}
+      <Box my={4}>
       </Box>
       
       {/* Graphic Summaries Section */}
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={0} justifyContent="center">
         {/* Bar Chart */}
-        <Grid item xs={12} md={6}>
-          <Container maxWidth="sm">
+        <Grid item xs={12} md={6} lg={4}>
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
             <BarChartGraph />
           </Container>
         </Grid>
         
         {/* Pie Chart */}
-        <Grid item xs={12} md={6}>
-          <Container maxWidth="sm">
+        <Grid item xs={12} md={6} lg={4}>
+          <Container maxWidth="sm" sx={{ padding: '0 !important' }}>
             <PieChartIncentive />
           </Container>
         </Grid>
       </Grid>
       
       {/* Spacing before the footer */}
-      <Box my={4}> {/* Adjust vertical margin as needed for space before the footer */}
+      <Box my={4}>
         {/* Footer Content Here */}
       </Box>
     </Box>
