@@ -20,7 +20,7 @@ TimeAgo.addDefaultLocale(en);
 
 const JobPostings = () => {
   const { jobData, setJobData } = useContext(JobsContext);
-  const { addPoints } = useRewards();
+  const { addPoints, removePoints } = useRewards();
   const { isAuthenticated } = useAuth0();
   const { isAdmin, setAdmin } = useAdmin(); 
 
@@ -109,6 +109,8 @@ const handleCancelShift = async () => {
       );
 
       setJobData(updatedJobData);
+      removePoints(250);
+
       toast.error('Shift was cancelled!', {
         position: "top-right",
         autoClose: 3000,

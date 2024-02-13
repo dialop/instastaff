@@ -89,7 +89,7 @@ export const RewardsProvider = ({ children }) => {
       if (showToast) {
         toast.error(`You lost ${pointsToRemove} points! Total points: ${data.points}`, {
           position: "top-right",
-          autoClose: 2000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
