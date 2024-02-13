@@ -45,8 +45,8 @@ const ProfileCard = () => {
             </div>
             <Divider orientation="vertical" flexItem sx={{ mx: 2, display: { xs: 'none', sm: 'block' } }} />
             <Grid item xs={12} sm={7}>
-              <Paper elevation={4} sx={{ p: 2, mb: 2, backgroundColor: '#e3f2fd', textAlign: 'center' }}>
-                  <Typography variant="h5" component="h2" className="font-bold" sx={{ color: '#6547A5' }}>
+              <Paper elevation={4} sx={{ p: 2, mb: 2, backgroundColor: 'rgba(0, 255, 255, 0.25)', textAlign: 'center' }}>
+                  <Typography variant="h5" component="h2" className="bold" sx={{ color: '#6547A5' }}>
                     {profile.first_name} {profile.last_name}
                   </Typography>
               </Paper>
