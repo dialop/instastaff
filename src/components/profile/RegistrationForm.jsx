@@ -26,7 +26,7 @@ const Input = styled(TextField)({
   },
 });
 
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { isRegistered, setIsRegistered } = useRegistration();
   const { addPoints } = useRewards();
@@ -45,6 +45,7 @@ const RegistrationForm = () => {
     points: 100,
   });
 
+
   useEffect(() => {
     if (user) {
       const handle = `${user.given_name || ''}${user.family_name ? `_${user.family_name}` : ''}`.toLowerCase();
@@ -58,11 +59,13 @@ const RegistrationForm = () => {
       }));
     }
   }, [user]);
-
+  
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,14 +85,21 @@ const RegistrationForm = () => {
         },
         body: JSON.stringify(userData),
       });
-
+      
       if (!response.ok) {
         throw new Error('Failed to update user data');
       }
       const responseData = await response.json();
       console.log('Update successful:', responseData);
 
+      props.setShowConfetti(true);
+
+      
       setIsRegistered(true);
+      addPoints(100);
+      
+      
+      // Show success message
       toast.success('Registration complete. Welcome aboard!', {
         position: "top-right",
         autoClose: 1000,
@@ -100,12 +110,10 @@ const RegistrationForm = () => {
         progress: undefined,
         theme: "light",
       });
-      addPoints(100);
     } catch (error) {
       console.error("Error during form submission:", error);
     }
   };
-
   if (!isAuthenticated || isRegistered) {
     return null;
   }
