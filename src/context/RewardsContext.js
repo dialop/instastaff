@@ -48,7 +48,7 @@ export const RewardsProvider = ({ children }) => {
       if (showToast) {
         toast.success(`You got ${newPoints} points! Total earned: ${updatedPoints}`, {
           position: "top-right",
-          autoClose: 2000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

@@ -68,7 +68,7 @@ const PostShiftForm = () => {
       
       toast.success('The new job has been successfully posted.', {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
