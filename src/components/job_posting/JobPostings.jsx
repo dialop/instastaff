@@ -13,6 +13,7 @@ import notifications from "../../helpers/notifications";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { toast } from "react-toastify";
+import { useAdmin } from '../../context/AdminContext';
 import "react-toastify/dist/ReactToastify.css";
 
 TimeAgo.addDefaultLocale(en);
@@ -21,6 +22,7 @@ const JobPostings = () => {
   const { jobData, setJobData } = useContext(JobsContext);
   const { addPoints } = useRewards();
   const { isAuthenticated } = useAuth0();
+  const { isAdmin, setAdmin } = useAdmin(); 
 
   const params = useParams();
   //console.log(params);
@@ -376,6 +378,7 @@ const handleAcceptShift = async () => {
                           setOpen(!open);
                           setJobId(job.id);
                         }}
+                        disabled={isAdmin}
                       >
                         Details
                       </button>
@@ -392,6 +395,7 @@ const handleAcceptShift = async () => {
               )
             )}
           </div>
+          
           {open ? (
             <>
               <Modal>
