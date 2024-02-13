@@ -40,7 +40,8 @@ const RewardsBadges = () => {
                       width: 80, 
                       height: 80,
                       boxShadow: 3,
-                      margin: 'auto' 
+                      margin: 'auto',
+                      bgcolor: 'rgba(0, 255, 255, 0.25)'
                     }}
                   />
                 </div>
