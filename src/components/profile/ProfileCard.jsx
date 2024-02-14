@@ -30,10 +30,6 @@ const ProfileCard = () => {
     }
   }, [isRegistered, isAuthenticated, points]);
   
-  if (!isAuthenticated || !isRegistered) {
-    return null;
-  }
-
   return (
     <Container maxWidth="sm" className="bg-white p-6 rounded-lg shadow-md mt-5">
         <CardContent>
