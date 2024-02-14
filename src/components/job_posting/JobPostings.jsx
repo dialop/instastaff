@@ -143,7 +143,7 @@ const handleupdateJob = async () => {
       },
       body: JSON.stringify({ ...jobStatus, is_filled: true, booked_by_user_id: userId }),
     });
-
+    fetchJobs();
     if (!response.ok) {
       throw new Error(`Error updating job status: ${response.statusText}`);
     }
