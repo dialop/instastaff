@@ -8,11 +8,13 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LicenseIcon from '@mui/icons-material/CardMembership';
 import StarsIcon from '@mui/icons-material/Stars';
 import { useRegistration } from '../../context/RegistrationContext';
+import { useRewards } from '../../context/RewardsContext';
 
 const ProfileCard = () => {
   const [profile, setProfile] = useState({});
   const { isAuthenticated } = useAuth0();
   const { isRegistered } = useRegistration();
+  const { points } = useRewards();
 
   useEffect(() => {
     const userId = window.sessionStorage.getItem('userId');
@@ -26,7 +28,7 @@ const ProfileCard = () => {
         })
         .catch(error => console.error("Failed to fetch user data:", error));
     }
-  }, [isRegistered, isAuthenticated]);
+  }, [isRegistered, isAuthenticated, points]);
   
   if (!isAuthenticated || !isRegistered) {
     return null;
@@ -79,7 +81,7 @@ const ProfileCard = () => {
                   <ListItemIcon>
                       <StarsIcon sx={{ color: '#6547A5' }} />
                   </ListItemIcon>
-                  <ListItemText primary="Rewards" secondary={`${profile.points} points`} />
+                  <ListItemText primary="Rewards" secondary={`${points} points`} />
                 </ListItem>
               </List>
             </Grid>
