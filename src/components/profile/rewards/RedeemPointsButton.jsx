@@ -15,6 +15,9 @@ export default function RedeemPointsButton() {
   const timer = useRef();
   const { points, removePoints } = useRewards();
 
+  // Determine if the user has enough points to enable the redeem button and apply the twinkle effect
+  const canRedeem = points >= 100 && !loading;
+
   const buttonSx = {
     ...(success && {
       bgcolor: green[500],
@@ -31,13 +34,14 @@ export default function RedeemPointsButton() {
   }, []);
 
   const handleButtonClick = () => {
-    if (!loading && points >= 100) {
+    if (!loading && canRedeem) {
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        removePoints(100, false); // Suppress toast for point deduction
+        removePoints(100, false); // Adjusted to suppress toast for point deduction
         setSuccess(true);
         setLoading(false);
+        // Custom toast message for redeeming points
         toast.success("Congratulations! You've redeemed 100 points for rewards.", {
           position: "top-right",
           autoClose: 5000,
@@ -59,7 +63,8 @@ export default function RedeemPointsButton() {
           color="primary"
           sx={buttonSx}
           onClick={handleButtonClick}
-          disabled={points < 100}
+          disabled={!canRedeem}
+          className={`${canRedeem ? 'animate-twinkle' : ''}`} // Apply twinkle effect conditionally
         >
           {success ? <CheckIcon /> : <MonetizationOnIcon />}
         </Fab>
@@ -67,7 +72,7 @@ export default function RedeemPointsButton() {
           <CircularProgress
             size={68}
             sx={{
-              color: '#C9FFFF',
+              color: green[500],
               position: 'absolute',
               top: -6,
               left: -6,
@@ -79,7 +84,7 @@ export default function RedeemPointsButton() {
       <Button
         variant="contained"
         sx={buttonSx}
-        disabled={loading || points < 100}
+        disabled={!canRedeem}
         onClick={handleButtonClick}
       >
         Redeem Rewards!
