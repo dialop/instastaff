@@ -59,11 +59,10 @@ const PieChartIncentive = () => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6">Health/Facility Summary</Typography>
-        {isLoading && <div>Loading...</div>}
-        {!isLoading && !error && formatDataForPieChart().length === 0 && <div>No Health/Facility Summary available</div>}
+        <Typography variant="h6">Total Hours Worked per Facility</Typography>
+        {!isLoading && !error && formatDataForPieChart().length === 0 && <div>Summary unavailable until your first accepted shift!</div>}
         {!isLoading && !error && (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={275}>
             <PieChart>
               <Pie
                 data={formatDataForPieChart()}

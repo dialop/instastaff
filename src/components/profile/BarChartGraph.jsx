@@ -67,8 +67,7 @@ const BarChartGraph = () => {
   return (
     <Card>
     <CardContent>
-      <Typography variant="h6">Total Hours Worked</Typography>
-      {isLoading && <div>Loading...</div>}
+      <Typography variant="h6">Total Hours Worked per Month</Typography>
         {error && <div>Error: {error.message}</div>}
         {!isLoading && !error && (
         <ResponsiveContainer width="100%" height={300}>
