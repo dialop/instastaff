@@ -16,7 +16,7 @@ export default function RedeemPointsButton() {
 
   const buttonSx = {
     ...(success && {
-      bgcolor: green[500], // Adjusted to green[500] for visibility
+      bgcolor: green[500],
       '&:hover': {
         bgcolor: green[700],
       },
@@ -34,7 +34,7 @@ export default function RedeemPointsButton() {
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        addPoints(-100); // Deduct 100 points on redeem
+        addPoints(-100);
         setSuccess(true);
         setLoading(false);
       }, 2000);
@@ -57,7 +57,7 @@ export default function RedeemPointsButton() {
           <CircularProgress
             size={68}
             sx={{
-              color: green[500], // Adjusted to green[500] for visibility
+              color: green[500], 
               position: 'absolute',
               top: -6,
               left: -6,
@@ -74,19 +74,6 @@ export default function RedeemPointsButton() {
       >
         Redeem Points
       </Button>
-      {loading && (
-        <CircularProgress
-          size={24}
-          sx={{
-            color: green[500], // Adjusted to green[500] for visibility
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginTop: '-12px',
-            marginLeft: '-12px',
-          }}
-        />
-      )}
     </Box>
   );
 }
