@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { green } from '@mui/material/colors';
+import { green, blue } from '@mui/material/colors'; // Assuming blue is the primary color
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
@@ -18,6 +18,11 @@ export default function RedeemPointsButton() {
   const canRedeem = points >= 100 && !loading;
 
   const buttonSx = {
+    bgcolor: green[500], // Keep the Fab green initially and during loading
+    '&:hover': {
+      bgcolor: green[700],
+    },
+    transition: 'background-color 0.5s', // Smooth transition for color change
     ...(success && {
       bgcolor: green[500],
       '&:hover': {
@@ -37,10 +42,9 @@ export default function RedeemPointsButton() {
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        removePoints(100, false); // Adjusted to suppress toast for point deduction
+        removePoints(100, false);
         setSuccess(true);
         setLoading(false);
-        // Custom toast message for redeeming points
         toast.success("Congratulations! You've redeemed 100 points for rewards.", {
           position: "top-right",
           autoClose: 5000,
@@ -56,48 +60,48 @@ export default function RedeemPointsButton() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-    <Box sx={{ position: 'relative', mb: 2, display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Fab
-        aria-label="redeem"
-        color="primary"
-        sx={{
-          ...buttonSx,
-          width: 94, 
-          height: 94, 
-          zIndex: 10,
-          '& .MuiSvgIcon-root': { 
-            fontSize: '2.5rem',
-          },
-        }}
-        onClick={handleButtonClick}
-        disabled={!canRedeem}
-        className={`${canRedeem ? 'animate-twinkle' : ''}`}
-      >
-        {success ? <CheckIcon /> : <MonetizationOnIcon />}
-      </Fab>
-      {loading && (
-        <CircularProgress
-          size={110} // Slightly larger size to visually encircle the Fab
+      <Box sx={{ position: 'relative', mb: 2, display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Fab
+          aria-label="redeem"
+          color="primary"
           sx={{
-            color: 'rgba(184,228,255,1)',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginTop: '-54px', 
-            marginLeft: '-54px', 
-            zIndex: 0, 
+            ...buttonSx,
+            width: 94, 
+            height: 94, 
+            zIndex: 10,
+            '& .MuiSvgIcon-root': { 
+              fontSize: '2.5rem',
+            },
           }}
-        />
-      )}
-    </Box>
-    <Button
-      variant="contained"
-      sx={buttonSx}
-      disabled={!canRedeem}
-      onClick={handleButtonClick}
-    >
-      Redeem Rewards!
-    </Button>
-  </Box>  
+          onClick={handleButtonClick}
+          disabled={!canRedeem}
+          className={`${canRedeem ? 'animate-twinkle' : ''}`}
+        >
+          {success ? <CheckIcon /> : <MonetizationOnIcon />}
+        </Fab>
+        {loading && (
+          <CircularProgress
+            size={110}
+            sx={{
+              color: green[500],
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-55px',
+              marginLeft: '-55px',
+              zIndex: 1,
+            }}
+          />
+        )}
+      </Box>
+      <Button
+        variant="contained"
+        sx={buttonSx}
+        disabled={!canRedeem}
+        onClick={handleButtonClick}
+      >
+        Redeem Rewards!
+      </Button>
+    </Box>  
   );
 }
