@@ -15,7 +15,6 @@ export default function RedeemPointsButton() {
   const timer = useRef();
   const { points, removePoints } = useRewards();
 
-  // Determine if the user has enough points to enable the redeem button and apply the twinkle effect
   const canRedeem = points >= 100 && !loading;
 
   const buttonSx = {
@@ -57,48 +56,48 @@ export default function RedeemPointsButton() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <Box sx={{ position: 'relative', mb: 2, display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Fab
-          aria-label="redeem"
-          color="primary"
-          sx={{
-            ...buttonSx,
-            width: 94, // Custom width
-            height: 94, // Custom height
-            '& .MuiSvgIcon-root': { // Adjust the icon size within the button if needed
-              fontSize: '2.5rem',
-            zIndex: 1,
-            },
-          }}
-          onClick={handleButtonClick}
-          disabled={!canRedeem}
-          className={`${canRedeem ? 'animate-twinkle' : ''}`} // Apply twinkle effect conditionally
-        >
-          {success ? <CheckIcon /> : <MonetizationOnIcon />}
-        </Fab>
-        {loading && (
-          <CircularProgress
-            size={104} // Increased size for visual encircling effect
-            sx={{
-              color: '#C9FFFF', // Matching Fab color or custom color
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              marginTop: '-52px', // Half of the CircularProgress size to center vertically
-              marginLeft: '-52px', // Half of the CircularProgress size to center horizontally
-              zIndex: 0, // Ensure it's behind the Fab button
-            }}
-          />
-        )}
-      </Box>
-      <Button
-        variant="contained"
-        sx={buttonSx}
-        disabled={!canRedeem}
+    <Box sx={{ position: 'relative', mb: 2, display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Fab
+        aria-label="redeem"
+        color="primary"
+        sx={{
+          ...buttonSx,
+          width: 94, 
+          height: 94, 
+          zIndex: 10,
+          '& .MuiSvgIcon-root': { 
+            fontSize: '2.5rem',
+          },
+        }}
         onClick={handleButtonClick}
+        disabled={!canRedeem}
+        className={`${canRedeem ? 'animate-twinkle' : ''}`}
       >
-        Redeem Rewards!
-      </Button>
+        {success ? <CheckIcon /> : <MonetizationOnIcon />}
+      </Fab>
+      {loading && (
+        <CircularProgress
+          size={110} // Slightly larger size to visually encircle the Fab
+          sx={{
+            color: 'rgba(184,228,255,1)',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: '-54px', 
+            marginLeft: '-54px', 
+            zIndex: 0, 
+          }}
+        />
+      )}
     </Box>
+    <Button
+      variant="contained"
+      sx={buttonSx}
+      disabled={!canRedeem}
+      onClick={handleButtonClick}
+    >
+      Redeem Rewards!
+    </Button>
+  </Box>  
   );
 }
