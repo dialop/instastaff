@@ -3,6 +3,7 @@ import { Chip, Container, CardContent, Typography, Grid, Avatar, Tooltip } from 
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarIcon from '@mui/icons-material/Star';
 import PointsCBar from './rewards/PointsCBar';
+import RedeemPointsButton from './rewards/RedeemPointsButton';
 
 import profileBadge from '../../assets/badges/profile-badge.png'
 import loveBadge from '../../assets/badges/love-badge.png';
@@ -53,8 +54,16 @@ const RewardsBadges = () => {
         <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: '20px' }}>
           <Chip icon={<StarIcon />} color="primary" label="Redeem Rewards" sx={{ fontSize: '1rem', margin: '10px', backgroundColor: '#6547A5' }} />
         </Grid>
-        <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: '20px' }}>
-          <PointsCBar />
+        {/* Row container for PointsCBar and RedeemPointsButton */}
+        <Grid container justifyContent="center" alignItems="center" spacing={2} sx={{ marginTop: '20px' }}>
+          {/* PointsCBar component */}
+          <Grid item xs={6}>
+            <PointsCBar />
+          </Grid>
+          {/* RedeemPointsButton component */}
+          <Grid item xs={6}>
+            <RedeemPointsButton />
+          </Grid>
         </Grid>
       </CardContent>
     </Container>
