@@ -57,7 +57,7 @@ export default function RedeemPointsButton() {
           <CircularProgress
             size={68}
             sx={{
-              color: green[500], 
+              color: '#C9FFFF', 
               position: 'absolute',
               top: -6,
               left: -6,
@@ -72,7 +72,7 @@ export default function RedeemPointsButton() {
         disabled={loading || points < 100}
         onClick={handleButtonClick}
       >
-        Redeem Points
+        Redeem Rewards!
       </Button>
     </Box>
   );
