@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, LinearProgress, Box } from '@mui/material';
 import { useRewards } from '../../../context/RewardsContext';
 
-const PointsProgress = () => {
+const PointsHBar = () => {
   const { points } = useRewards();
   const userId = window.sessionStorage.getItem('userId');
   const totalPoints = 500; 
@@ -34,4 +34,4 @@ const PointsProgress = () => {
   );
 };
 
-export default PointsProgress;
+export default PointsHBar;

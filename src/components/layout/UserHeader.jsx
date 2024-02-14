@@ -1,12 +1,12 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useAdmin } from '../../context/AdminContext'; // Import the useAdmin hook
-import PointsProgress from '../profile/rewards/PointsProgress';
+import { useAdmin } from '../../context/AdminContext';
+import PointsHBar from '../profile/rewards/PointsHBar';
 
 const UserHeader = () => {
   const { user } = useAuth0();
-  const { isAdmin } = useAdmin(); // Use the isAdmin value from AdminContext
+  const { isAdmin } = useAdmin();
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#6547A5' }}>
@@ -16,7 +16,7 @@ const UserHeader = () => {
             isAdmin ? `Hello, Admin! How can we staff you today?` : `Hello, ${user.given_name || 'InstaStaffer'}! How can we staff you today?`
           ) : 'Hello, InstaStaffer! Please login or register.'}
         </Typography>
-        {!isAdmin && <PointsProgress />} {/* Only show PointsProgress if not in admin view */}
+        {!isAdmin && <PointsHBar />}
       </Toolbar>
     </AppBar>
   );
