@@ -102,11 +102,15 @@ export default function RedeemPointsButton() {
       </Box>
       <Button
         variant="contained"
-        sx={buttonSx}
+        sx={{
+          ...buttonSx,
+          padding: '2px 4px', // Top and bottom padding, Left and right padding
+          fontSize: '0.9rem', // Adjust based on your preference
+        }}
         disabled={!canRedeem}
         onClick={handleButtonClick}
       >
-        Redeem Rewards!
+        Redeem Rewards
       </Button>
     </Box>  
   );
