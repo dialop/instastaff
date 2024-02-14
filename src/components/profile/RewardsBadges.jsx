@@ -2,6 +2,7 @@ import React from 'react';
 import { Chip, Container, CardContent, Typography, Grid, Avatar, Tooltip } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarIcon from '@mui/icons-material/Star';
+import PointsCBar from './rewards/PointsCBar';
 
 import profileBadge from '../../assets/badges/profile-badge.png'
 import loveBadge from '../../assets/badges/love-badge.png';
@@ -51,6 +52,9 @@ const RewardsBadges = () => {
         </Grid>
         <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: '20px' }}>
           <Chip icon={<StarIcon />} color="primary" label="Redeem Rewards" sx={{ fontSize: '1rem', margin: '10px', backgroundColor: '#6547A5' }} />
+        </Grid>
+        <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: '20px' }}>
+          <PointsCBar />
         </Grid>
       </CardContent>
     </Container>
