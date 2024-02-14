@@ -16,7 +16,7 @@ export default function RedeemPointsButton() {
 
   const buttonSx = {
     ...(success && {
-      bgcolor: green[100],
+      bgcolor: green[500], // Adjusted to green[500] for visibility
       '&:hover': {
         bgcolor: green[700],
       },
@@ -34,7 +34,7 @@ export default function RedeemPointsButton() {
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        addPoints(-100);
+        addPoints(-100); // Deduct 100 points on redeem
         setSuccess(true);
         setLoading(false);
       }, 2000);
@@ -42,8 +42,8 @@ export default function RedeemPointsButton() {
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ m: 1, position: 'relative' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}> {/* Adjusted for vertical alignment */}
+      <Box sx={{ position: 'relative', mb: 2 }}> {/* Added margin for spacing */}
         <Fab
           aria-label="redeem"
           color="primary"
@@ -57,7 +57,7 @@ export default function RedeemPointsButton() {
           <CircularProgress
             size={68}
             sx={{
-              color: green[100],
+              color: green[500], // Adjusted to green[500] for visibility
               position: 'absolute',
               top: -6,
               left: -6,
@@ -66,29 +66,27 @@ export default function RedeemPointsButton() {
           />
         )}
       </Box>
-      <Box sx={{ m: 1, position: 'relative' }}>
-        <Button
-          variant="contained"
-          sx={buttonSx}
-          disabled={loading || points < 100}
-          onClick={handleButtonClick}
-        >
-          Redeem Points
-        </Button>
-        {loading && (
-          <CircularProgress
-            size={24}
-            sx={{
-              color: green[100],
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              marginTop: '-12px',
-              marginLeft: '-12px',
-            }}
-          />
-        )}
-      </Box>
+      <Button
+        variant="contained"
+        sx={buttonSx}
+        disabled={loading || points < 100}
+        onClick={handleButtonClick}
+      >
+        Redeem Points
+      </Button>
+      {loading && (
+        <CircularProgress
+          size={24}
+          sx={{
+            color: green[500], // Adjusted to green[500] for visibility
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: '-12px',
+            marginLeft: '-12px',
+          }}
+        />
+      )}
     </Box>
   );
 }
