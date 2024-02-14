@@ -121,6 +121,8 @@ const handleCancelShift = async () => {
         progress: undefined,
         theme: "light",
         });
+
+        fetchJobs();
     } else {
       console.error('Failed to cancel job:', response.statusText);
     }
@@ -170,8 +172,8 @@ const handleAcceptShift = async () => {
 
     setJobData(updatedJobData);
     addPoints(250);
-
     handleNotifications(clickedJob(jobId));
+    fetchJobs();
   } catch (error) {
     console.error("Error accepting job:", error);
   }
