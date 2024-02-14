@@ -57,7 +57,7 @@ export default function RedeemPointsButton() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <Box sx={{ position: 'relative', mb: 2 }}>
+      <Box sx={{ position: 'relative', mb: 2, display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
         <Fab
           aria-label="redeem"
           color="primary"
@@ -67,6 +67,7 @@ export default function RedeemPointsButton() {
             height: 94, // Custom height
             '& .MuiSvgIcon-root': { // Adjust the icon size within the button if needed
               fontSize: '2.5rem',
+            zIndex: 1,
             },
           }}
           onClick={handleButtonClick}
@@ -77,13 +78,15 @@ export default function RedeemPointsButton() {
         </Fab>
         {loading && (
           <CircularProgress
-            size={68}
+            size={104} // Increased size for visual encircling effect
             sx={{
-              color: '#C9FFFF',
+              color: '#C9FFFF', // Matching Fab color or custom color
               position: 'absolute',
-              top: -6,
-              left: -6,
-              zIndex: 1,
+              top: '50%',
+              left: '50%',
+              marginTop: '-52px', // Half of the CircularProgress size to center vertically
+              marginLeft: '-52px', // Half of the CircularProgress size to center horizontally
+              zIndex: 0, // Ensure it's behind the Fab button
             }}
           />
         )}
