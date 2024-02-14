@@ -7,8 +7,6 @@ import RewardsBadges from './RewardsBadges';
 import BarChartGraph from './BarChartGraph';
 import PieChartIncentive from './PieChartIncentive';
 import Confetti from 'react-confetti';
-// import Rewards from './profile/rewards/Rewards';
-// import GiftCard from './profile/rewards/GiftCard'; 
 
 function ProfilePage() {
   const [showConfetti, setShowConfetti] = useState(false); 
