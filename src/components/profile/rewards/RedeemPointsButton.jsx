@@ -45,7 +45,13 @@ export default function RedeemPointsButton() {
         removePoints(100, false);
         setSuccess(true);
         setLoading(false);
-        toast.success("Congratulations! You've redeemed 100 points for rewards.", {
+        toast.success(
+          <div>
+            ✨ Congratulations ✨ <br/>
+            You've redeemed 100 points for <br/>
+            a surprise gift 🎁 <br/>
+          </div>
+          , {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -54,7 +60,7 @@ export default function RedeemPointsButton() {
           draggable: true,
           progress: undefined,
         });
-      }, 2000);
+      }, 3000);
     }
   };
 
