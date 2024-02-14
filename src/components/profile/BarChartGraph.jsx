@@ -65,7 +65,7 @@ const BarChartGraph = () => {
 
 
   return (
-    <Card>
+  <Card>
     <CardContent>
       <Typography variant="h6">Total Hours Worked per Month</Typography>
         {error && <div>Error: {error.message}</div>}
