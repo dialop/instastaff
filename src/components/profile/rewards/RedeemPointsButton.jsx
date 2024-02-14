@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { green, blue } from '@mui/material/colors'; // Assuming blue is the primary color
+import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
@@ -18,11 +18,11 @@ export default function RedeemPointsButton() {
   const canRedeem = points >= 100 && !loading;
 
   const buttonSx = {
-    bgcolor: green[500], // Keep the Fab green initially and during loading
+    bgcolor: green[500],
     '&:hover': {
       bgcolor: green[700],
     },
-    transition: 'background-color 0.5s', // Smooth transition for color change
+    transition: 'background-color 0.5s',
     ...(success && {
       bgcolor: green[500],
       '&:hover': {
@@ -60,7 +60,7 @@ export default function RedeemPointsButton() {
           draggable: true,
           progress: undefined,
         });
-      }, 3000);
+      }, 1500); // Adjust redemption loading time here
     }
   };
 
