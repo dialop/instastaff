@@ -61,7 +61,14 @@ export default function RedeemPointsButton() {
         <Fab
           aria-label="redeem"
           color="primary"
-          sx={buttonSx}
+          sx={{
+            ...buttonSx,
+            width: 94, // Custom width
+            height: 94, // Custom height
+            '& .MuiSvgIcon-root': { // Adjust the icon size within the button if needed
+              fontSize: '2.5rem',
+            },
+          }}
           onClick={handleButtonClick}
           disabled={!canRedeem}
           className={`${canRedeem ? 'animate-twinkle' : ''}`} // Apply twinkle effect conditionally

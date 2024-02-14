@@ -28,8 +28,8 @@ const PointsCBar = () => {
         <CircularProgress
           variant="determinate"
           value={100} 
-          size={100}
-          thickness={4}
+          size={94}
+          thickness={5}
           sx={{
             color: 'rgba(0,0,0,0.1)',
           }}
@@ -37,8 +37,8 @@ const PointsCBar = () => {
         <CircularProgress
           variant="determinate"
           value={progressPercent}
-          size={100}
-          thickness={4} 
+          size={94}
+          thickness={5} 
           sx={{
             position: 'absolute',
             left: 0,
