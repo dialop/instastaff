@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, LinearProgress, Box } from '@mui/material';
 import { useRewards } from '../../../context/RewardsContext';
+import { Link } from 'react-router-dom'; // Import Link
 
 const PointsHBar = () => {
   const { points } = useRewards();
@@ -9,9 +10,21 @@ const PointsHBar = () => {
   
   let progressPercent = Math.max(0, Math.min((points / totalPoints) * 100, 100));
 
-  const pointsMessage = points >= 0
-    ? `${points}/${totalPoints} points to your next reward!`
-    : `${points} points. Let's be positive about this.`;
+  // Using a function to render message to include JSX for Link
+  const renderPointsMessage = () => {
+    if (points >= 500) {
+      return (
+        <span>
+          {`${points}/${totalPoints} points. Time to `}
+          <Link to="/profile" style={{ textDecoration: 'underline', color: 'inherit' }}>redeem!</Link>
+        </span>
+      );
+    } else if (points >= 0) {
+      return `${points}/${totalPoints} points to your next reward.`;
+    } else {
+      return `${points} points. Let's be positive about this.`;
+    }
+  };
 
   if (!userId) {
     return null;
@@ -19,7 +32,7 @@ const PointsHBar = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" p={2}>
-      <Box maxWidth="400" width="100%" mb={0} sx={{ borderRadius: 20, overflow: 'hidden' }}>
+      <Box width="100%" mb={0} sx={{ borderRadius: 20, overflow: 'hidden' }}>
         <LinearProgress 
           variant="determinate"
           value={progressPercent}
@@ -34,7 +47,7 @@ const PointsHBar = () => {
         />
       </Box>
       <Typography variant="subtitle1">
-        {pointsMessage}
+        {renderPointsMessage()} {/* Call the function to render the message */}
       </Typography>
     </Box>
   );
