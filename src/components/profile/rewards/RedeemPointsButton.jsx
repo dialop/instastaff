@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { green, blue } from '@mui/material/colors'; // Assuming blue is the primary color
+import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
@@ -15,14 +15,14 @@ export default function RedeemPointsButton() {
   const timer = useRef();
   const { points, removePoints } = useRewards();
 
-  const canRedeem = points >= 100 && !loading;
+  const canRedeem = points >= 500 && !loading;
 
   const buttonSx = {
-    bgcolor: green[500], // Keep the Fab green initially and during loading
+    bgcolor: green[500],
     '&:hover': {
       bgcolor: green[700],
     },
-    transition: 'background-color 0.5s', // Smooth transition for color change
+    transition: 'background-color 0.5s',
     ...(success && {
       bgcolor: green[500],
       '&:hover': {
@@ -42,13 +42,13 @@ export default function RedeemPointsButton() {
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        removePoints(100, false);
+        removePoints(500, false);
         setSuccess(true);
         setLoading(false);
         toast.success(
           <div>
             ✨ Congratulations ✨ <br/>
-            You've redeemed 100 points for <br/>
+            You've redeemed 500 points for <br/>
             a surprise gift 🎁 <br/>
           </div>
           , {
@@ -60,7 +60,7 @@ export default function RedeemPointsButton() {
           draggable: true,
           progress: undefined,
         });
-      }, 3000);
+      }, 1000); // Adjust redemption loading time here
     }
   };
 
@@ -102,11 +102,15 @@ export default function RedeemPointsButton() {
       </Box>
       <Button
         variant="contained"
-        sx={buttonSx}
+        sx={{
+          ...buttonSx,
+          padding: '2px 4px', // Top and bottom padding, Left and right padding
+          fontSize: '0.9rem', // Adjust based on your preference
+        }}
         disabled={!canRedeem}
         onClick={handleButtonClick}
       >
-        Redeem Rewards!
+        Redeem Rewards
       </Button>
     </Box>  
   );

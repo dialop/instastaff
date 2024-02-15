@@ -19,9 +19,9 @@ const RewardsBadges = () => {
 
   const badges = [
     { src: profileBadge, alt: "Profile Badge", label: "Earned: registration complete.", earned: true},
-    { src: loveBadge, alt: "Love Badge", label: "Challenge: finish first emergency shift.", earned: true },
-    { src: teamworkBadge, alt: "Teamwork Badge", label: "Challenge: receive a positive review.", earned: false },
-    { src: plantBadge, alt: "Plant Badge", label: "Challenge: save a life.", earned: false },
+    { src: loveBadge, alt: "Love Badge", label: "Earned: become an Emergency Hero.", earned: true },
+    { src: teamworkBadge, alt: "Teamwork Badge", label: "Challenge: Receive positive feedback.", earned: false },
+    { src: plantBadge, alt: "Plant Badge", label: "Challenge: Save a life.", earned: false },
   ];
 
   return (
