@@ -1,64 +1,147 @@
 # Instastaff
 
-This is a template for using Express and React in the same project. It is based on Create React App.
+InstaStaff is an application that simplifies the process of matching labor with work requestsfor healthcare professionals. InstaStaff helps medical professionals find work opportunities and assists healthcare facilities in finding qualified staff quickly. It acts as a platform where both parties can easily connect and manage their staffing needs.
 
-Read the article: [Introducing Express React Starter](https://medium.com/burke-knows-words/introducing-express-react-starter-b6d299206a3a)
+## Installation
 
-OR...
-
-## Prerequisites
-
-- [create-react-app](https://github.com/facebookincubator/create-react-app)
-
-## Installing
+Install my-project with npm
 
 ```bash
-git clone 'this-repo-url' app-name
-cd app-name
-npm install
+  git clone 'this-repo-url'
+  cd 'app-name'
+  npm install
 ```
 
-## Running The App
+## Usage
 
-The template can be run in development, or in production. For development, use the following workflow.
+Server-Side
+Environment Variables
+Ensure to set up environment variables. You can use the provided .env.example file as a template. Rename it to .env and fill in the necessary details.
 
-### Start the React App
+Setting Up the Database
+Instastaff uses PostgreSQL for the database. Here's how to set it up:
+
+Run Schema Files: Execute schema files to create database tables:
 
 ```
-npm start
+node resetdb.js
+
 ```
 
-### Start the Express Server
+Seed the Database (Optional): If you want to populate the database with sample data, run the seed files:
 
-```bash
+```
+node resetdb.js
+```
+
+Running the Express Server
+To start the server, run the following command:
+
+```
+cd 'app-name'
 cd server
+npm run dev
+
+```
+
+Your server will now be running at http://localhost:3000.
+
+Client-Side
+
+Start the React App:
+
+```
 npm start
 ```
 
-![Imgur](https://i.imgur.com/62fQTfJ.png)
+You can now access the application at http://localhost:3001.
 
-This will start both the frontend and API. Both will be reloaded automatically when you make changes.
+## Environment Variables
 
-### What Is Happening Here?
+To run this project, you will need to add the following environment variables to your .env file
 
-Create React App and the Express server are running on different processes. This is so that React can still use in memory Webpack to do hot reloads really fast.
+`API_KEY`
 
-All AJAX/fetch requests to `/api` are sent back to the Express server which is serving all `/api` routes from the `routes/index.js` file. This is done via a proxy setup in the `package.json` file.
+`ANOTHER_API_KEY`
 
-## Building For Production
+## Folder Structure
 
-In production, you want Express to serve up your app.
-
-### Build React App
-
-```bash
-npm build
+```
+my-app
+├── README.md
+├── assets
+├── bin
+├── db
+│   ├── schema
+│   └── seeds
+├── lib
+├── node_modules
+├── public
+│   └── stylesheets
+├── routes
+│   └── api
+├── src
+│   ├── assets
+│   ├── components
+│   │   ├── home
+│   │   ├── job_posting
+│   │   ├── layout
+│   │   ├── map
+│   │   ├── profile
+│   │   └── user
+│   ├── context
+│   ├── helpers
+│   ├── hooks
+│   ├── styles
+│   └── App.js
+├── views
+└── .gitignore
 ```
 
-This will build the entire app into the "build" folder. This is the folder that you would deploy to your server. The entrypoint is `server.js`. You can test the production build locally by running...
+## Demo
 
-```bash
-npm start
+Insert gif or link to demo
+
+## Built With
+
+![Postgressql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+![Node](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge)
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
+
+## API Reference
+
+#### Get all items
+
+```http
+  GET /api/items
 ```
 
-Now simply visit the Express app at 'http://localhost:3000' and you will see your app served from the 'build' folder. That's all there is to it!
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+
+#### Get item
+
+```http
+  GET /api/items/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+#### add(num1, num2)
+
+Takes two numbers and returns the sum.
+
+## License
+
+Create React App is open source software [MIT](https://choosealicense.com/licenses/mit/)
