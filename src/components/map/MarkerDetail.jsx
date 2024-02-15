@@ -54,8 +54,8 @@ const MarkerDetail = ({ markerData, viewJobDetails }) => {
           width: '0.55', 
           height: 'auto', 
           fontSize: '0.7rem',
-          padding: '2px 0.5px', // vertical and horizontal padding around the text
-          borderRadius: '7px', // adjust the border-radius to make corners rounder 
+          padding: '2px 0.5px', 
+          borderRadius: '7px', 
           '& .MuiChip-icon': {
             fontSize: '1.2rem', 
             marginRight: '1px',
