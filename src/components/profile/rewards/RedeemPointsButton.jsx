@@ -15,7 +15,7 @@ export default function RedeemPointsButton() {
   const timer = useRef();
   const { points, removePoints } = useRewards();
 
-  const canRedeem = points >= 100 && !loading;
+  const canRedeem = points >= 500 && !loading;
 
   const buttonSx = {
     bgcolor: green[500],
@@ -42,13 +42,13 @@ export default function RedeemPointsButton() {
       setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        removePoints(100, false);
+        removePoints(500, false);
         setSuccess(true);
         setLoading(false);
         toast.success(
           <div>
             ✨ Congratulations ✨ <br/>
-            You've redeemed 100 points for <br/>
+            You've redeemed 500 points for <br/>
             a surprise gift 🎁 <br/>
           </div>
           , {
