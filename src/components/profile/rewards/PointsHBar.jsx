@@ -42,12 +42,12 @@ const PointsHBar = () => {
             '& .MuiLinearProgress-bar': {
               backgroundColor: points >= 0 ? 'rgba(0, 255, 0, 0.75)' : '#ff0000',
             },
-            backgroundColor: points >= 0 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 0, 0, 0.5)',
+            backgroundColor: points >= 0 ? 'rgba(184, 228, 255, 0.75)' : 'rgba(255, 0, 0, 0.5)',
           }}
         />
       </Box>
       <Typography variant="subtitle1">
-        {renderPointsMessage()} {/* Call the function to render the message */}
+        {renderPointsMessage()} 
       </Typography>
     </Box>
   );
