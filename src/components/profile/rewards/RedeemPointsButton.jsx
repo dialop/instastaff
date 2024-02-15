@@ -60,7 +60,7 @@ export default function RedeemPointsButton() {
           draggable: true,
           progress: undefined,
         });
-      }, 1500); // Adjust redemption loading time here
+      }, 1000); // Adjust redemption loading time here
     }
   };
 
