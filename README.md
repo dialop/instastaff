@@ -100,7 +100,9 @@ my-app
 
 ## Demo
 
-Insert gif or link to demo
+!["Demo of Client View"](public/readme_videos/demo.mp4)
+
+!["Demo of Admin View"](public/readme_videos/admin_post_job.gif)
 
 ## Built With
 
