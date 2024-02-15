@@ -22,7 +22,7 @@ const PointsHBar = () => {
     } else if (points >= 0) {
       return `${points}/${totalPoints} points to your next reward.`;
     } else {
-      return `${points} points. Let's be positive about this.`;
+      return `${points} points. Let's be more positive.`;
     }
   };
 
