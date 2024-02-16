@@ -1,8 +1,8 @@
 # Instastaff
 
-InstaStaff is an application that simplifies the process of matching labor with work requestsfor healthcare professionals. InstaStaff helps medical professionals find work opportunities and assists healthcare facilities in finding qualified staff quickly. It acts as a platform where both parties can easily connect and manage their staffing needs.
+InstaStaff is an application that simplifies the process of matching labor with work requestsfor healthcare professionals. InstaStaff helps medical professionals find work opportunities and assists healthcare facilities in finding qualified staff quickly. It acts as a platform where both parties can easily connect and manage their staffing needs. 🌟
 
-## Installation
+## Getting Started 🚀
 
 Install my-project with npm
 
@@ -12,27 +12,12 @@ Install my-project with npm
   npm install
 ```
 
-## Usage
+## Usage 🛠️
 
-Server-Side
+Server-Side Configuration
+
 Environment Variables
 Ensure to set up environment variables. You can use the provided .env.example file as a template. Rename it to .env and fill in the necessary details.
-
-Setting Up the Database
-Instastaff uses PostgreSQL for the database. Here's how to set it up:
-
-Run Schema Files: Execute schema files to create database tables:
-
-```
-node resetdb.js
-
-```
-
-Seed the Database (Optional): If you want to populate the database with sample data, run the seed files:
-
-```
-node resetdb.js
-```
 
 Running the Express Server
 To start the server, run the following command:
@@ -47,24 +32,25 @@ npm run dev
 Your server will now be running at http://localhost:3000.
 
 Client-Side
-
 Start the React App:
 
 ```
+cd 'path-to-react-app'
 npm start
 ```
 
 You can now access the application at http://localhost:3001.
 
-## Environment Variables
+## Environment Variables 🌍
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`API_KEY`
+```
+API_KEY for MAPS_JAVASCRIPT_API
+API_KEY for MAILGUN
+```
 
-`ANOTHER_API_KEY`
-
-## Folder Structure
+## Folder Structure 📁
 
 ```
 my-app
@@ -98,10 +84,38 @@ my-app
 └── .gitignore
 ```
 
+## Features 🌟
+
+#### Job Matching 🤝
+
+Quick Shift Posting & Viewing: Allows admins to post shifts easily, with robust search and filter options for healthcare professionals to find suitable jobs.
+
+Interactive Job Details: Enables users to manage shifts directly from job listings, including adding or canceling shifts and earning rewards for interaction.
+
+#### Flexible Scheduling 📅
+
+Varied Opportunities in Downtown Toronto: Offers a broad selection of job types across healthcare facilities, catering to diverse schedules and career objectives.
+Ease of Navigation: Designed for effortless exploration of job opportunities, enhancing user experience.
+
+#### Seamless Integration 🛠️
+
+Simplified Staffing Management: Streamlines processes for healthcare facilities to find qualified staff efficiently.
+Geospatial and Calendar Features: Integrates geospatial tools for job distance assessment and a calendar view for organized schedule management.
+
+#### User-Friendly Interface 👥
+
+Secure Access: Utilizes Auth0 for robust authentication, ensuring data security.
+
+Visual Engagement: Features animated interfaces for an intuitive and appealing user experience.'
+
+Detailed Profile Insights: Provides a comprehensive profile page displaying rewards, shift statistics, and job booking overviews, aiding in efficient work and reward management.
+
 ## Demo
 
-!["Demo of Client View"](public/readme_videos/demo.mp4)
+Client Navigation
+!["Demo of Client View"](public/readme_videos/demo_gif.gif)
 
+Admin Navigation
 !["Demo of Admin View"](public/readme_videos/admin_post_job.gif)
 
 ## Built With
@@ -118,32 +132,8 @@ my-app
 
 ![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
 
-## API Reference
-
-#### Get all items
-
-```http
-  GET /api/items
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
-
 ## License
 
-Create React App is open source software [MIT](https://choosealicense.com/licenses/mit/)
+This project is open-sourced under the MIT License.
+
+This revised README includes a clear overview, detailed setup instructions, a simplified folder structure for quick reference, enhanced demo section with placeholders for actual demonstration media, and sections for API reference, contributing, and licensing. Adjust the placeholders and specific details according to your project's needs.
