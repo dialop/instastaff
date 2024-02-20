@@ -1,64 +1,141 @@
 # Instastaff
 
-This is a template for using Express and React in the same project. It is based on Create React App.
+InstaStaff is an application that simplifies the process of matching labor with work requestsfor healthcare professionals. InstaStaff helps medical professionals find work opportunities and assists healthcare facilities in finding qualified staff quickly. It acts as a platform where both parties can easily connect and manage their staffing needs. 🌟
 
-Read the article: [Introducing Express React Starter](https://medium.com/burke-knows-words/introducing-express-react-starter-b6d299206a3a)
+## Getting Started 🚀
 
-OR...
-
-## Prerequisites
-
-- [create-react-app](https://github.com/facebookincubator/create-react-app)
-
-## Installing
+Install my-project with npm
 
 ```bash
-git clone 'this-repo-url' app-name
-cd app-name
-npm install
+  git clone 'this-repo-url'
+  cd 'app-name'
+  npm install
 ```
 
-## Running The App
+## Usage 🛠️
 
-The template can be run in development, or in production. For development, use the following workflow.
+#### Server-Side Configuration
 
-### Start the React App
+Environment Variables
+Ensure to set up environment variables. You can use the provided .env.example file as a template. Rename it to .env and fill in the necessary details.
 
-```
-npm start
-```
-
-### Start the Express Server
+Running the Express Server
+To start the server, run the following command:
 
 ```bash
+cd 'app-name'
 cd server
+npm run dev
+
+```
+
+Your server will now be running at http://localhost:3000.
+
+#### Client-Side Configuration
+
+Start the React App:
+
+```bash
+cd 'path-to-react-app'
 npm start
 ```
 
-![Imgur](https://i.imgur.com/62fQTfJ.png)
+You can now access the application at http://localhost:3001.
 
-This will start both the frontend and API. Both will be reloaded automatically when you make changes.
+## Environment Variables 🌍
 
-### What Is Happening Here?
-
-Create React App and the Express server are running on different processes. This is so that React can still use in memory Webpack to do hot reloads really fast.
-
-All AJAX/fetch requests to `/api` are sent back to the Express server which is serving all `/api` routes from the `routes/index.js` file. This is done via a proxy setup in the `package.json` file.
-
-## Building For Production
-
-In production, you want Express to serve up your app.
-
-### Build React App
+To run this project, you will need to add the following environment variables to your .env file
 
 ```bash
-npm build
+API_KEY for MAPS_JAVASCRIPT_API
+API_KEY for MAILGUN
 ```
 
-This will build the entire app into the "build" folder. This is the folder that you would deploy to your server. The entrypoint is `server.js`. You can test the production build locally by running...
+## Folder Structure 📁
 
 ```bash
-npm start
+my-app
+├── README.md
+├── assets
+├── bin
+├── db
+│   ├── schema
+│   └── seeds
+├── lib
+├── node_modules
+├── public
+│   └── stylesheets
+├── routes
+│   └── api
+├── src
+│   ├── assets
+│   ├── components
+│   │   ├── home
+│   │   ├── job_posting
+│   │   ├── layout
+│   │   ├── map
+│   │   ├── profile
+│   │   └── user
+│   ├── context
+│   ├── helpers
+│   ├── hooks
+│   ├── styles
+│   └── App.js
+├── views
+└── .gitignore
 ```
 
-Now simply visit the Express app at 'http://localhost:3000' and you will see your app served from the 'build' folder. That's all there is to it!
+## Features 🌟
+
+#### Job Matching 🤝
+
+- Allows admins to post shifts easily, with search and filter options for healthcare professionals to find suitable jobs.
+
+- Enables users to manage shifts directly from job listings, including adding or canceling shifts and earning rewards for interaction.
+
+- Offers Registered Nurse and Personal Support Worker job across healthcare facilities in downtown Toronto through the map view with option to look at the job distances from your location.
+
+#### Seamless Integration 🛠️
+
+- Streamlines processes for healthcare facilities to find qualified staff efficiently.
+  Integrates geospatial tools for job distance assessment and a calendar view for organized schedule management.
+
+#### User-Friendly Interface 👥
+
+- Utilizes Auth0 for robust authentication, ensuring data security.
+
+- Features animated interfaces for an intuitive and appealing user experience.
+
+- Provides a comprehensive profile page displaying rewards, shift statistics, and job booking overviews, aiding in efficient work and reward management.
+
+## Demo
+
+### Client Navigation
+
+## !["Demo of Client View"](public/readme_videos/demo_gif.gif)
+
+### Admin Navigation
+
+!["Demo of Admin View"](public/readme_videos/admin_post_job.gif)
+
+## Built With
+
+![Postgressql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+![Node](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge)
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
+
+## License
+
+This project is open-sourced under the MIT License.
+
+This revised README includes a clear overview, detailed setup instructions, a simplified folder structure for quick reference, enhanced demo section with placeholders for actual demonstration media, and sections for API reference, contributing, and licensing. Adjust the placeholders and specific details according to your project's needs.
+
+### THANK YOU FOR CHECKING OUT THE INSTASTAFF 🌟

@@ -11,7 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.7",
     "@mui/lab": "^5.0.0-alpha.163",
-    "@mui/material": "^5.15.7",
+    "@mui/material": "^5.15.10",
     "@mui/styled-engine-sc": "^6.0.0-alpha.14",
     "@react-google-maps/api": "^2.19.2",
     "@testing-library/jest-dom": "^5.16.4",
