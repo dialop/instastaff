@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 const notifications = (job) => {
   const sendAppNotification = async () => {
     try {
-      const response = await axios.post('/api/email/send-email', job);
-      console.log(response.data);
-
+      //Use when have Mailgun API
+      // const response = await axios.post('/api/email/send-email', job);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error booking job:", error);
 

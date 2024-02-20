@@ -19,7 +19,7 @@ router.post('/send-email', (req, res) => {
   mg.messages().send({
     // Hard coded where to send email, will add req.params from cookies later
     from: 'Instastaff Team <instastaff@gmail.com>',
-    to: 'nurse.instastaff@gmail.com', // Update with recipient email
+    to: 'test@gmail.com', // Update with recipient email
     subject: `Shift Booking Confirmation at ${job.facility_name}`,
     text: `
     Dear Nurse,

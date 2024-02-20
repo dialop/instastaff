@@ -9,7 +9,9 @@ function JobsContextProvider({children}){
   const { jobData, setJobData} = useJobs();
     const [isCancelled, setIsCancelled] = useState(false);
     
-
+    const updateJobData = (newJobData) => {
+        setJobData(newJobData);
+      };
     // const cancelJob = async (jobId) => {
     //   console.log('Current jobData:', jobData);
     //     try {
@@ -66,7 +68,7 @@ function JobsContextProvider({children}){
             value={
                 {
                   jobData,
-                  setJobData,
+                  setJobData: updateJobData,
                   isCancelled,
                   // cancelJob,
                   // updateJob
