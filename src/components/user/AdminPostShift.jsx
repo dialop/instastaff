@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Button, FormControl, FormControlLabel, InputLabel, Radio, RadioGroup, FormLabel, Grid, MenuItem, Select, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { JobsContext } from '../../context';
 
 const Input = styled(TextField)({
   '& label.Mui-focused': {
@@ -18,15 +19,16 @@ const Input = styled(TextField)({
 
 const PostShiftForm = () => {
   const navigate = useNavigate();
+  const { jobData, setJobData } = useContext(JobsContext);
 
   const [formData, setFormData] = useState({
-    facility_name: 'Aurelia Medical Group',
-    title: 'Registered Nurse',
-    gender: 'any',
-    rate: '100',
-    duration: '10',
-    date: '2024-02-16',
-    start_time: '06:00:00',
+    facility_name: '',
+    title: '',
+    gender: '',
+    rate: '',
+    duration: '',
+    date: '',
+    start_time: '',
   });
 
   const handleInputChange = (event) => {
@@ -65,6 +67,10 @@ const PostShiftForm = () => {
       console.log("Shifts posted:", responseData);
 
       console.log('Form submitted successfully:', postingResponse);
+
+
+      setJobData([...jobData, responseData]);
+      console.log(jobData);
       
       toast.success('The new job has been successfully posted.', {
         position: "top-right",
@@ -140,9 +146,9 @@ const PostShiftForm = () => {
               onChange={handleInputChange}
               name="gender"
             >
-              <MenuItem value="any">Any</MenuItem>
-              <MenuItem value="male">Male</MenuItem>
-              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="Any">Any</MenuItem>
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
             </Select>
           </FormControl>
 

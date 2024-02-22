@@ -27,9 +27,9 @@ router.post('/', (req, res) => {
         pool.query(
           `
             INSERT INTO job_postings (facility_name, title, rate, gender, duration, date, start_time,
-              facility_short_address, facility_latitude, facility_longitude
+              facility_short_address, facility_latitude, facility_longitude, available_to_choose
               )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, TRUE)
             RETURNING *;
             `,
             [

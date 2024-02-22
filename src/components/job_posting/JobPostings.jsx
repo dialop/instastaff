@@ -92,6 +92,11 @@ useEffect(() => {
 
 };
 
+// Fetch job data when the component mounts or jobId changes
+useEffect(() => {
+  fetchJobs();
+}, [jobId]);
+
 const handleCancelShift = async () => {
 
   try {
@@ -390,7 +395,7 @@ const handleAcceptShift = async () => {
                     <div className="px-1 py-3 text-[#7775ad]">
                       <ReactTimeAgo
                         key={index}
-                        date={Date.parse(job.date)}
+                        date={moment(job.date).toDate()}
                         locale="en-US"
                       />
                     </div>
