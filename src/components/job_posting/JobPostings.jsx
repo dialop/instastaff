@@ -84,10 +84,15 @@ useEffect(() => {
     setOpen(true);
   }
 }, [params]);
+
   const clickedJob = (jobId) => {
-    //console.log(jobId, "jobId");
-    let result = jobData.find((job) => job.id == jobId);
-    //console.log(result, 'jobId result');
+    console.log("jobId:", jobId);
+    console.log("jobData:", jobData);
+
+
+    jobId = parseInt(jobId);
+    let result = jobData.find((job) => job.id === jobId);
+    console.log("result:", result);
     return result
 
 };
@@ -251,6 +256,12 @@ const handleAcceptShift = async () => {
     }
   };
 
+  // const handleOpenModal = (jobId) => {
+  //   const selectedJob = jobData.find(job => job.id === jobId);
+  //   setSelectedJob(selectedJob);
+  //   setOpen(true);
+  // };
+
   return (
     <>
       <div className="flex justify-center">
@@ -410,38 +421,38 @@ const handleAcceptShift = async () => {
               <Modal>
                 <div className="relative flex flex-col gap-2 bg-white p-8 rounded-lg w-[650px] min-w-[350px] h-auto">
                   <h1 className="text-5xl text-black mt-4 mb-1 ">
-                    {clickedJob(jobId).facility_name}
+                  {clickedJob(jobId)?.facility_name}
                   </h1>
                   <hr />
                   <div className="flex w-full justify-between align-center text-2xl font-medium">
                     <h1 className="text-3xl text-black mt-1">
-                      {clickedJob(jobId).title}
+                      {clickedJob(jobId)?.title}
                     </h1>
                     <p className="text-xl text-black pt-2">
-                      ${clickedJob(jobId).rate}/ hr
+                      ${clickedJob(jobId)?.rate}/ hr
                     </p>
                   </div>
                   <div className="flex w-full justify-between text-2xl font-medium">
                     <p className="text-[1.15rem] text-black mt-1">
                       {moment(
-                        clickedJob(jobId).date,
+                        clickedJob(jobId)?.date,
                         "YYYY-MM-DDTHH:mm:sssZ"
                       ).format("MMMM Do YYYY")}
                     </p>
                     <p className="text-[1.15rem] text-black mt-1">
-                      {moment(clickedJob(jobId).start_time, "HH:mm:ss").format(
+                      {moment(clickedJob(jobId)?.start_time, "HH:mm:ss").format(
                         "h:mm A"
                       )}
                     </p>
                   </div>
                   <div className="flex w-full justify-between text-2xl font-medium">
                     <p className="text-[1.09rem] text-black">
-                      {clickedJob(jobId).type_of_worker}:{" "}
-                      {clickedJob(jobId).duration} hours
+                      {clickedJob(jobId)?.type_of_worker}:{" "}
+                      {clickedJob(jobId)?.duration} hours
                     </p>
                   </div>
                   <p className="text-[1rem] text-black">
-                    Gender : {clickedJob(jobId).gender}
+                    Gender : {clickedJob(jobId)?.gender}
                   </p>
                   {/* <p className="text-black mt-4"> */}
                   <ul className="text-black mt-1 mb-20">
@@ -464,7 +475,7 @@ const handleAcceptShift = async () => {
                     Maintain accurate patient records and documentation.
                   </ul>
                   {/* </p> */}
-                  {clickedJob(jobId).is_filled ? (
+                  {clickedJob(jobId)?.is_filled ? (
                     <div className="absolute w-full pr-16 py-8 bottom-0 flex flex-row gap-2">
                       <button
                         onClick={() => setOpen(!open)}

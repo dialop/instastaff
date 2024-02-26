@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
   console.log(req.body);
   pool.query(
     `
-      SELECT facility_short_address, facility_latitude, facility_longitude
+      SELECT facility_short_address, facility_latitude, facility_longitude, facility_images
       FROM job_postings
       WHERE facility_name = $1;
       `,
@@ -27,9 +27,9 @@ router.post('/', (req, res) => {
         pool.query(
           `
             INSERT INTO job_postings (facility_name, title, rate, gender, duration, date, start_time,
-              facility_short_address, facility_latitude, facility_longitude, available_to_choose
+              facility_short_address, facility_latitude, facility_longitude, facility_images, available_to_choose, type_of_worker
               )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, TRUE)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, TRUE, 'Part-time')
             RETURNING *;
             `,
             [
@@ -43,6 +43,8 @@ router.post('/', (req, res) => {
               addressInfo.facility_short_address,
               addressInfo.facility_latitude,
               addressInfo.facility_longitude,
+              addressInfo.facility_images
+
             ],
             (insertError, insertResult) => {
               if (insertError) {
@@ -51,7 +53,7 @@ router.post('/', (req, res) => {
               } else {
                 const insertedRow = insertResult.rows[0];
                 console.log('Result New Shift:', insertedRow);
-                res.status(201).json({ message: 'Shift posted successfully', shift: insertedRow });
+                res.status(201).json(insertedRow);
               }
             }
           );

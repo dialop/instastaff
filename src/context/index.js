@@ -10,8 +10,12 @@ function JobsContextProvider({children}){
     const [isCancelled, setIsCancelled] = useState(false);
     
     const updateJobData = (newJobData) => {
+      console.log("Updating job data:", newJobData);
         setJobData(newJobData);
       };
+
+      
+  console.log("Current job data:", jobData); 
 
 
     return (
